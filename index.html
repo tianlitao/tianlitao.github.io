@@ -190,106 +190,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>WebStorm,PhpStorm,RubyMine,因为是一家公司出的所以基本的通用快捷键都一样,下面记录一下我常用的几个快捷键.</p>
-<table>
-<thead>
-<tr>
-<th>快捷键</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>shift   + Enter</td>
-<td>软回车 ,无论在前一行代码的什么位置,都能定位到下一行</td>
-</tr>
-<tr>
-<td>command + 1</td>
-<td>显示/隐藏 左侧面板</td>
-</tr>
-<tr>
-<td>command + b / 点击</td>
-<td>定位方法</td>
-</tr>
-<tr>
-<td>command + option + l</td>
-<td>代码格式化</td>
-</tr>
-<tr>
-<td>fn + option + f7</td>
-<td>查看函数哪里调用过</td>
-</tr>
-<tr>
-<td>command + e</td>
-<td>打开最近打开的文件或者项目 (直接支持文件名搜索)</td>
-</tr>
-<tr>
-<td>command + shift + v</td>
-<td>选择粘贴剪切板上的内容</td>
-</tr>
-<tr>
-<td>command + d</td>
-<td>直接粘贴当前选中的内容</td>
-</tr>
-<tr>
-<td>command + 退格键</td>
-<td>删除当前鼠标所在行</td>
-</tr>
-<tr>
-<td>command + option + 左右箭头</td>
-<td>定位到上次编辑的位置</td>
-</tr>
-<tr>
-<td>command + option + 上下箭头</td>
-<td>依次顺序轮换激活打开的标签页</td>
-</tr>
-<tr>
-<td>command + fn + f12</td>
-<td>查看当前页面所有函数</td>
-</tr>
-<tr>
-<td>command + f</td>
-<td>当前页搜索</td>
-</tr>
-<tr>
-<td>command + shift + f</td>
-<td>全局搜索内容</td>
-</tr>
-<tr>
-<td>command + shift + o</td>
-<td>搜索文件</td>
-</tr>
-<tr>
-<td>command + /</td>
-<td>注释/取消注释</td>
-</tr>
-<tr>
-<td>control + tab</td>
-<td>切换上次打开的文件</td>
-</tr>
-<tr>
-<td>command + b</td>
-<td>跳到变量声明处</td>
-</tr>
-<tr>
-<td>command + x</td>
-<td>剪切行</td>
-</tr>
-<tr>
-<td>command + shift + u</td>
-<td>切换大小写</td>
-</tr>
-<tr>
-<td>ctrl + ~</td>
-<td>切换主题</td>
-</tr>
-<tr>
-<td>option + 上下箭头</td>
-<td>随着点击箭头的次数，选中的区域逐渐变大(小)</td>
-</tr>
-</tbody>
-</table>
-
+        <p>方便的快捷键可以极大的提升罗码速度。WebStorm,PhpStorm,RubyMine,因为是一家公司出的所以基本的通用快捷键都一样,下面记录一下我常用的几个快捷键.
       
     </div>
     
@@ -301,6 +202,10 @@
 
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2015/06/25/storm基本快捷键/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -343,48 +248,7 @@
       
         <h1 id="laravel5基本命令">laravel5基本命令</h1><h3 id="1-创建某个文件夹下的controller">1.创建某个文件夹下的controller</h3><pre><code><span class="tag">php</span> <span class="tag">artisan</span> <span class="rule"><span class="attribute">make</span>:<span class="value">controller Admin/ArticlesController</span></span>
 </code></pre><h3 id="2-创建model">2.创建model</h3><pre><code><span class="tag">php</span> <span class="tag">artisan</span> <span class="rule"><span class="attribute">make</span>:<span class="value">model Article</span></span>
-</code></pre><h3 id="3-为已有表添加字段，创建migration">3.为已有表添加字段，创建migration</h3><pre><code>php artisan make:migration <span class="keyword">add_article_id_to_comments_t</span>able
-</code></pre><h4 id="修改migration">修改migration</h4><pre><code><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">up</span><span class="params">()</span>
-</span>{
-    Schema::table(<span class="string">'comments'</span>, <span class="function"><span class="keyword">function</span><span class="params">(<span class="variable">$table</span>)</span>
-    </span>{
-        <span class="variable">$table</span>-&gt;integer(<span class="string">'article_id'</span>);
-
-    });
-}
-</code></pre><h4 id="执行迁移命令">执行迁移命令</h4><pre><code><span class="title">php</span> artisan migrate
-</code></pre><h3 id="4-数据填充,在/databases/seeds/新建PageTableSeeder-php文件">4.数据填充,在/databases/seeds/新建PageTableSeeder.php文件</h3><pre><code><span class="php"><span class="preprocessor">&lt;?php</span>
-
-<span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Database</span>\<span class="title">Seeder</span>;
-<span class="keyword">use</span> <span class="title">App</span>\<span class="title">Page</span>;
-
-<span class="class"><span class="keyword">class</span> <span class="title">PageTableSeeder</span> <span class="keyword">extends</span> <span class="title">Seeder</span> </span>{
-
-  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">run</span><span class="params">()</span>
-  </span>{
-    DB::table(<span class="string">'pages'</span>)-&gt;delete();
-
-    <span class="keyword">for</span> (<span class="variable">$i</span>=<span class="number">0</span>; <span class="variable">$i</span> &lt; <span class="number">10</span>; <span class="variable">$i</span>++) {
-      Page::create([
-        <span class="string">'title'</span>   =&gt; <span class="string">'Title '</span>.<span class="variable">$i</span>,
-        <span class="string">'slug'</span>    =&gt; <span class="string">'first-page'</span>,
-        <span class="string">'body'</span>    =&gt; <span class="string">'Body '</span>.<span class="variable">$i</span>,
-        <span class="string">'user_id'</span> =&gt; <span class="number">1</span>,
-      ]);
-    }
-  }
-
-}</span>
-</code></pre><h4 id="修改DatabaseSeeder-php中">修改DatabaseSeeder.php中</h4><pre><code>// <span class="variable">$this</span>-&gt;call(<span class="string">'UserTableSeeder'</span>);
-</code></pre><h4 id="为">为</h4><pre><code><span class="variable">$this</span>-&gt;call(<span class="string">'PageTableSeeder'</span>);
-</code></pre><h4 id="然后运行命令">然后运行命令</h4><pre><code><span class="tag">composer</span> <span class="tag">dump-autoload</span>
-<span class="tag">php</span> <span class="tag">artisan</span> <span class="rule"><span class="attribute">db</span>:<span class="value">seed</span></span>
-</code></pre><h3 id="5-安装依赖包">5.安装依赖包</h3><pre><code>php composer<span class="class">.phar</span> install
-</code></pre><ul>
-<li><a href="http://lvwenhan.com/laravel/432.html" target="_blank" rel="external">参考教程</a></li>
-<li><a href="https://github.com/tianlitao/laravel_demo" target="_blank" rel="external">完成大作业，下载源码</a></li>
-</ul>
-
+</code></pre><h3 id="3-为已有表添加字段，创建migration<!-more->">3.为已有表添加字段，创建migration
       
     </div>
     
@@ -396,6 +260,10 @@
 
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2015/06/23/laravel-command/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -437,16 +305,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>当记忆中的湿润又一次沾染了西湖之畔的离歌，当朦胧的月色又一次浮动于频频过客疏离的神色，当纷杂褪去，是否会有人想起那夜那歌，那浅笑，那落寞。</p>
-<p>她始终是笑着，带着水光，恬淡而落落，像开放的百合。他因她目光闪烁，因她戏改友人的词作，因她流露的若韵。</p>
-<p>这一幕邂逅来得玄月，来得猝不及防。然而她不曾启唇，然而他不曾停驻。因为她只是西湖之畔的歌者，而他却是名满天下的太守。她不曾挽留，他不也曾相守，因为她的卑微，因为他的身不由己。于是，她只留一抹轻浅的微笑。</p>
-<p>这笑来得简单与绝决，这笑来得甘愿，这笑来得义无反顾。也许于她已是足够，爱情本是一个人的感受，付出的本身已是一种收获。她不要重金予赠，她不求相陪长久，只惜那初见时澎湃与心的炽掃与飘荡与眉间的温存。</p>
-<p>只是在他的生命里这样的女子太多，只是在他的生命里没有这样的情结。也许于他已是太过，惊艳不过一时兴起，赞誉只是调剂单调的生活。他只是她的过客。</p>
-<p>于是，他用几百年前的诗句化她，用那“老大嫁作商人妇”的惨淡劝她。于是，她落发，带着浅笑长伴青灯，永陪佛影。一世甘愿。因为她是琴操，因为他是苏轼。只那浅笑飘荡于西湖之上，朦胧之歌者与行人。</p>
-<p>“细雨温衣看不见，闲花落地听无声”。或而，在他心里，她只是细雨，只是闲花，荡过眼前终不闻不见。她的浅笑不过是喧嚣之中暗藏的一缕宁静，终究换不来只言片语的提及。</p>
-<p>时光易逝，西湖之畔到底消逝了多少这般绝决的女子，到底封存了多少美丽的初相见，到底埋葬了多少黯然的寂寞。</p>
-<p>当破晓的光晕袪散西湖之畔的水气，当混沌的尘灰又一次隐没在潮动的人流之间，当一切暴露在阳光底下，再没有所谓的歌者与行人，她不再是湖畔的歌女，而是那清冷山寺中的尼姑。她不再拥有那傲人的才情，她不再是谁生命中的点缀。</p>
-<p>浅笑无痕，只留一抹寂寞……</p>
-
+<p>她始终是笑着，带着水光，恬淡而落落，像开放的百合。他因她目光闪烁，因她戏改友人的词作，因她流露的若韵。
       
     </div>
     
@@ -458,6 +317,10 @@
 
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2015/06/17/高中-最爱/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
