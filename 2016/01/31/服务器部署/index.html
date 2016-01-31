@@ -10,9 +10,7 @@
   HostName 139.129.128.51
   Port 22
   User root
-   保存后 ssh emall就相当于 ssh root@139.129.128.51
-2.在本机终端执行命令ssh-keygen -t rsa
-   一路回车执">
+   保存后 ssh emall就相当于 ssh root@139.129.128.51">
 <meta property="og:type" content="article">
 <meta property="og:title" content="服务器部署">
 <meta property="og:url" content="http://yoursite.com/2016/01/31/服务器部署/index.html">
@@ -21,19 +19,15 @@
   HostName 139.129.128.51
   Port 22
   User root
-   保存后 ssh emall就相当于 ssh root@139.129.128.51
-2.在本机终端执行命令ssh-keygen -t rsa
-   一路回车执">
-<meta property="og:updated_time" content="2016-01-31T08:07:58.960Z">
+   保存后 ssh emall就相当于 ssh root@139.129.128.51">
+<meta property="og:updated_time" content="2016-01-31T09:24:08.252Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="服务器部署">
 <meta name="twitter:description" content="ssh不输入密码，自动登陆1.在本机 ~/.ssh 下新建config ，添加服务器ip，以及host简称，格式如下：Host emall
   HostName 139.129.128.51
   Port 22
   User root
-   保存后 ssh emall就相当于 ssh root@139.129.128.51
-2.在本机终端执行命令ssh-keygen -t rsa
-   一路回车执">
+   保存后 ssh emall就相当于 ssh root@139.129.128.51">
   
   
   <link rel="stylesheet" href="/css/style.css" type="text/css">
@@ -222,7 +216,7 @@
   <span class="tag">HostName</span> 139<span class="class">.129</span><span class="class">.128</span><span class="class">.51</span>
   <span class="tag">Port</span> 22
   <span class="tag">User</span> <span class="tag">root</span>
-</code></pre><p>   保存后 ssh emall就相当于 ssh root@139.129.128.51</p>
+</code></pre><p>   保存后 ssh emall就相当于 ssh root@139.129.128.51 <a id="more"></a></p>
 <h3 id="2-在本机终端执行命令">2.在本机终端执行命令</h3><pre><code>ssh-keygen -t rsa
 </code></pre><p>   一路回车执行，会生成key。private_key会保存在 ~/.ssh/id_rsa ,public_key会保存在 ~/.ssh/id_rsa.pub下</p>
 <h3 id="3-将本地的public_key复制到远程服务器上实现免登陆">3.将本地的public_key复制到远程服务器上实现免登陆</h3><pre><code>ssh-copy-id -<span class="tag">i</span> ~/.ssh/id_rsa<span class="class">.pub</span> root@<span class="number">139.129</span>.<span class="number">128.51</span>
