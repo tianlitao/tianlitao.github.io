@@ -6,16 +6,34 @@
   
   <title>服务器部署 | eric</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
+  <meta name="description" content="ssh不输入密码，自动登陆1.在本机 ~/.ssh 下新建config ，添加服务器ip，以及host简称，格式如下：Host emall
+  HostName 139.129.128.51
+  Port 22
+  User root
+   保存后 ssh emall就相当于 ssh root@139.129.128.51
+2.在本机终端执行命令ssh-keygen -t rsa
+   一路回车执">
 <meta property="og:type" content="article">
 <meta property="og:title" content="服务器部署">
 <meta property="og:url" content="http://yoursite.com/2016/01/31/服务器部署/index.html">
 <meta property="og:site_name" content="eric">
-<meta property="og:description">
-<meta property="og:updated_time" content="2016-01-31T07:00:56.066Z">
+<meta property="og:description" content="ssh不输入密码，自动登陆1.在本机 ~/.ssh 下新建config ，添加服务器ip，以及host简称，格式如下：Host emall
+  HostName 139.129.128.51
+  Port 22
+  User root
+   保存后 ssh emall就相当于 ssh root@139.129.128.51
+2.在本机终端执行命令ssh-keygen -t rsa
+   一路回车执">
+<meta property="og:updated_time" content="2016-01-31T08:07:58.960Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="服务器部署">
-<meta name="twitter:description">
+<meta name="twitter:description" content="ssh不输入密码，自动登陆1.在本机 ~/.ssh 下新建config ，添加服务器ip，以及host简称，格式如下：Host emall
+  HostName 139.129.128.51
+  Port 22
+  User root
+   保存后 ssh emall就相当于 ssh root@139.129.128.51
+2.在本机终端执行命令ssh-keygen -t rsa
+   一路回车执">
   
   
   <link rel="stylesheet" href="/css/style.css" type="text/css">
@@ -200,7 +218,36 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="ssh不输入密码，自动登陆">ssh不输入密码，自动登陆</h1><h3 id="1-在本机_~/-ssh_下新建config_，添加服务器ip，以及host简称，格式如下：">1.在本机 ~/.ssh 下新建config ，添加服务器ip，以及host简称，格式如下：</h3><pre><code><span class="tag">Host</span> <span class="tag">emall</span>
+  <span class="tag">HostName</span> 139<span class="class">.129</span><span class="class">.128</span><span class="class">.51</span>
+  <span class="tag">Port</span> 22
+  <span class="tag">User</span> <span class="tag">root</span>
+</code></pre><p>   保存后 ssh emall就相当于 ssh root@139.129.128.51</p>
+<h3 id="2-在本机终端执行命令">2.在本机终端执行命令</h3><pre><code>ssh-keygen -t rsa
+</code></pre><p>   一路回车执行，会生成key。private_key会保存在 ~/.ssh/id_rsa ,public_key会保存在 ~/.ssh/id_rsa.pub下</p>
+<h3 id="3-将本地的public_key复制到远程服务器上实现免登陆">3.将本地的public_key复制到远程服务器上实现免登陆</h3><pre><code>ssh-copy-id -<span class="tag">i</span> ~/.ssh/id_rsa<span class="class">.pub</span> root@<span class="number">139.129</span>.<span class="number">128.51</span>
+</code></pre><h3 id="4-完成之后即可通过_ssh_emall_来登陆服务器">4.完成之后即可通过 ssh emall 来登陆服务器</h3><h1 id="ruby_passenger以及nginx配置等，可参考文章">ruby passenger以及nginx配置等，可参考文章</h1><p>   <a href="https://ruby-china.org/topics/17553" target="_blank" rel="external">在 Aliyun 上快速部署 Ruby on Rails</a></p>
+<h1 id="在服务器上添加自动部署脚本">在服务器上添加自动部署脚本</h1><h3 id="1-在服务器新建脚本文件_/emall-sh">1.在服务器新建脚本文件 /emall.sh</h3><pre><code><span class="shebang">#!/bin/bash</span>
+<span class="built_in">cd</span> /alidata1/project
+
+git pull origin master
+
+<span class="built_in">source</span> /etc/profile
+
+bundle
+
+bundle <span class="built_in">exec</span> rake assets:precompile RAILS_ENV=production
+
+bundle <span class="built_in">exec</span> rake db:migrate RAILS_ENV=production
+
+god restart nginx <span class="comment">#通过god来重启nginx，如果不用god，可以通过sudo nginx -s reload</span>
+</code></pre><h3 id="2-在本地新建脚本_emall_restart-sh">2.在本地新建脚本 emall_restart.sh</h3><pre><code><span class="shebang">#!/bin/bash</span>
+<span class="built_in">echo</span> <span class="string">'服务器更新开始'</span>
+ssh emall <span class="string">'/bin/bash /alidata1/emall.sh'</span>
+<span class="built_in">echo</span> <span class="string">'服务器更新结束'</span>
+</code></pre><h3 id="3-需要重新拉代码更新服务器的时候执行">3.需要重新拉代码更新服务器的时候执行</h3><pre><code><span class="regexp">/bin/</span>bash  <span class="regexp">/home/</span>tlt<span class="regexp">/work/</span>shell<span class="regexp">/emall_restart.sh</span>
+</code></pre><p>   即可重新部署服务器上的项目</p>
+
       
     </div>
     
