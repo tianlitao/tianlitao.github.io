@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+    <link rel="shortcut icon" type="image/ico" href="/img/avatar.ico">
+  
+  <title>oauth认证第三方登陆 | eric</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="&quot;&amp;gt;使用gem ‘devise’、’omniauth’、’omniauth-oauth2’ ， 来实现Omniauth第三方登陆">
+<meta property="og:type" content="article">
+<meta property="og:title" content="oauth认证第三方登陆">
+<meta property="og:url" content="http://yoursite.com/2016/01/31/oauth认证第三方登陆/index.html">
+<meta property="og:site_name" content="eric">
+<meta property="og:description" content="&quot;&amp;gt;使用gem ‘devise’、’omniauth’、’omniauth-oauth2’ ， 来实现Omniauth第三方登陆">
+<meta property="og:updated_time" content="2016-01-31T10:48:09.106Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="oauth认证第三方登陆">
+<meta name="twitter:description" content="&quot;&amp;gt;使用gem ‘devise’、’omniauth’、’omniauth-oauth2’ ， 来实现Omniauth第三方登陆">
+  
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">eric</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/music">music</a></li>
+				        
+							<li><a href="/video">video</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="http://github.com/tianlitao" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:tianlitao3399@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/oauth认证/" style="font-size: 10px;">oauth认证</a> <a href="/tags/北京生活/" style="font-size: 10px;">北京生活</a> <a href="/tags/服务器/" style="font-size: 10px;">服务器</a> <a href="/tags/高中-最爱/" style="font-size: 10px;">高中-最爱</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">当记忆中得湿润又一次沾染了西湖之畔的离歌，当纷杂褪去，你是否会想起那夜那歌，那浅笑，那落寞。。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">eric</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/avatar.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">eric</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/music">music</a></li>
+		        
+					<li><a href="/video">video</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="http://github.com/tianlitao" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:tianlitao3399@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-oauth认证第三方登陆" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/31/oauth认证第三方登陆/" class="article-date">
+  	<time datetime="2016-01-31T10:06:16.000Z" itemprop="datePublished">Jan 31 2016</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      oauth认证第三方登陆
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oauth认证/">oauth认证</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="使用gem_‘devise’、’omniauth’、’omniauth-oauth2’_，_来实现Omniauth第三方登陆_<!-more->">使用gem ‘devise’、’omniauth’、’omniauth-oauth2’ ， 来实现Omniauth第三方登陆 <a id="more"></a></h3><h1 id="1-在gemfile文件里添加gem，之后bundle">1.在gemfile文件里添加gem，之后bundle</h1><pre><code><span class="title">gem</span> <span class="string">'omniauth'</span>
+gem <span class="string">'omniauth-oauth2'</span>
+</code></pre><h1 id="2-在lib/omniauth/strategies/下新增基本的配置文件，已qq_connect为例,代码如下">2.在lib/omniauth/strategies/下新增基本的配置文件，已qq_connect为例,代码如下</h1><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">'omniauth/strategies/oauth2'</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">OmniAuth</span></span></span><br><span class="line">  <span class="class"><span class="keyword">module</span> <span class="title">Strategies</span></span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">QQConnect</span> <span class="inheritance">&lt; <span class="parent">OmniAuth::Strategies</span></span>::<span class="title">OAuth2</span></span></span><br><span class="line">      option <span class="symbol">:name</span>, <span class="string">"qq_connect"</span></span><br><span class="line"></span><br><span class="line">      option <span class="symbol">:client_options</span>, &#123;</span><br><span class="line">                                <span class="symbol">:site</span> =&gt; <span class="string">'https://graph.qq.com/oauth2.0/'</span>,</span><br><span class="line">                                <span class="symbol">:authorize_url</span> =&gt; <span class="string">'/oauth2.0/authorize'</span>,</span><br><span class="line">                                <span class="symbol">:token_url</span> =&gt; <span class="string">"/oauth2.0/token"</span>,</span><br><span class="line">                                <span class="symbol">:token_formatter</span> =&gt; lambda &#123;|hash|</span><br><span class="line">                                  hash[<span class="symbol">:expires_in</span>] = hash[<span class="string">'expires_in'</span>].to_i</span><br><span class="line">                                  hash.delete(<span class="string">'expires_in'</span>)</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;</span><br><span class="line"></span><br><span class="line">      option <span class="symbol">:token_params</span>, &#123;</span><br><span class="line">                              <span class="symbol">:state</span> =&gt; <span class="string">'foobar'</span>,</span><br><span class="line">                              <span class="symbol">:parse</span> =&gt; <span class="symbol">:query</span></span><br><span class="line">                          &#125;</span><br><span class="line"></span><br><span class="line">      uid <span class="keyword">do</span></span><br><span class="line">        <span class="variable">@uid</span> ||= <span class="keyword">begin</span></span><br><span class="line">          access_token.options[<span class="symbol">:mode</span>] = <span class="symbol">:query</span></span><br><span class="line">          access_token.options[<span class="symbol">:param_name</span>] = <span class="symbol">:access_token</span></span><br><span class="line">          <span class="comment"># Response Example: "callback( &#123;\"client_id\":\"11111\",\"openid\":\"000000FFFF\"&#125; );\n"</span></span><br><span class="line">          response = access_token.get(<span class="string">'/oauth2.0/me'</span>)</span><br><span class="line">          <span class="comment">#<span class="doctag"><span class="keyword">TODO</span></span> handle error case</span></span><br><span class="line">          matched = response.body.match(<span class="regexp">/"openid":"(?&lt;openid&gt;\w+)"/</span>)</span><br><span class="line">          matched[<span class="symbol">:openid</span>]</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">      info <span class="keyword">do</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="symbol">:nickname</span> =&gt; raw_info[<span class="string">'nickname'</span>],</span><br><span class="line">            <span class="symbol">:name</span> =&gt; raw_info[<span class="string">'nickname'</span>],</span><br><span class="line">            <span class="symbol">:image</span> =&gt; raw_info[<span class="string">'figureurl_1'</span>],</span><br><span class="line">        &#125;</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">      extra <span class="keyword">do</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="symbol">:raw_info</span> =&gt; raw_info</span><br><span class="line">        &#125;</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">      <span class="function"><span class="keyword">def</span> </span>raw_info</span><br><span class="line">        <span class="variable">@raw_info</span> ||= <span class="keyword">begin</span></span><br><span class="line">                        <span class="comment">#<span class="doctag"><span class="keyword">TODO</span></span> handle error case</span></span><br><span class="line">                        <span class="comment">#<span class="doctag"><span class="keyword">TODO</span></span> make info request url configurable</span></span><br><span class="line">          client.request(<span class="symbol">:get</span>, <span class="string">"https://graph.qq.com/user/get_user_info"</span>, <span class="symbol">:params</span> =&gt; &#123;</span><br><span class="line">                                 <span class="symbol">:format</span> =&gt; <span class="symbol">:json</span>,</span><br><span class="line">                                 <span class="symbol">:openid</span> =&gt; uid,</span><br><span class="line">                                 <span class="symbol">:oauth_consumer_key</span> =&gt; options[<span class="symbol">:client_id</span>],</span><br><span class="line">                                 <span class="symbol">:access_token</span> =&gt; access_token.token</span><br><span class="line">                             &#125;, <span class="symbol">:parse</span> =&gt; <span class="symbol">:json</span>).parsed</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="constant">OmniAuth</span>.config.add_camelization(<span class="string">'qq_connect'</span>, <span class="string">'QQConnect'</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="3-集成devise，在/initializers/devise-rb，添加">3.集成devise，在/initializers/devise.rb，添加</h1><pre><code><span class="keyword">require</span> <span class="string">'omniauth/strategies/qq_connect'</span>
+config.omniauth <span class="symbol">:QQConnect</span>, <span class="string">'key'</span>, <span class="string">'a0dbf447esecurt381f8'</span>
+</code></pre><h3 id="修改user-rb，添加_:omniauthable">修改user.rb，添加 :omniauthable</h3><pre><code>devise <span class="symbol">:database_authenticatable</span>, <span class="symbol">:registerable</span>, <span class="symbol">:omniauthable</span>
+</code></pre><h3 id="为user表添加列">为user表添加列</h3><pre><code>rails g migration add_column_to_users <span class="literal">provider</span> <span class="literal">uid</span>
+rake db:migrate
+</code></pre><h1 id="4-回调">4.回调</h1><h3 id="创建controller，app/controllers/omniauth_callbaks_controller-rb，代码如下：">创建controller，app/controllers/omniauth_callbaks_controller.rb，代码如下：</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OmniauthCallbacksController</span> <span class="inheritance">&lt; <span class="parent">Devise::OmniauthCallbacksController</span></span></span></span><br><span class="line">   <span class="comment">#skip CSRF on create.</span></span><br><span class="line">  skip_before_filter <span class="symbol">:verify_authenticity_token</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> </span>all</span><br><span class="line">    user = <span class="constant">User</span>.from_omniauth(request.env[<span class="string">"omniauth.auth"</span>])</span><br><span class="line">    <span class="keyword">if</span> user.persisted?</span><br><span class="line">      sign_in_and_redirect user, <span class="symbol">notice:</span> <span class="string">'success'</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      session[<span class="string">"devise.user_attributes"</span>] = user.attributes</span><br><span class="line">      redirect_to new_user_registration_url</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  alias_method <span class="symbol">:qq_connect</span>, <span class="symbol">:all</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h3 id="修改user-rb">修改user.rb</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">devise <span class="symbol">:database_authenticatable</span>, <span class="symbol">:registerable</span>, <span class="symbol">:omniauthable</span>,</span><br><span class="line">         <span class="symbol">:recoverable</span>, <span class="symbol">:rememberable</span>, <span class="symbol">:trackable</span>, <span class="symbol">:validatable</span>, <span class="symbol">:omniauth_providers</span> =&gt; [<span class="symbol">:qq_connect</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> </span><span class="keyword">self</span>.new_with_session(params, session)</span><br><span class="line">  <span class="keyword">if</span> session[<span class="string">"devise.user_attributes"</span>]</span><br><span class="line">    new(session[<span class="string">"devise.user_attributes"</span>], <span class="symbol">without_protection:</span> <span class="keyword">true</span>) <span class="keyword">do</span> |user|</span><br><span class="line">      user.attributes = params</span><br><span class="line">      user.valid?</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="keyword">super</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> </span>password_required?</span><br><span class="line">  <span class="keyword">super</span> &amp;&amp; provider.blank?</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> </span>update_with_password(params, *options)</span><br><span class="line">  <span class="keyword">if</span> encrypted_password.blank?</span><br><span class="line">    update_attributes(params, *options)</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="keyword">super</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h1 id="5-修改路由">5.修改路由</h1><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">devise_for <span class="symbol">:users</span>, <span class="symbol">:controllers</span> =&gt; &#123;<span class="symbol">:registrations</span> =&gt; <span class="string">"registrations"</span>, <span class="symbol">omniauth_callbacks:</span> <span class="string">"omniauth_callbacks"</span>&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="6-修改登陆view">6.修改登陆view</h1><pre><code><span class="xml"></span>&lt;%=<span class="ruby"> link_to <span class="string">"QQ账号登录"</span>,  user_omniauth_authorize_path(<span class="symbol">:tqq</span>) </span>%&gt;<span class="xml"></span>
+</code></pre><h1 id="7-调试">7.调试</h1><p>   去各大平台申请接入，修改本地hosts 添加<br>    127.0.0.1 www.ceshi.com<br>   回调地址填写完整例如：<a href="http://www.ceshi.cn/users/auth/qq_connect/callback" target="_blank" rel="external">http://www.ceshi.cn/users/auth/qq_connect/callback</a><br>   并且让本地rails服务跑在80端口<br>    rails s -p 80</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/01/31/服务器部署/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">服务器部署</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 eric
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
