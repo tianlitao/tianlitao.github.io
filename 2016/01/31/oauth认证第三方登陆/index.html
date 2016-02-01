@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/01/31/oauth认证第三方登陆/index.html">
 <meta property="og:site_name" content="eric">
 <meta property="og:description" content="&quot;&amp;gt;使用gem ‘devise’、’omniauth’、’omniauth-oauth2’ ， 来实现Omniauth第三方登陆">
-<meta property="og:updated_time" content="2016-01-31T10:48:09.106Z">
+<meta property="og:updated_time" content="2016-02-01T02:40:01.951Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="oauth认证第三方登陆">
 <meta name="twitter:description" content="&quot;&amp;gt;使用gem ‘devise’、’omniauth’、’omniauth-oauth2’ ， 来实现Omniauth第三方登陆">
@@ -213,6 +213,7 @@ rake db:migrate
 <h1 id="5-修改路由">5.修改路由</h1><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">devise_for <span class="symbol">:users</span>, <span class="symbol">:controllers</span> =&gt; &#123;<span class="symbol">:registrations</span> =&gt; <span class="string">"registrations"</span>, <span class="symbol">omniauth_callbacks:</span> <span class="string">"omniauth_callbacks"</span>&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="6-修改登陆view">6.修改登陆view</h1><pre><code><span class="xml"></span>&lt;%=<span class="ruby"> link_to <span class="string">"QQ账号登录"</span>,  user_omniauth_authorize_path(<span class="symbol">:tqq</span>) </span>%&gt;<span class="xml"></span>
 </code></pre><h1 id="7-调试">7.调试</h1><p>   去各大平台申请接入，修改本地hosts 添加<br>    127.0.0.1 www.ceshi.com<br>   回调地址填写完整例如：<a href="http://www.ceshi.cn/users/auth/qq_connect/callback" target="_blank" rel="external">http://www.ceshi.cn/users/auth/qq_connect/callback</a><br>   并且让本地rails服务跑在80端口<br>    rails s -p 80</p>
+<h1 id="参考链接">参考链接</h1><p><a href="http://www.douban.com/note/411359006/" target="_blank" rel="external">http://www.douban.com/note/411359006/</a></p>
 
       
     </div>
