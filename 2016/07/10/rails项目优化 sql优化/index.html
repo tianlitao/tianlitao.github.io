@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+    <link rel="shortcut icon" type="image/ico" href="/img/avatar.ico">
+  
+  <title>rails项目优化 sql优化 | tianlitao</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="因为项目的表数据量比较大，系统经常因为内存满而卡死，所以对整个rails项目进行了一次简单的优化，其中涉及到了几个比较关键的点，记录下来。假设有个product表，数量在百万级别的。因为是rails项目所以里面会包含一些rails注意事项，还有一些简单的sql语句优化，水平有限，如果有什么不对的地方，还请邮件联系我。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rails项目优化 sql优化">
+<meta property="og:url" content="http://yoursite.com/2016/07/10/rails项目优化 sql优化/index.html">
+<meta property="og:site_name" content="tianlitao">
+<meta property="og:description" content="因为项目的表数据量比较大，系统经常因为内存满而卡死，所以对整个rails项目进行了一次简单的优化，其中涉及到了几个比较关键的点，记录下来。假设有个product表，数量在百万级别的。因为是rails项目所以里面会包含一些rails注意事项，还有一些简单的sql语句优化，水平有限，如果有什么不对的地方，还请邮件联系我。">
+<meta property="og:updated_time" content="2016-07-10T09:53:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="rails项目优化 sql优化">
+<meta name="twitter:description" content="因为项目的表数据量比较大，系统经常因为内存满而卡死，所以对整个rails项目进行了一次简单的优化，其中涉及到了几个比较关键的点，记录下来。假设有个product表，数量在百万级别的。因为是rails项目所以里面会包含一些rails注意事项，还有一些简单的sql语句优化，水平有限，如果有什么不对的地方，还请邮件联系我。">
+  
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">tianlitao</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/music">music</a></li>
+				        
+							<li><a href="/video">video</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="http://github.com/tianlitao" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:tianlitao3399@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/RSA-证书签名验签/" style="font-size: 10px;">RSA 证书签名验签</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/oauth认证/" style="font-size: 10px;">oauth认证</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/ruby/" style="font-size: 10px;">ruby</a> <a href="/tags/北京生活/" style="font-size: 10px;">北京生活</a> <a href="/tags/服务器/" style="font-size: 10px;">服务器</a> <a href="/tags/高中-最爱/" style="font-size: 10px;">高中-最爱</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">当记忆中得湿润又一次沾染了西湖之畔的离歌，当纷杂褪去，你是否会想起那夜那歌，那浅笑，那落寞。。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">tianlitao</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/avatar.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">tianlitao</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/music">music</a></li>
+		        
+					<li><a href="/video">video</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="http://github.com/tianlitao" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:tianlitao3399@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="rails-rails项目优化 sql优化" class="article article-type-rails" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/10/rails项目优化 sql优化/" class="article-date">
+  	<time datetime="2016-07-10T09:12:17.000Z" itemprop="datePublished">Jul 10 2016</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      rails项目优化 sql优化
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="因为项目的表数据量比较大，系统经常因为内存满而卡死，所以对整个rails项目进行了一次简单的优化，其中涉及到了几个比较关键的点，记录下来。假设有个product表，数量在百万级别的。">因为项目的表数据量比较大，系统经常因为内存满而卡死，所以对整个rails项目进行了一次简单的优化，其中涉及到了几个比较关键的点，记录下来。假设有个product表，数量在百万级别的。</h2><h2 id="因为是rails项目所以里面会包含一些rails注意事项，还有一些简单的sql语句优化，水平有限，如果有什么不对的地方，还请邮件联系我。">因为是rails项目所以里面会包含一些rails注意事项，还有一些简单的sql语句优化，水平有限，如果有什么不对的地方，还请邮件联系我。</h2><a id="more"></a>
+<h3 id="1-如果查询出来的数据特别多需要遍历，比如可能会有这种情况">1.如果查询出来的数据特别多需要遍历，比如可能会有这种情况</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Product</span>.all.each <span class="keyword">do</span> |product|</span><br><span class="line">  ....</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>这种做法是致命的，切记不要这么做，因为一次读出所有的product数据不仅慢，如果特别多，会把内存撑满的。一定要用 find_each或find_in_batches 代替 each，中文指南的文档在<a href="http://guides.ruby-china.org/active_record_querying.html#%E8%8E%B7%E5%8F%96%E5%A4%9A%E4%B8%AA%E5%AF%B9%E8%B1%A1" target="_blank" rel="external">这里</a></p>
+<h3 id="2-见到有些同事喜欢用这种写法">2.见到有些同事喜欢用这种写法</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Product</span>.sell.map(&amp;<span class="symbol">:name</span>)</span><br><span class="line"><span class="constant">SELECT</span> <span class="string">`products`</span>.* <span class="constant">FROM</span> <span class="string">`products`</span>  <span class="constant">WHERE</span> (products.sell = <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>这样写在数据量大得时候查询会非常慢，并且占用内存会非常多，如果可以替换推荐的写法是用<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Product</span>.sell.pluck(<span class="symbol">:name</span>)</span><br><span class="line"><span class="constant">SELECT</span> <span class="string">`products`</span>.<span class="string">`name`</span> <span class="constant">FROM</span> <span class="string">`products`</span>  <span class="constant">WHERE</span> (products.sell = <span class="number">1</span>)</span><br></pre></td></tr></table></figure></p>
+<p>不仅查询的快，而且占用内存也会极大的降低。</p>
+<h3 id="3-使用includes，防止n+1查询，文档">3.使用includes，防止n+1查询，<a href="http://guides.ruby-china.org/active_record_querying.html#%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD%E5%85%B3%E8%81%94" target="_blank" rel="external">文档</a></h3><h3 id="4-防止预查询，有的时候我们会把一个查询语句赋给一个值，然后后边调用，比如说：">4.防止预查询，有的时候我们会把一个查询语句赋给一个值，然后后边调用，比如说：</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">products = <span class="constant">Product</span>.all</span><br><span class="line">product_names = products.pluck(<span class="symbol">:name</span>)</span><br><span class="line">product_brands = products.pluck(<span class="symbol">:brand</span>)</span><br></pre></td></tr></table></figure>
+<p>直接这样写的话在第一句的时候会直接把所有的product查询出来，不仅耗时，而且占用内存。防止预查询的做法是<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">products = <span class="constant">Product</span>.all; <span class="keyword">false</span></span><br><span class="line">product_names = products.pluck(<span class="symbol">:name</span>)</span><br><span class="line">product_brands = products.pluck(<span class="symbol">:brand</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="5-查看日志的时候还找到了一个比较费时的sql">5.查看日志的时候还找到了一个比较费时的sql</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Product</span>.all.pluck(<span class="symbol">:brand_id</span>).uniq</span><br></pre></td></tr></table></figure>
+<p>后来我用distinct来代替了<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Product</span>.all.pluck(<span class="string">'distinct brand_id'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>这样虽说加长了sql得运行时间但是减少了返回的数据量以及内存占用。</p>
+<h3 id="6-使用explain来优化sql，并建立相应的索引">6.使用explain来优化sql，并建立相应的索引</h3>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/07/07/redis作为页面缓存设置缓存大小/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">redis作为页面缓存设置缓存大小</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 tianlitao
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
