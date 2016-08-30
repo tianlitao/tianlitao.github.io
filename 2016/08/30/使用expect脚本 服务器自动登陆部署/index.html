@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+    <link rel="shortcut icon" type="image/ico" href="/img/avatar.ico">
+  
+  <title>使用expect脚本 服务器自动登陆部署 | tianlitao|田力涛</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="之前写过一篇blog，使用公钥和私钥来实现自动登录，后来发现这种方式有一些局限性，比如说服务器设置了用户权限，不允许root用户直接登录，而其它用户又没有~/.ssh的权限，又或者使用了跳转机等。每次登录都要复制两次密码来登录，很是麻烦，后来google了一下，了解了一下expect，来实现服务器的自动登录、跳转、部署等。1.Expect用途
+Expect是一个用来处理交互的命令。借助Expect">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用expect脚本 服务器自动登陆部署">
+<meta property="og:url" content="http://yoursite.com/2016/08/30/使用expect脚本 服务器自动登陆部署/index.html">
+<meta property="og:site_name" content="tianlitao|田力涛">
+<meta property="og:description" content="之前写过一篇blog，使用公钥和私钥来实现自动登录，后来发现这种方式有一些局限性，比如说服务器设置了用户权限，不允许root用户直接登录，而其它用户又没有~/.ssh的权限，又或者使用了跳转机等。每次登录都要复制两次密码来登录，很是麻烦，后来google了一下，了解了一下expect，来实现服务器的自动登录、跳转、部署等。1.Expect用途
+Expect是一个用来处理交互的命令。借助Expect">
+<meta property="og:updated_time" content="2016-08-30T15:05:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用expect脚本 服务器自动登陆部署">
+<meta name="twitter:description" content="之前写过一篇blog，使用公钥和私钥来实现自动登录，后来发现这种方式有一些局限性，比如说服务器设置了用户权限，不允许root用户直接登录，而其它用户又没有~/.ssh的权限，又或者使用了跳转机等。每次登录都要复制两次密码来登录，很是麻烦，后来google了一下，了解了一下expect，来实现服务器的自动登录、跳转、部署等。1.Expect用途
+Expect是一个用来处理交互的命令。借助Expect">
+  
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">tianlitao</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/music">music</a></li>
+				        
+							<li><a href="/video">video</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="http://github.com/tianlitao" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:tianlitao3399@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/RSA-证书签名验签/" style="font-size: 10px;">RSA 证书签名验签</a> <a href="/tags/expect-脚本-服务器部署/" style="font-size: 10px;">expect 脚本 服务器部署</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/oauth认证/" style="font-size: 10px;">oauth认证</a> <a href="/tags/rails-sql/" style="font-size: 10px;">rails sql</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/ruby/" style="font-size: 10px;">ruby</a> <a href="/tags/ubuntu-服务器/" style="font-size: 10px;">ubuntu 服务器</a> <a href="/tags/北京生活/" style="font-size: 10px;">北京生活</a> <a href="/tags/服务器-ubuntu/" style="font-size: 10px;">服务器 ubuntu</a> <a href="/tags/高中-最爱/" style="font-size: 10px;">高中-最爱</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">当记忆中得湿润又一次沾染了西湖之畔的离歌，当纷杂褪去，你是否会想起那夜那歌，那浅笑，那落寞。。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">tianlitao</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/avatar.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">tianlitao</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/music">music</a></li>
+		        
+					<li><a href="/video">video</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="http://github.com/tianlitao" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:tianlitao3399@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-使用expect脚本 服务器自动登陆部署" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/08/30/使用expect脚本 服务器自动登陆部署/" class="article-date">
+  	<time datetime="2016-08-30T03:25:48.000Z" itemprop="datePublished">Aug 30 2016</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用expect脚本 服务器自动登陆部署
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/expect-脚本-服务器部署/">expect 脚本 服务器部署</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="之前写过一篇blog，使用公钥和私钥来实现自动登录，后来发现这种方式有一些局限性，比如说服务器设置了用户权限，不允许root用户直接登录，而其它用户又没有~/-ssh的权限，又或者使用了跳转机等。每次登录都要复制两次密码来登录，很是麻烦，后来google了一下，了解了一下expect，来实现服务器的自动登录、跳转、部署等。">之前写过一篇blog，使用<a href="http://tianlitao.github.io/2016/01/31/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/" target="_blank" rel="external">公钥和私钥来实现自动登录</a>，后来发现这种方式有一些局限性，比如说服务器设置了用户权限，不允许root用户直接登录，而其它用户又没有~/.ssh的权限，又或者使用了跳转机等。每次登录都要复制两次密码来登录，很是麻烦，后来google了一下，了解了一下expect，来实现服务器的自动登录、跳转、部署等。</h3><h3 id="1-Expect用途">1.Expect用途</h3><blockquote>
+<p>Expect是一个用来处理交互的命令。借助Expect，我们可以将交互过程写在一个脚本上，使之自动化完成。形象的说，ssh登录，ftp登录等都符合交互的定义。<br><a id="more"></a></p>
+</blockquote>
+<h3 id="2-expect的安装">2.expect的安装</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install expect <span class="comment">#mac</span></span><br><span class="line">apt-get install expect <span class="comment">#ubuntu</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-介绍一下我碰到的实际问题，以及写好的脚本。服务器A,有root用户以及test用户，服务器A只允许test用户登录，并且服务器上很多服务是用root安装的，需要用test用户登录，然后在切换到root来执行服务器部署操作命令。">3.介绍一下我碰到的实际问题，以及写好的脚本。服务器A,有root用户以及test用户，服务器A只允许test用户登录，并且服务器上很多服务是用root安装的，需要用test用户登录，然后在切换到root来执行服务器部署操作命令。</h3><ul>
+<li><h3 id="3-1-本地的登录服务器脚本_test-exp">3.1.本地的登录服务器脚本 test.exp</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/expect</span></span><br><span class="line">set timeout <span class="number">15</span></span><br><span class="line">spawn ssh test<span class="variable">@192</span>.<span class="number">168.1</span>.<span class="number">300</span></span><br><span class="line">expect &#123;</span><br><span class="line">        <span class="string">"(yes/no)"</span> &#123; send <span class="string">"yes\r"</span>; exp_continue &#125;</span><br><span class="line">        <span class="string">"*assword:"</span> &#123; send <span class="string">"test password\r"</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line">send <span class="string">"su - root \r"</span></span><br><span class="line">expect &#123;</span><br><span class="line">        <span class="string">"*assword:"</span> &#123; send <span class="string">"root password\r"</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line">send <span class="string">"yun\r"</span></span><br><span class="line">interact</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>其中，expect判断返回的信息，如果有匹配的就直接执行相应得命令，如果一直匹配不到，当timeout时间超过之后才会继续执行。send是要执行的命令。interact是交互模式，用户会停留在服务器A上。</p>
+<ul>
+<li><h3 id="3-2-新建的exp脚本要设置成可执行文件">3.2.新建的exp脚本要设置成可执行文件</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x test.exp</span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="3-3-然后就可以直接执行，这个时候就会直接登录到服务器A">3.3.然后就可以直接执行，这个时候就会直接登录到服务器A</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./text.exp</span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="3-4-我们登录到服务器上大部分都是执行重新部署命令，可以参考一下我的rails、nginx自动部署。服务器A上有脚本_a-sh">3.4.我们登录到服务器上大部分都是执行重新部署命令，可以参考一下我的rails、nginx自动部署。服务器A上有脚本 a.sh</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line">cd /project/</span><br><span class="line"></span><br><span class="line">git pull origin master</span><br><span class="line"></span><br><span class="line">bundle</span><br><span class="line"></span><br><span class="line">bundle exec rake <span class="symbol">assets:</span>precompile <span class="constant">RAILS_ENV</span>=production</span><br><span class="line"></span><br><span class="line">bundle exec rake <span class="symbol">db:</span>migrate <span class="constant">RAILS_ENV</span>=production</span><br><span class="line"></span><br><span class="line">god restart nginx</span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="3-5-这个时候我们在重新创建一个本地的expect服务器部署脚本。为test_restart-exp，登录到服务器A，然后执行脚本a-sh,部署完成后退出。">3.5.这个时候我们在重新创建一个本地的expect服务器部署脚本。为test_restart.exp，登录到服务器A，然后执行脚本a.sh,部署完成后退出。</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/expect</span></span><br><span class="line">set timeout <span class="number">200</span></span><br><span class="line">spawn ssh test<span class="variable">@192</span>.<span class="number">168.1</span>.<span class="number">300</span></span><br><span class="line">expect &#123;</span><br><span class="line">        <span class="string">"(yes/no)"</span> &#123; send <span class="string">"yes\r"</span>; exp_continue &#125;</span><br><span class="line">        <span class="string">"*assword:"</span> &#123; send <span class="string">"test password\r"</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line">send <span class="string">"su - root \r"</span></span><br><span class="line">expect &#123;</span><br><span class="line">        <span class="string">"*assword:"</span> &#123; send <span class="string">"root password\r"</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line">expect <span class="string">"~#"</span></span><br><span class="line">send <span class="string">"/shell/a.sh\r"</span></span><br><span class="line">expect <span class="string">"nginx"</span></span><br><span class="line">send <span class="string">"exit\r"</span></span><br><span class="line">send <span class="string">"exit\r"</span></span><br><span class="line">expect eof ;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>因为编译和migrate的时间可能会有点长，所以这里设置timeout为200。</p>
+<ul>
+<li><h3 id="3-6-这个时候本地直接执行脚本就会自动部署。">3.6.这个时候本地直接执行脚本就会自动部署。</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./test_restart.exp</span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="3-7-当然为了更方便，我们还可以设置alias设置永久别名。">3.7.当然为了更方便，我们还可以设置alias设置永久别名。</h3></li>
+</ul>
+<p>首先你要看下你用的是什么shell,执行 echo $shell。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bash 配置 <span class="string">'~/.bashrc'</span></span><br><span class="line">csh 配置 <span class="string">'~/.cshrc'</span></span><br><span class="line">zsh 配置 <span class="string">'~/.zshrc'</span></span><br></pre></td></tr></table></figure></p>
+<p>比如我用的zsh，vi ~/.zshrc,在后面添加。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alias</span> test=<span class="string">'./test.exp'</span></span><br><span class="line"><span class="keyword">alias</span> test_restart=<span class="string">'./test_restart.exp'</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><h3 id="3-8-这个时候无论在哪个目录，只要执行命令就可以直接登录，部署。跳转机的和此类似">3.8.这个时候无论在哪个目录，只要执行命令就可以直接登录，部署。跳转机的和此类似</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">test <span class="comment">#登录服务器</span></span><br><span class="line">test_restart  <span class="comment">#部署</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><a href="http://ntop001.github.io/2015/06/06/mac-shell/" target="_blank" rel="external">参考链接1 mac terminal的一些困惑</a><br><a href="http://xstarcd.github.io/wiki/shell/expect.html" target="_blank" rel="external">参考链接2 expect - 自动交互脚本</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/08/21/ubuntu系统交换分区swap的作用 增加与优化/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ubuntu系统交换分区swap的作用，增加与优化</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="使用expect脚本 服务器自动登陆部署" data-title="使用expect脚本 服务器自动登陆部署" data-url="http://yoursite.com/2016/08/30/使用expect脚本 服务器自动登陆部署/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"tianlitao"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 tianlitao
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
