@@ -10,7 +10,7 @@
 Expect是一个用来处理交互的命令。借助Expect">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用expect脚本 服务器自动登陆部署">
-<meta property="og:url" content="http://yoursite.com/2016/08/30/使用expect脚本 服务器自动登陆部署/index.html">
+<meta property="og:url" content="http://tianlitao.github.io/2016/08/30/使用expect脚本 服务器自动登陆部署/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
 <meta property="og:description" content="之前写过一篇blog，使用公钥和私钥来实现自动登录，后来发现这种方式有一些局限性，比如说服务器设置了用户权限，不允许root用户直接登录，而其它用户又没有~/.ssh的权限，又或者使用了跳转机等。每次登录都要复制两次密码来登录，很是麻烦，后来google了一下，了解了一下expect，来实现服务器的自动登录、跳转、部署等。1.Expect用途
 Expect是一个用来处理交互的命令。借助Expect">
@@ -203,7 +203,7 @@ Expect是一个用来处理交互的命令。借助Expect">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="之前写过一篇blog，使用公钥和私钥来实现自动登录，后来发现这种方式有一些局限性，比如说服务器设置了用户权限，不允许root用户直接登录，而其它用户又没有~/-ssh的权限，又或者使用了跳转机等。每次登录都要复制两次密码来登录，很是麻烦，后来google了一下，了解了一下expect，来实现服务器的自动登录、跳转、部署等。">之前写过一篇blog，使用<a href="http://tianlitao.github.io/2016/01/31/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/" target="_blank" rel="external">公钥和私钥来实现自动登录</a>，后来发现这种方式有一些局限性，比如说服务器设置了用户权限，不允许root用户直接登录，而其它用户又没有~/.ssh的权限，又或者使用了跳转机等。每次登录都要复制两次密码来登录，很是麻烦，后来google了一下，了解了一下expect，来实现服务器的自动登录、跳转、部署等。</h3><h3 id="1-Expect用途">1.Expect用途</h3><blockquote>
+        <h3 id="之前写过一篇blog，使用公钥和私钥来实现自动登录，后来发现这种方式有一些局限性，比如说服务器设置了用户权限，不允许root用户直接登录，而其它用户又没有~/-ssh的权限，又或者使用了跳转机等。每次登录都要复制两次密码来登录，很是麻烦，后来google了一下，了解了一下expect，来实现服务器的自动登录、跳转、部署等。">之前写过一篇blog，使用<a href="http://tianlitao.github.io/2016/01/31/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/">公钥和私钥来实现自动登录</a>，后来发现这种方式有一些局限性，比如说服务器设置了用户权限，不允许root用户直接登录，而其它用户又没有~/.ssh的权限，又或者使用了跳转机等。每次登录都要复制两次密码来登录，很是麻烦，后来google了一下，了解了一下expect，来实现服务器的自动登录、跳转、部署等。</h3><h3 id="1-Expect用途">1.Expect用途</h3><blockquote>
 <p>Expect是一个用来处理交互的命令。借助Expect，我们可以将交互过程写在一个脚本上，使之自动化完成。形象的说，ssh登录，ftp登录等都符合交互的定义。<br><a id="more"></a></p>
 </blockquote>
 <h3 id="2-expect的安装">2.expect的安装</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install expect <span class="comment">#mac</span></span><br><span class="line">apt-get install expect <span class="comment">#ubuntu</span></span><br></pre></td></tr></table></figure>
@@ -275,7 +275,7 @@ Expect是一个用来处理交互的命令。借助Expect">
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="使用expect脚本 服务器自动登陆部署" data-title="使用expect脚本 服务器自动登陆部署" data-url="http://yoursite.com/2016/08/30/使用expect脚本 服务器自动登陆部署/"></div>
+	<div class="ds-thread" data-thread-key="使用expect脚本 服务器自动登陆部署" data-title="使用expect脚本 服务器自动登陆部署" data-url="http://tianlitao.github.io/2016/08/30/使用expect脚本 服务器自动登陆部署/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
