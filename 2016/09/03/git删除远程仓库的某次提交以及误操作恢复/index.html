@@ -4,18 +4,21 @@
   <meta charset="utf-8">
     <link rel="shortcut icon" type="image/ico" href="/img/avatar.ico">
   
-  <title>博客搬迁 | tianlitao|田力涛</title>
+  <title>git删除远程仓库的某次提交以及误操作恢复 | tianlitao|田力涛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="因为觉得iteye不够个性化，所以在github上搭了一个博客，之前的博客在这里">
+  <meta name="description" content="前两天工作的时候遇到了一个问题，开发的时候发现远程仓库之前的某次提交是没有必要的，需要删除掉这次提交。网上搜索了半天也没有找到解决的方法，问了问同事也都说不行。在我直觉看来git这么强大应该肯定可以得吧，在我的就要绝望的时候突然想起了一个命令cherry-pick,茅塞顿开。
+Git cherry-pick可以选择某一个分支中的一个或几个commit(s)来进行操作。例如，假设我们有个稳定版本的分">
 <meta property="og:type" content="article">
-<meta property="og:title" content="博客搬迁">
-<meta property="og:url" content="http://tianlitao.github.io/2015/06/12/博客搬迁/index.html">
+<meta property="og:title" content="git删除远程仓库的某次提交以及误操作恢复">
+<meta property="og:url" content="http://tianlitao.github.io/2016/09/03/git删除远程仓库的某次提交以及误操作恢复/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
-<meta property="og:description" content="因为觉得iteye不够个性化，所以在github上搭了一个博客，之前的博客在这里">
-<meta property="og:updated_time" content="2016-07-10T10:19:20.000Z">
+<meta property="og:description" content="前两天工作的时候遇到了一个问题，开发的时候发现远程仓库之前的某次提交是没有必要的，需要删除掉这次提交。网上搜索了半天也没有找到解决的方法，问了问同事也都说不行。在我直觉看来git这么强大应该肯定可以得吧，在我的就要绝望的时候突然想起了一个命令cherry-pick,茅塞顿开。
+Git cherry-pick可以选择某一个分支中的一个或几个commit(s)来进行操作。例如，假设我们有个稳定版本的分">
+<meta property="og:updated_time" content="2016-09-03T08:44:57.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="博客搬迁">
-<meta name="twitter:description" content="因为觉得iteye不够个性化，所以在github上搭了一个博客，之前的博客在这里">
+<meta name="twitter:title" content="git删除远程仓库的某次提交以及误操作恢复">
+<meta name="twitter:description" content="前两天工作的时候遇到了一个问题，开发的时候发现远程仓库之前的某次提交是没有必要的，需要删除掉这次提交。网上搜索了半天也没有找到解决的方法，问了问同事也都说不行。在我直觉看来git这么强大应该肯定可以得吧，在我的就要绝望的时候突然想起了一个命令cherry-pick,茅塞顿开。
+Git cherry-pick可以选择某一个分支中的一个或几个commit(s)来进行操作。例如，假设我们有个稳定版本的分">
   
   
   <link rel="stylesheet" href="/css/style.css" type="text/css">
@@ -163,11 +166,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-博客搬迁" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-git删除远程仓库的某次提交以及误操作恢复" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/06/12/博客搬迁/" class="article-date">
-  	<time datetime="2015-06-12T10:19:21.000Z" itemprop="datePublished">Jun 12 2015</time>
+      <a href="/2016/09/03/git删除远程仓库的某次提交以及误操作恢复/" class="article-date">
+  	<time datetime="2016-09-03T08:07:59.000Z" itemprop="datePublished">Sep 3 2016</time>
 </a>
     </div>
   
@@ -180,7 +183,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      博客搬迁
+      git删除远程仓库的某次提交以及误操作恢复
     </h1>
   
 
@@ -188,6 +191,10 @@
       
       <div class="article-info article-info-post">
         
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git操作/">git操作</a></li></ul>
+	</div>
+
         
 
         <div class="clearfix"></div>
@@ -196,8 +203,22 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>因为觉得iteye不够个性化，所以在github上搭了一个博客，之前的博客在<a href="http://tianlitao.iteye.com/" target="_blank" rel="external">这里</a></p>
+        <h3 id="前两天工作的时候遇到了一个问题，开发的时候发现远程仓库之前的某次提交是没有必要的，需要删除掉这次提交。网上搜索了半天也没有找到解决的方法，问了问同事也都说不行。在我直觉看来git这么强大应该肯定可以得吧，在我的就要绝望的时候突然想起了一个命令cherry-pick,茅塞顿开。">前两天工作的时候遇到了一个问题，开发的时候发现远程仓库之前的某次提交是没有必要的，需要删除掉这次提交。网上搜索了半天也没有找到解决的方法，问了问同事也都说不行。在我直觉看来git这么强大应该肯定可以得吧，在我的就要绝望的时候突然想起了一个命令cherry-pick,茅塞顿开。</h3><blockquote>
+<p>Git cherry-pick可以选择某一个分支中的一个或几个commit(s)来进行操作。例如，假设我们有个稳定版本的分支，叫v2.0，另外还有个开发版本的分支v3.0，我们不能直接把两个分支合并，这样会导致稳定版本混乱，但是又想增加一个v3.0中的功能到v2.0中，这里就可以使用<code>cherry-pick</code>了。<br>就是对已经存在的v3.0的某次commit合并到v2.0</p>
+</blockquote>
+<!-- more -- >
 
+
+###说一下我的具体问题以及操作
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">commit5 head5</span><br><span class="line">commit4 head4</span><br><span class="line">commit3 head3</span><br><span class="line">commit2 head2</span><br><span class="line">commit1 head1</span><br></pre></td></tr></table></figure>
+<p>现在在test分支，有5次commit，cimmit5是我最新的一次提交，现在要把commit2删除掉，并且不影响其它的提交，操作如下<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch testsave</span><br><span class="line">git reset --hard head1</span><br><span class="line">git cherry-pick head3 head4 head5</span><br></pre></td></tr></table></figure></p>
+<h3 id="还有一个比较少用，但是很实用的一个git命令,_git_reflog,可以对git误操作进行数据恢复。">还有一个比较少用，但是很实用的一个git命令, <code>git reflog</code>,可以对git误操作进行数据恢复。</h3><blockquote>
+<p>reflog是git用来记录引用变化的一种机制，比如记录分支的变化或者是HEAD引用的变化。 比如在某git库中运行git reflog,当git reflog命令不指定引用的时候默认列出HEAD的reflog。</p>
+</blockquote>
+<p>比如说你已经执行了<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard heade1</span><br></pre></td></tr></table></figure></p>
+<p>然后发现执行错了，这个时候你该如何操作呢，首先执行 <code>git reflog</code>,找到 commit5 的heade5，<br>然后执行<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard head5</span><br></pre></td></tr></table></figure></p>
+<p>这个时候你发现你的所有commit又都回来了,如果你有更好的解决方法，欢迎留言或者联系我</p>
+-->
       
     </div>
     
@@ -206,15 +227,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/06/17/高中-最爱/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          浅笑无痕
-        
-      </div>
-    </a>
   
+    <a href="/2016/08/30/使用expect脚本 服务器自动登陆部署/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">使用expect脚本 服务器自动登陆部署</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
   
 </nav>
 
@@ -241,7 +258,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="博客搬迁" data-title="博客搬迁" data-url="http://tianlitao.github.io/2015/06/12/博客搬迁/"></div>
+	<div class="ds-thread" data-thread-key="git删除远程仓库的某次提交以及误操作恢复" data-title="git删除远程仓库的某次提交以及误操作恢复" data-url="http://tianlitao.github.io/2016/09/03/git删除远程仓库的某次提交以及误操作恢复/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

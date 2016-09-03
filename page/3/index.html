@@ -9,7 +9,7 @@
   <meta name="description" content="tianlitao 田力涛 rails ubuntu">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tianlitao|田力涛">
-<meta property="og:url" content="http://tianlitao.github.io/page/2/index.html">
+<meta property="og:url" content="http://tianlitao.github.io/page/3/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
 <meta property="og:description" content="tianlitao 田力涛 rails ubuntu">
 <meta name="twitter:card" content="summary">
@@ -164,11 +164,11 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-redis作为页面缓存设置缓存大小" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-自动登录 服务器部署" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/07/07/redis作为页面缓存设置缓存大小/" class="article-date">
-  	<time datetime="2016-07-07T13:17:59.000Z" itemprop="datePublished">Jul 7 2016</time>
+      <a href="/2016/01/31/自动登录 服务器部署/" class="article-date">
+  	<time datetime="2016-01-31T07:00:37.000Z" itemprop="datePublished">Jan 31 2016</time>
 </a>
     </div>
   
@@ -181,7 +181,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/07/redis作为页面缓存设置缓存大小/">redis作为页面缓存设置缓存大小</a>
+      <a class="article-title" href="/2016/01/31/自动登录 服务器部署/">自动登录 服务器部署</a>
     </h1>
   
 
@@ -190,21 +190,25 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="为了加快网页响应速度，网站采取了使用redis作为页面缓存">为了加快网页响应速度，网站采取了使用redis作为页面缓存</h3><p>1.用到的gem<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gem <span class="string">'redis'</span></span><br><span class="line">gem <span class="string">'redis-objects'</span></span><br></pre></td></tr></table></figure></p>
+        <h1 id="ssh不输入密码，自动登陆">ssh不输入密码，自动登陆</h1><h3 id="1-在本机_~/-ssh_下新建config_，添加服务器ip，以及host简称，格式如下：">1.在本机 ~/.ssh 下新建config ，添加服务器ip，以及host简称，格式如下：</h3><pre><code><span class="tag">Host</span> <span class="tag">emall</span>
+  <span class="tag">HostName</span> 139<span class="class">.129</span><span class="class">.128</span><span class="class">.51</span>
+  <span class="tag">Port</span> 22
+  <span class="tag">User</span> <span class="tag">root</span>
+</code></pre><p>   保存后 ssh emall就相当于 ssh root@139.129.128.51
       
     </div>
     
     <div class="article-info article-info-index">
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/服务器-ubuntu/">服务器 ubuntu</a></li></ul>
 	</div>
 
       
 
       
         <p class="article-more-link">
-          <a  href="/2016/07/07/redis作为页面缓存设置缓存大小/#more">more >></a>
+          <a  href="/2016/01/31/自动登录 服务器部署/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -220,11 +224,11 @@
 
 
   
-    <article id="post-object-to-s之后如何找到之前的object" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-我的2015-北京" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/07/01/object-to-s之后如何找到之前的object/" class="article-date">
-  	<time datetime="2016-07-01T04:37:39.000Z" itemprop="datePublished">Jul 1 2016</time>
+      <a href="/2016/01/31/我的2015-北京/" class="article-date">
+  	<time datetime="2016-01-31T06:36:33.000Z" itemprop="datePublished">Jan 31 2016</time>
 </a>
     </div>
   
@@ -237,7 +241,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/01/object-to-s之后如何找到之前的object/">object.to_s之后如何找到之前的object</a>
+      <a class="article-title" href="/2016/01/31/我的2015-北京/">我的2015-北京</a>
     </h1>
   
 
@@ -246,22 +250,21 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="今天同事问了我一个问题，已知">今天同事问了我一个问题，已知</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="constant">User</span>.first.to_s</span><br><span class="line"><span class="string">"#&lt;User:0x007fe9a579ba30&gt;"</span></span><br></pre></td></tr></table></figure>
-<p>如何通过a找到User.first这个实例对象
+        <p>   很久没有写过博客了，因为忙，因为懒，马上就是新的一年了，趁着最近不是很忙。总结一下我的2015。
       
     </div>
     
     <div class="article-info article-info-index">
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ruby/">ruby</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/北京生活/">北京生活</a></li></ul>
 	</div>
 
       
 
       
         <p class="article-more-link">
-          <a  href="/2016/07/01/object-to-s之后如何找到之前的object/#more">more >></a>
+          <a  href="/2016/01/31/我的2015-北京/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -277,11 +280,11 @@
 
 
   
-    <article id="post-银行对接java证书签名验签rubycode" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="ide-storm基本快捷键" class="article article-type-ide" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/03/12/银行对接java证书签名验签rubycode/" class="article-date">
-  	<time datetime="2016-03-12T13:36:14.000Z" itemprop="datePublished">Mar 12 2016</time>
+      <a href="/2015/06/25/storm基本快捷键/" class="article-date">
+  	<time datetime="2015-06-25T03:00:59.000Z" itemprop="datePublished">Jun 25 2015</time>
 </a>
     </div>
   
@@ -294,7 +297,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/12/银行对接java证书签名验签rubycode/">银行对接java证书签名验签rubycode</a>
+      <a class="article-title" href="/2015/06/25/storm基本快捷键/">mac下WebStorm基本快捷键</a>
     </h1>
   
 
@@ -303,21 +306,21 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>  最近项目要做在线支付，选择了一个银行要做对接，过了一遍文档，大体知道难点主要在签名和验签上，奈何银行提供的demo只有java版本的，原来对java接触的比较少，这次终于有机会研究研究java的代码了。然后改写成ruby方法。
+        <p>方便的快捷键可以极大的提升罗码速度。WebStorm,PhpStorm,RubyMine,因为是一家公司出的所以基本的通用快捷键都一样,下面记录一下我常用的几个快捷键.
       
     </div>
     
     <div class="article-info article-info-index">
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RSA-证书签名验签/">RSA 证书签名验签</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ide/">ide</a></li></ul>
 	</div>
 
       
 
       
         <p class="article-more-link">
-          <a  href="/2016/03/12/银行对接java证书签名验签rubycode/#more">more >></a>
+          <a  href="/2015/06/25/storm基本快捷键/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -333,11 +336,11 @@
 
 
   
-    <article id="post-oauth认证第三方登陆" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-laravel-command" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/01/31/oauth认证第三方登陆/" class="article-date">
-  	<time datetime="2016-01-31T10:06:16.000Z" itemprop="datePublished">Jan 31 2016</time>
+      <a href="/2015/06/23/laravel-command/" class="article-date">
+  	<time datetime="2015-06-23T06:08:05.000Z" itemprop="datePublished">Jun 23 2015</time>
 </a>
     </div>
   
@@ -350,7 +353,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/31/oauth认证第三方登陆/">oauth认证第三方登陆</a>
+      <a class="article-title" href="/2015/06/23/laravel-command/">laravel_command</a>
     </h1>
   
 
@@ -359,21 +362,23 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="使用gem_‘devise’、’omniauth’、’omniauth-oauth2’_，_来实现Omniauth第三方登陆_<!-more->">使用gem ‘devise’、’omniauth’、’omniauth-oauth2’ ， 来实现Omniauth第三方登陆
+        <h1 id="laravel5基本命令">laravel5基本命令</h1><h3 id="1-创建某个文件夹下的controller">1.创建某个文件夹下的controller</h3><pre><code><span class="tag">php</span> <span class="tag">artisan</span> <span class="rule"><span class="attribute">make</span>:<span class="value">controller Admin/ArticlesController</span></span>
+</code></pre><h3 id="2-创建model">2.创建model</h3><pre><code><span class="tag">php</span> <span class="tag">artisan</span> <span class="rule"><span class="attribute">make</span>:<span class="value">model Article</span></span>
+</code></pre><h3 id="3-为已有表添加字段，创建migration<!-more->">3.为已有表添加字段，创建migration
       
     </div>
     
     <div class="article-info article-info-index">
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oauth认证/">oauth认证</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/laravel/">laravel</a></li></ul>
 	</div>
 
       
 
       
         <p class="article-more-link">
-          <a  href="/2016/01/31/oauth认证第三方登陆/#more">more >></a>
+          <a  href="/2015/06/23/laravel-command/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -391,7 +396,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
 </div>

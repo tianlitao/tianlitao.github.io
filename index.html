@@ -102,7 +102,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/RSA-证书签名验签/" style="font-size: 10px;">RSA 证书签名验签</a> <a href="/tags/expect-脚本-服务器部署/" style="font-size: 10px;">expect 脚本 服务器部署</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/oauth认证/" style="font-size: 10px;">oauth认证</a> <a href="/tags/rails-sql/" style="font-size: 10px;">rails sql</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/ruby/" style="font-size: 10px;">ruby</a> <a href="/tags/ubuntu-服务器/" style="font-size: 10px;">ubuntu 服务器</a> <a href="/tags/北京生活/" style="font-size: 10px;">北京生活</a> <a href="/tags/服务器-ubuntu/" style="font-size: 10px;">服务器 ubuntu</a> <a href="/tags/高中-最爱/" style="font-size: 10px;">高中-最爱</a>
+						<a href="/tags/RSA-证书签名验签/" style="font-size: 10px;">RSA 证书签名验签</a> <a href="/tags/expect-脚本-服务器部署/" style="font-size: 10px;">expect 脚本 服务器部署</a> <a href="/tags/git操作/" style="font-size: 10px;">git操作</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/oauth认证/" style="font-size: 10px;">oauth认证</a> <a href="/tags/rails-sql/" style="font-size: 10px;">rails sql</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/ruby/" style="font-size: 10px;">ruby</a> <a href="/tags/ubuntu-服务器/" style="font-size: 10px;">ubuntu 服务器</a> <a href="/tags/北京生活/" style="font-size: 10px;">北京生活</a> <a href="/tags/服务器-ubuntu/" style="font-size: 10px;">服务器 ubuntu</a> <a href="/tags/高中-最爱/" style="font-size: 10px;">高中-最爱</a>
 					</div>
 				</section>
 				
@@ -163,6 +163,73 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-git删除远程仓库的某次提交以及误操作恢复" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/03/git删除远程仓库的某次提交以及误操作恢复/" class="article-date">
+  	<time datetime="2016-09-03T08:07:59.000Z" itemprop="datePublished">Sep 3 2016</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/03/git删除远程仓库的某次提交以及误操作恢复/">git删除远程仓库的某次提交以及误操作恢复</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前两天工作的时候遇到了一个问题，开发的时候发现远程仓库之前的某次提交是没有必要的，需要删除掉这次提交。网上搜索了半天也没有找到解决的方法，问了问同事也都说不行。在我直觉看来git这么强大应该肯定可以得吧，在我的就要绝望的时候突然想起了一个命令cherry-pick,茅塞顿开。">前两天工作的时候遇到了一个问题，开发的时候发现远程仓库之前的某次提交是没有必要的，需要删除掉这次提交。网上搜索了半天也没有找到解决的方法，问了问同事也都说不行。在我直觉看来git这么强大应该肯定可以得吧，在我的就要绝望的时候突然想起了一个命令cherry-pick,茅塞顿开。</h3><blockquote>
+<p>Git cherry-pick可以选择某一个分支中的一个或几个commit(s)来进行操作。例如，假设我们有个稳定版本的分支，叫v2.0，另外还有个开发版本的分支v3.0，我们不能直接把两个分支合并，这样会导致稳定版本混乱，但是又想增加一个v3.0中的功能到v2.0中，这里就可以使用<code>cherry-pick</code>了。<br>就是对已经存在的v3.0的某次commit合并到v2.0</p>
+</blockquote>
+<!-- more -- >
+
+
+###说一下我的具体问题以及操作
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">commit5 head5</span><br><span class="line">commit4 head4</span><br><span class="line">commit3 head3</span><br><span class="line">commit2 head2</span><br><span class="line">commit1 head1</span><br></pre></td></tr></table></figure>
+<p>现在在test分支，有5次commit，cimmit5是我最新的一次提交，现在要把commit2删除掉，并且不影响其它的提交，操作如下<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch testsave</span><br><span class="line">git reset --hard head1</span><br><span class="line">git cherry-pick head3 head4 head5</span><br></pre></td></tr></table></figure></p>
+<h3 id="还有一个比较少用，但是很实用的一个git命令,_git_reflog,可以对git误操作进行数据恢复。">还有一个比较少用，但是很实用的一个git命令, <code>git reflog</code>,可以对git误操作进行数据恢复。</h3><blockquote>
+<p>reflog是git用来记录引用变化的一种机制，比如记录分支的变化或者是HEAD引用的变化。 比如在某git库中运行git reflog,当git reflog命令不指定引用的时候默认列出HEAD的reflog。</p>
+</blockquote>
+<p>比如说你已经执行了<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard heade1</span><br></pre></td></tr></table></figure></p>
+<p>然后发现执行错了，这个时候你该如何操作呢，首先执行 <code>git reflog</code>,找到 commit5 的heade5，<br>然后执行<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard head5</span><br></pre></td></tr></table></figure></p>
+<p>这个时候你发现你的所有commit又都回来了,如果你有更好的解决方法，欢迎留言或者联系我</p>
+-->
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git操作/">git操作</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
   
     <article id="post-使用expect脚本 服务器自动登陆部署" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -334,234 +401,9 @@
 
 
   
-    <article id="post-redis作为页面缓存设置缓存大小" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/07/07/redis作为页面缓存设置缓存大小/" class="article-date">
-  	<time datetime="2016-07-07T13:17:59.000Z" itemprop="datePublished">Jul 7 2016</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/07/redis作为页面缓存设置缓存大小/">redis作为页面缓存设置缓存大小</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="为了加快网页响应速度，网站采取了使用redis作为页面缓存">为了加快网页响应速度，网站采取了使用redis作为页面缓存</h3><p>1.用到的gem<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gem <span class="string">'redis'</span></span><br><span class="line">gem <span class="string">'redis-objects'</span></span><br></pre></td></tr></table></figure></p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/07/07/redis作为页面缓存设置缓存大小/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
-    <article id="post-object-to-s之后如何找到之前的object" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/07/01/object-to-s之后如何找到之前的object/" class="article-date">
-  	<time datetime="2016-07-01T04:37:39.000Z" itemprop="datePublished">Jul 1 2016</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/01/object-to-s之后如何找到之前的object/">object.to_s之后如何找到之前的object</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="今天同事问了我一个问题，已知">今天同事问了我一个问题，已知</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="constant">User</span>.first.to_s</span><br><span class="line"><span class="string">"#&lt;User:0x007fe9a579ba30&gt;"</span></span><br></pre></td></tr></table></figure>
-<p>如何通过a找到User.first这个实例对象
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ruby/">ruby</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/07/01/object-to-s之后如何找到之前的object/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
-    <article id="post-银行对接java证书签名验签rubycode" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/12/银行对接java证书签名验签rubycode/" class="article-date">
-  	<time datetime="2016-03-12T13:36:14.000Z" itemprop="datePublished">Mar 12 2016</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/12/银行对接java证书签名验签rubycode/">银行对接java证书签名验签rubycode</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>  最近项目要做在线支付，选择了一个银行要做对接，过了一遍文档，大体知道难点主要在签名和验签上，奈何银行提供的demo只有java版本的，原来对java接触的比较少，这次终于有机会研究研究java的代码了。然后改写成ruby方法。
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RSA-证书签名验签/">RSA 证书签名验签</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/03/12/银行对接java证书签名验签rubycode/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
-    <article id="post-oauth认证第三方登陆" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/01/31/oauth认证第三方登陆/" class="article-date">
-  	<time datetime="2016-01-31T10:06:16.000Z" itemprop="datePublished">Jan 31 2016</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/31/oauth认证第三方登陆/">oauth认证第三方登陆</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="使用gem_‘devise’、’omniauth’、’omniauth-oauth2’_，_来实现Omniauth第三方登陆_<!-more->">使用gem ‘devise’、’omniauth’、’omniauth-oauth2’ ， 来实现Omniauth第三方登陆
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oauth认证/">oauth认证</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/01/31/oauth认证第三方登陆/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 </div>
