@@ -4,12 +4,12 @@
   <meta charset="utf-8">
     <link rel="shortcut icon" type="image/ico" href="/img/avatar.ico">
   
-  <title>Tag: laravel | tianlitao|田力涛</title>
+  <title>Tag: 服务器部署 | tianlitao|田力涛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="tianlitao 田力涛 rails ubuntu">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tianlitao|田力涛">
-<meta property="og:url" content="http://tianlitao.github.io/tags/laravel/index.html">
+<meta property="og:url" content="http://tianlitao.github.io/tags/服务器部署/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
 <meta property="og:description" content="tianlitao 田力涛 rails ubuntu">
 <meta name="twitter:card" content="summary">
@@ -164,11 +164,11 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-laravel-command" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-使用expect脚本 服务器自动登陆部署" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/06/23/laravel-command/" class="article-date">
-  	<time datetime="2015-06-23T06:08:05.000Z" itemprop="datePublished">Jun 23 2015</time>
+      <a href="/2016/08/30/使用expect脚本 服务器自动登陆部署/" class="article-date">
+  	<time datetime="2016-08-30T03:25:48.000Z" itemprop="datePublished">Aug 30 2016</time>
 </a>
     </div>
   
@@ -181,7 +181,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/06/23/laravel-command/">laravel_command</a>
+      <a class="article-title" href="/2016/08/30/使用expect脚本 服务器自动登陆部署/">使用expect脚本 服务器自动登陆部署</a>
     </h1>
   
 
@@ -190,23 +190,22 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="laravel5基本命令">laravel5基本命令</h1><h3 id="1-创建某个文件夹下的controller">1.创建某个文件夹下的controller</h3><pre><code><span class="tag">php</span> <span class="tag">artisan</span> <span class="rule"><span class="attribute">make</span>:<span class="value">controller Admin/ArticlesController</span></span>
-</code></pre><h3 id="2-创建model">2.创建model</h3><pre><code><span class="tag">php</span> <span class="tag">artisan</span> <span class="rule"><span class="attribute">make</span>:<span class="value">model Article</span></span>
-</code></pre><h3 id="3-为已有表添加字段，创建migration<!-more->">3.为已有表添加字段，创建migration
+        <h3 id="之前写过一篇blog，使用公钥和私钥来实现自动登录，后来发现这种方式有一些局限性，比如说服务器设置了用户权限，不允许root用户直接登录，而其它用户又没有~/-ssh的权限，又或者使用了跳转机等。每次登录都要复制两次密码来登录，很是麻烦，后来google了一下，了解了一下expect，来实现服务器的自动登录、跳转、部署等。">之前写过一篇blog，使用<a href="http://tianlitao.github.io/2016/01/31/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/">公钥和私钥来实现自动登录</a>，后来发现这种方式有一些局限性，比如说服务器设置了用户权限，不允许root用户直接登录，而其它用户又没有~/.ssh的权限，又或者使用了跳转机等。每次登录都要复制两次密码来登录，很是麻烦，后来google了一下，了解了一下expect，来实现服务器的自动登录、跳转、部署等。</h3><h3 id="1-Expect用途">1.Expect用途</h3><blockquote>
+<p>Expect是一个用来处理交互的命令。借助Expect，我们可以将交互过程写在一个脚本上，使之自动化完成。形象的说，ssh登录，ftp登录等都符合交互的定义。<br>
       
     </div>
     
     <div class="article-info article-info-index">
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/laravel/">laravel</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/expect/">expect</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/服务器部署/">服务器部署</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/脚本/">脚本</a></li></ul>
 	</div>
 
       
 
       
         <p class="article-more-link">
-          <a  href="/2015/06/23/laravel-command/#more">more >></a>
+          <a  href="/2016/08/30/使用expect脚本 服务器自动登陆部署/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
