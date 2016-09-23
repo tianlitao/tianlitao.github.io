@@ -4,12 +4,12 @@
   <meta charset="utf-8">
     <link rel="shortcut icon" type="image/ico" href="/img/avatar.ico">
   
-  <title>Archives | tianlitao|田力涛</title>
+  <title>Tag: ruby rails find_each order | tianlitao|田力涛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="tianlitao 田力涛 rails ubuntu">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tianlitao|田力涛">
-<meta property="og:url" content="http://tianlitao.github.io/archives/page/2/index.html">
+<meta property="og:url" content="http://tianlitao.github.io/tags/ruby-rails-find-each-order/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
 <meta property="og:description" content="tianlitao 田力涛 rails ubuntu">
 <meta name="twitter:card" content="summary">
@@ -164,141 +164,63 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-ruby-find-each-order" class="article article-type-post" itemscope itemprop="blogPost">
   
+    <div class="article-meta">
+      <a href="/2016/09/23/ruby-find-each-order/" class="article-date">
+  	<time datetime="2016-09-23T11:28:55.000Z" itemprop="datePublished">Sep 23 2016</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/23/ruby-find-each-order/">rails find_each方法源码分析</a>
+    </h1>
+  
+
+      </header>
       
+    
+    <div class="article-entry" itemprop="articleBody">
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
+        <h4 id="在项目中我们经常会使用如下代码">在项目中我们经常会使用如下代码</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Product</span>.all.each <span class="keyword">do</span> |product|</span><br><span class="line">  do_something</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h4 id="在实际应该中如果Product表太大，一次读取会把内存占满，Rails为了解决这个问题提供了两个方法，find_each和find_in_batches方法，把记录分成几个批次，因为find_each其实最终就是调用的find_in_batches，所以这里我们以find_in_batches为例。">在实际应该中如果Product表太大，一次读取会把内存占满，Rails为了解决这个问题提供了两个方法，find_each和find_in_batches方法，把记录分成几个批次，因为find_each其实最终就是调用的find_in_batches，所以这里我们以find_in_batches为例。</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Product</span>.all.find_in_batches(<span class="symbol">start:</span> <span class="number">2000</span>, <span class="symbol">batch_size:</span> <span class="number">5000</span>,<span class="symbol">include:</span> <span class="symbol">:infos</span>) <span class="keyword">do</span> |products|</span><br><span class="line">  do_something</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/08/21/ubuntu系统交换分区swap的作用 增加与优化/" class="archive-article-date">
-  	<time datetime="2016-08-21T09:49:27.000Z" itemprop="datePublished">Aug 21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/08/21/ubuntu系统交换分区swap的作用 增加与优化/">ubuntu系统交换分区swap的作用，增加与优化</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
+    <div class="article-info article-info-index">
+      
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu-服务器/">ubuntu 服务器</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ruby-rails-find-each-order/">ruby rails find_each order</a></li></ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+        <p class="article-more-link">
+          <a  href="/2016/09/23/ruby-find-each-order/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
   </div>
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-rails">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/07/10/rails项目优化 sql优化/" class="archive-article-date">
-  	<time datetime="2016-07-10T09:12:17.000Z" itemprop="datePublished">Jul 10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/07/10/rails项目优化 sql优化/">rails项目优化 sql优化</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails-sql/">rails sql</a></li></ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/07/07/redis作为页面缓存设置缓存大小/" class="archive-article-date">
-  	<time datetime="2016-07-07T13:17:59.000Z" itemprop="datePublished">Jul 7</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/07/07/redis作为页面缓存设置缓存大小/">redis作为页面缓存设置缓存大小</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li></ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/07/01/ruby object-to-s之后如何找到之前的object/" class="archive-article-date">
-  	<time datetime="2016-07-01T04:37:39.000Z" itemprop="datePublished">Jul 1</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/07/01/ruby object-to-s之后如何找到之前的object/">ruby object.to_s之后如何找到之前的object</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ruby/">ruby</a></li></ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 </div>
       <footer id="footer">
@@ -325,8 +247,8 @@
 		animate: true,
 		isHome: false,
 		isPost: false,
-		isArchive: true,
-		isTag: false,
+		isArchive: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false
 	}

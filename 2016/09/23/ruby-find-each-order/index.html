@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+    <link rel="shortcut icon" type="image/ico" href="/img/avatar.ico">
+  
+  <title>rails find_each方法源码分析 | tianlitao|田力涛</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在项目中我们经常会使用如下代码123Product.all.each do |product|  do_somethingend
+在实际应该中如果Product表太大，一次读取会把内存占满，Rails为了解决这个问题提供了两个方法，find_each和find_in_batches方法，把记录分成几个批次，因为find_each其实最终就是调用的find_in_batches，所以这里我们以fin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rails find_each方法源码分析">
+<meta property="og:url" content="http://tianlitao.github.io/2016/09/23/ruby-find-each-order/index.html">
+<meta property="og:site_name" content="tianlitao|田力涛">
+<meta property="og:description" content="在项目中我们经常会使用如下代码123Product.all.each do |product|  do_somethingend
+在实际应该中如果Product表太大，一次读取会把内存占满，Rails为了解决这个问题提供了两个方法，find_each和find_in_batches方法，把记录分成几个批次，因为find_each其实最终就是调用的find_in_batches，所以这里我们以fin">
+<meta property="og:updated_time" content="2016-09-23T12:32:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="rails find_each方法源码分析">
+<meta name="twitter:description" content="在项目中我们经常会使用如下代码123Product.all.each do |product|  do_somethingend
+在实际应该中如果Product表太大，一次读取会把内存占满，Rails为了解决这个问题提供了两个方法，find_each和find_in_batches方法，把记录分成几个批次，因为find_each其实最终就是调用的find_in_batches，所以这里我们以fin">
+  
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">tianlitao</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/music">music</a></li>
+				        
+							<li><a href="/video">video</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="http://github.com/tianlitao" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:tianlitao3399@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/RSA-证书签名验签/" style="font-size: 10px;">RSA 证书签名验签</a> <a href="/tags/expect-脚本-服务器部署/" style="font-size: 10px;">expect 脚本 服务器部署</a> <a href="/tags/git操作/" style="font-size: 10px;">git操作</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/ie8/" style="font-size: 10px;">ie8</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/oauth认证-rails/" style="font-size: 10px;">oauth认证 rails</a> <a href="/tags/rails-sql/" style="font-size: 10px;">rails sql</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/ruby/" style="font-size: 10px;">ruby</a> <a href="/tags/ruby-rails-find-each-order/" style="font-size: 10px;">ruby rails find_each order</a> <a href="/tags/ubuntu-服务器/" style="font-size: 10px;">ubuntu 服务器</a> <a href="/tags/北京生活/" style="font-size: 10px;">北京生活</a> <a href="/tags/服务器-ubuntu/" style="font-size: 10px;">服务器 ubuntu</a> <a href="/tags/高中-最爱/" style="font-size: 10px;">高中-最爱</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">当记忆中得湿润又一次沾染了西湖之畔的离歌，当纷杂褪去，你是否会想起那夜那歌，那浅笑，那落寞。。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">tianlitao</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/avatar.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">tianlitao</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/music">music</a></li>
+		        
+					<li><a href="/video">video</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="http://github.com/tianlitao" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:tianlitao3399@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-ruby-find-each-order" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/23/ruby-find-each-order/" class="article-date">
+  	<time datetime="2016-09-23T11:28:55.000Z" itemprop="datePublished">Sep 23 2016</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      rails find_each方法源码分析
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ruby-rails-find-each-order/">ruby rails find_each order</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="在项目中我们经常会使用如下代码">在项目中我们经常会使用如下代码</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Product</span>.all.each <span class="keyword">do</span> |product|</span><br><span class="line">  do_something</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h4 id="在实际应该中如果Product表太大，一次读取会把内存占满，Rails为了解决这个问题提供了两个方法，find_each和find_in_batches方法，把记录分成几个批次，因为find_each其实最终就是调用的find_in_batches，所以这里我们以find_in_batches为例。">在实际应该中如果Product表太大，一次读取会把内存占满，Rails为了解决这个问题提供了两个方法，find_each和find_in_batches方法，把记录分成几个批次，因为find_each其实最终就是调用的find_in_batches，所以这里我们以find_in_batches为例。</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Product</span>.all.find_in_batches(<span class="symbol">start:</span> <span class="number">2000</span>, <span class="symbol">batch_size:</span> <span class="number">5000</span>,<span class="symbol">include:</span> <span class="symbol">:infos</span>) <span class="keyword">do</span> |products|</span><br><span class="line">  do_something</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>:start 选项指定批次的起始 ID<br>:batch_size 每次传入的批次数量<br>:include 可以让指定的关联和模型一同加载。避免n+1查询<br>find_in_batches 方法和 find_each 类似,是二者的不同点是，find_in_batches 把整批记录作为一个数组传入代码块，而不是单独传入各记录。</p>
+<h4 id="到了这里我们就基本了解find_each还有find_in_batches的用法了，但是实际使用中发现了一个问题，就是如果想对Product排序，是不起作用的，比如说我想降序的方式来执行,例:">到了这里我们就基本了解find_each还有find_in_batches的用法了，但是实际使用中发现了一个问题，就是如果想对Product排序，是不起作用的，比如说我想降序的方式来执行,例:</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Product</span>.all.order(<span class="string">'id desc'</span>).find_each <span class="keyword">do</span> |product|</span><br><span class="line">  do_something</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h4 id="这个时候会发现，终端输出一段提醒，并且排序没有起到效果">这个时候会发现，终端输出一段提醒，并且排序没有起到效果</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Scoped</span> order <span class="keyword">and</span> limit are ignored, it<span class="string">'s forced to be batch order and batch size</span></span><br></pre></td></tr></table></figure>
+<h4 id="接下来我们来分析下find_each的源码，看看究竟它使如何操作的。">接下来我们来分析下find_each的源码，看看究竟它使如何操作的。</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> </span>find_each(options = &#123;&#125;)</span><br><span class="line">  <span class="keyword">if</span> block_given?</span><br><span class="line">    find_in_batches(options) <span class="keyword">do</span> |records|</span><br><span class="line">      records.each &#123; |record| <span class="keyword">yield</span> record &#125;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    enum_for <span class="symbol">:find_each</span>, options <span class="keyword">do</span></span><br><span class="line">      options[<span class="symbol">:start</span>] ? where(table[primary_key].gteq(options[<span class="symbol">:start</span>])).size <span class="symbol">:</span> size</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h4 id="我们可以看到如果有传入代码块,就会直接调用find_in_batches方法,如果没有传入代码块会全部加载并转为Enumerator类-简单介绍一下Enumerable">我们可以看到如果有传入代码块,就会直接调用find_in_batches方法,如果没有传入代码块会全部加载并转为Enumerator类.简单介绍一下Enumerable</h4><blockquote>
+<p>Enumerable提供了一系列的方法，如each，collect，map，sort之类的。include了Enumerable的类只需要实现each就可以获得所有如collect, map, sort这样的方法。</p>
+</blockquote>
+<h4 id="这里我们主要来看find_in_batches方法。">这里我们主要来看find_in_batches方法。</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> </span>find_in_batches(options = &#123;&#125;)</span><br><span class="line">  options.assert_valid_keys(<span class="symbol">:start</span>, <span class="symbol">:batch_size</span>)</span><br><span class="line"></span><br><span class="line">  relation = <span class="keyword">self</span></span><br><span class="line">  start = options[<span class="symbol">:start</span>]</span><br><span class="line">  batch_size = options[<span class="symbol">:batch_size</span>] || <span class="number">1000</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">unless</span> block_given?</span><br><span class="line">    <span class="keyword">return</span> to_enum(<span class="symbol">:find_in_batches</span>, options) <span class="keyword">do</span></span><br><span class="line">      total = start ? where(table[primary_key].gteq(start)).size <span class="symbol">:</span> size</span><br><span class="line">      (total - <span class="number">1</span>).div(batch_size) + <span class="number">1</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> logger &amp;&amp; (arel.orders.present? || arel.taken.present?)</span><br><span class="line">    logger.warn(<span class="string">"Scoped order and limit are ignored, it's forced to be batch order and batch size"</span>)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  relation = relation.reorder(batch_order).limit(batch_size)</span><br><span class="line">  records = start ? relation.where(table[primary_key].gteq(start)).to_a <span class="symbol">:</span> relation.to_a</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> records.any?</span><br><span class="line">    records_size = records.size</span><br><span class="line">    primary_key_offset = records.last.id</span><br><span class="line">    raise <span class="string">"Primary key not included in the custom select clause"</span> <span class="keyword">unless</span> primary_key_offset</span><br><span class="line"></span><br><span class="line">    <span class="keyword">yield</span> records</span><br><span class="line"></span><br><span class="line">    <span class="keyword">break</span> <span class="keyword">if</span> records_size &lt; batch_size</span><br><span class="line"></span><br><span class="line">    records = relation.where(table[primary_key].gt(primary_key_offset)).to_a</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">private</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> </span>batch_order</span><br><span class="line">  <span class="string">"<span class="subst">#&#123;quoted_table_name&#125;</span>.<span class="subst">#&#123;quoted_primary_key&#125;</span> ASC"</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h4 id="可以看出核心的语句在19行以下，我们来看">可以看出核心的语句在19行以下，我们来看</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">relation = relation.reorder(batch_order).limit(batch_size)</span><br></pre></td></tr></table></figure>
+<h4 id="reorder返回会重新定义了传入的排序，改为了以主键升序排序。并且限制了获取的数量limit_batch_size-">reorder返回会重新定义了传入的排序，改为了以主键升序排序。并且限制了获取的数量limit batch_size.</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">records = start ? relation.where(table[primary_key].gteq(start)).to_a <span class="symbol">:</span> relation.to_a</span><br></pre></td></tr></table></figure>
+<h4 id="第20行，判断是否传入了start，如果传入了，从主键大于start来开始查找。到这里就已经获取了第一批的数据。">第20行，判断是否传入了start，如果传入了，从主键大于start来开始查找。到这里就已经获取了第一批的数据。</h4><h4 id="接下来while循环判断如果这一批数据不为空，获取到此次记录的size，以及最后的id，yield_加载执行传入的_do_something_代码块，当此次记录的size小于上次记录的size的时候，判定为最后一批记录，执行完成跳出，否则，通过每次最大的一次id，来重新获取最新的一批records。">接下来while循环判断如果这一批数据不为空，获取到此次记录的size，以及最后的id，yield 加载执行传入的 do_something 代码块，当此次记录的size小于上次记录的size的时候，判定为最后一批记录，执行完成跳出，否则，通过每次最大的一次id，来重新获取最新的一批records。</h4><h3 id="还没有想好如何覆写这个方法，有时间看下如何覆写这个方法，或者自己重新定义一个新的方法来实现。">还没有想好如何覆写这个方法，有时间看下如何覆写这个方法，或者自己重新定义一个新的方法来实现。</h3>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/09/18/ie8下Array不支持indexof解决办法/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ie8下Array不支持indexOf解决办法</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="ruby-find-each-order" data-title="rails find_each方法源码分析" data-url="http://tianlitao.github.io/2016/09/23/ruby-find-each-order/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"tianlitao"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 tianlitao
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
