@@ -4,12 +4,12 @@
   <meta charset="utf-8">
     <link rel="shortcut icon" type="image/ico" href="/img/avatar.ico">
   
-  <title>tianlitao|田力涛</title>
+  <title>Tag: rails find_each_with_order | tianlitao|田力涛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="tianlitao 田力涛 rails ubuntu">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tianlitao|田力涛">
-<meta property="og:url" content="http://tianlitao.github.io/index.html">
+<meta property="og:url" content="http://tianlitao.github.io/tags/rails-find-each-with-order/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
 <meta property="og:description" content="tianlitao 田力涛 rails ubuntu">
 <meta name="twitter:card" content="summary">
@@ -221,185 +221,7 @@
 
 
   
-    <article id="post-ruby-find-each-order" class="article article-type-post" itemscope itemprop="blogPost">
   
-    <div class="article-meta">
-      <a href="/2016/09/23/ruby-find-each-order/" class="article-date">
-  	<time datetime="2016-09-23T11:28:55.000Z" itemprop="datePublished">Sep 23 2016</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/23/ruby-find-each-order/">rails find_each方法源码分析</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="在项目中我们经常会使用如下代码">在项目中我们经常会使用如下代码</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Product</span>.all.each <span class="keyword">do</span> |product|</span><br><span class="line">  do_something</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<h4 id="在实际应该中如果Product表太大，一次读取会把内存占满，Rails为了解决这个问题提供了两个方法，find_each和find_in_batches方法，把记录分成几个批次，因为find_each其实最终就是调用的find_in_batches，所以这里我们以find_in_batches为例。">在实际应该中如果Product表太大，一次读取会把内存占满，Rails为了解决这个问题提供了两个方法，find_each和find_in_batches方法，把记录分成几个批次，因为find_each其实最终就是调用的find_in_batches，所以这里我们以find_in_batches为例。</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Product</span>.all.find_in_batches(<span class="symbol">start:</span> <span class="number">2000</span>, <span class="symbol">batch_size:</span> <span class="number">5000</span>,<span class="symbol">include:</span> <span class="symbol">:infos</span>) <span class="keyword">do</span> |products|</span><br><span class="line">  do_something</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/find-each/">find_each</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/order/">order</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ruby/">ruby</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/09/23/ruby-find-each-order/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
-    <article id="post-ie8下Array不支持indexof解决办法" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/09/18/ie8下Array不支持indexof解决办法/" class="article-date">
-  	<time datetime="2016-09-18T13:52:28.000Z" itemprop="datePublished">Sep 18 2016</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/18/ie8下Array不支持indexof解决办法/">ie8下Array不支持indexOf解决办法</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天碰到了一个ie8兼容性的bug，Array使用indexOf()报错，先介绍下indexOf的用法：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var indexVar = <span class="constant">Array</span>.indexOf(array, item, start);</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>搜索 Array 对象的指定元素并返回该元素的索引。<br>array: 要搜索的数组。<br>item: 要在数组中查找的对象。<br>startIndex:（可选）指定在数组中搜索的起始元素的索引号。</p>
-</blockquote>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ie8/">ie8</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/09/18/ie8下Array不支持indexof解决办法/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
-    <article id="post-git删除远程仓库的某次提交以及误操作恢复" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/09/03/git删除远程仓库的某次提交以及误操作恢复/" class="article-date">
-  	<time datetime="2016-09-03T08:07:59.000Z" itemprop="datePublished">Sep 3 2016</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/03/git删除远程仓库的某次提交以及误操作恢复/">git删除远程仓库的某次提交以及误操作恢复</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="前两天工作的时候遇到了一个问题，开发的时候发现远程仓库之前的某次提交是没有必要的，需要删除掉这次提交。网上搜索了搜也没有找到解决的方法，问了问同事也都说不行。在我直觉看来git这么强大应该肯定可以得吧，后来突然想起了一个命令cherry-pick。">前两天工作的时候遇到了一个问题，开发的时候发现远程仓库之前的某次提交是没有必要的，需要删除掉这次提交。网上搜索了搜也没有找到解决的方法，问了问同事也都说不行。在我直觉看来git这么强大应该肯定可以得吧，后来突然想起了一个命令cherry-pick。</h3><blockquote>
-<p>Git cherry-pick可以选择某一个分支中的一个或几个commit(s)来进行操作。例如，假设我们有个稳定版本的分支，叫v2.0，另外还有个开发版本的分支v3.0，我们不能直接把两个分支合并，这样会导致稳定版本混乱，但是又想增加一个v3.0中的功能到v2.0中，这里就可以使用<code>cherry-pick</code>了。<br>就是对已经存在的v3.0的某次commit合并到v2.0<br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git操作/">git操作</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/09/03/git删除远程仓库的某次提交以及误操作恢复/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
-  
-
 </div>
       <footer id="footer">
 <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
@@ -428,10 +250,10 @@
 		fancybox: true,
 		mathjax: true,
 		animate: true,
-		isHome: true,
+		isHome: false,
 		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false
 	}
