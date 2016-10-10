@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://tianlitao.github.io/2016/10/04/find-each-with-order/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
 <meta property="og:description" content="上一篇blog，分析了一下find_each的源码，后来又查了一下解决的办法，这里记录一下找到的几种可以代替find_each的方法。第一种 先排好序，获取到已经排好序的ids数组，然后对数组分组执行1234567batch_size = 512ids = Thing.order(&apos;created_at DESC&apos;).pluck(:id) # Replace .order(:created_at)">
-<meta property="og:updated_time" content="2016-10-05T02:03:18.000Z">
+<meta property="og:updated_time" content="2016-10-05T02:03:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="find_each_with_order">
 <meta name="twitter:description" content="上一篇blog，分析了一下find_each的源码，后来又查了一下解决的办法，这里记录一下找到的几种可以代替find_each的方法。第一种 先排好序，获取到已经排好序的ids数组，然后对数组分组执行1234567batch_size = 512ids = Thing.order(&apos;created_at DESC&apos;).pluck(:id) # Replace .order(:created_at)">
@@ -87,6 +87,8 @@
 				        
 							<li><a href="/video">video</a></li>
 				        
+							<li><a href="/about">about</a></li>
+				        
 						</ul>
 					</nav>
 					<nav class="header-nav">
@@ -147,6 +149,8 @@
 					<li><a href="/music">music</a></li>
 		        
 					<li><a href="/video">video</a></li>
+		        
+					<li><a href="/about">about</a></li>
 		        
 		        <div class="clearfix"></div>
 				</ul>

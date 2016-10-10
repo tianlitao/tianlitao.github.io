@@ -4,17 +4,60 @@
   <meta charset="utf-8">
     <link rel="shortcut icon" type="image/ico" href="/img/avatar.ico">
   
-  <title>Tag: ruby | tianlitao|田力涛</title>
+  <title>关于我 | tianlitao|田力涛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="tianlitao 田力涛 rails ubuntu">
+  <meta name="description" content="About ME
+姓名：田力涛
+性别：男
+学历：本科(河北科技大学)
+Email: tianlitao#gmail.com
+Github: https://github.com/tianlitaoTechnical List
+编程语言：
+熟悉：JavaScript、HTML、CSS、PHP
+熟练：ruby 
+
+
+后端框架：Rails
+数据库： Mysql,Redis
+版本管理：Git
+开发工具：">
 <meta property="og:type" content="website">
-<meta property="og:title" content="tianlitao|田力涛">
-<meta property="og:url" content="http://tianlitao.github.io/tags/ruby/index.html">
+<meta property="og:title" content="关于我">
+<meta property="og:url" content="http://tianlitao.github.io/about/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
-<meta property="og:description" content="tianlitao 田力涛 rails ubuntu">
+<meta property="og:description" content="About ME
+姓名：田力涛
+性别：男
+学历：本科(河北科技大学)
+Email: tianlitao#gmail.com
+Github: https://github.com/tianlitaoTechnical List
+编程语言：
+熟悉：JavaScript、HTML、CSS、PHP
+熟练：ruby 
+
+
+后端框架：Rails
+数据库： Mysql,Redis
+版本管理：Git
+开发工具：">
+<meta property="og:updated_time" content="2016-10-10T14:09:17.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tianlitao|田力涛">
-<meta name="twitter:description" content="tianlitao 田力涛 rails ubuntu">
+<meta name="twitter:title" content="关于我">
+<meta name="twitter:description" content="About ME
+姓名：田力涛
+性别：男
+学历：本科(河北科技大学)
+Email: tianlitao#gmail.com
+Github: https://github.com/tianlitaoTechnical List
+编程语言：
+熟悉：JavaScript、HTML、CSS、PHP
+熟练：ruby 
+
+
+后端框架：Rails
+数据库： Mysql,Redis
+版本管理：Git
+开发工具：">
   
   
   <link rel="stylesheet" href="/css/style.css" type="text/css">
@@ -166,13 +209,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-ruby-find-each-order" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/09/23/ruby-find-each-order/" class="article-date">
-  	<time datetime="2016-09-23T11:28:55.000Z" itemprop="datePublished">Sep 23 2016</time>
+      <a href="/about/index.html" class="article-date">
+  	<time datetime="2016-10-10T11:11:28.000Z" itemprop="datePublished">Oct 10 2016</time>
 </a>
     </div>
   
@@ -184,105 +225,106 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/23/ruby-find-each-order/">rails find_each方法源码分析</a>
+    <h1 class="article-title" itemprop="name">
+      关于我
     </h1>
   
 
       </header>
       
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="在项目中我们经常会使用如下代码">在项目中我们经常会使用如下代码</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Product</span>.all.each <span class="keyword">do</span> |product|</span><br><span class="line">  do_something</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<h4 id="在实际应该中如果Product表太大，一次读取会把内存占满，Rails为了解决这个问题提供了两个方法，find_each和find_in_batches方法，把记录分成几个批次，因为find_each其实最终就是调用的find_in_batches，所以这里我们以find_in_batches为例。">在实际应该中如果Product表太大，一次读取会把内存占满，Rails为了解决这个问题提供了两个方法，find_each和find_in_batches方法，把记录分成几个批次，因为find_each其实最终就是调用的find_in_batches，所以这里我们以find_in_batches为例。</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Product</span>.all.find_in_batches(<span class="symbol">start:</span> <span class="number">2000</span>, <span class="symbol">batch_size:</span> <span class="number">5000</span>,<span class="symbol">include:</span> <span class="symbol">:infos</span>) <span class="keyword">do</span> |products|</span><br><span class="line">  do_something</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/find-each/">find_each</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/order/">order</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ruby/">ruby</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/09/23/ruby-find-each-order/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
-    <article id="post-ruby object-to-s之后如何找到之前的object" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/07/01/ruby object-to-s之后如何找到之前的object/" class="article-date">
-  	<time datetime="2016-07-01T04:37:39.000Z" itemprop="datePublished">Jul 1 2016</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+      <div class="article-info article-info-post">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/01/ruby object-to-s之后如何找到之前的object/">ruby object.to_s之后如何找到之前的object</a>
-    </h1>
-  
+        
 
-      </header>
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="今天同事问了我一个问题，已知">今天同事问了我一个问题，已知</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="constant">User</span>.first.to_s</span><br><span class="line"><span class="string">"#&lt;User:0x007fe9a579ba30&gt;"</span></span><br></pre></td></tr></table></figure>
-<p>如何通过a找到User.first这个实例对象
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ruby/">ruby</a></li></ul>
-	</div>
+        <h2 id="About_ME"><strong>About ME</strong></h2><ul>
+<li>姓名：田力涛</li>
+<li>性别：男</li>
+<li>学历：本科(河北科技大学)</li>
+<li>Email: tianlitao#gmail.com</li>
+<li>Github: <a href="https://github.com/tianlitao" target="_blank" rel="external">https://github.com/tianlitao</a><h2 id="Technical_List"><strong>Technical List</strong></h2></li>
+<li>编程语言：<ul>
+<li>熟悉：JavaScript、HTML、CSS、PHP</li>
+<li>熟练：ruby </li>
+</ul>
+</li>
+<li>后端框架：Rails</li>
+<li>数据库： Mysql,Redis</li>
+<li>版本管理：Git</li>
+<li>开发工具：<ul>
+<li>OS平台：<ul>
+<li>开发环境：Mac-OSX</li>
+<li>生产环境：Ubuntu 14.04</li>
+</ul>
+</li>
+<li>IDE: RubyMine</li>
+<li>Edit: Sublime Text,Vim</li>
+</ul>
+</li>
+<li>服务器部署：nginx,passenger,Jenkins,God<h2 id="Project"><strong>Project</strong></h2></li>
+<li>2014.05 – 2015.07(石家庄几米网络科技有限公司)<ul>
+<li><a href="http://www.codefordream.com" target="_blank" rel="external">http://www.codefordream.com</a></li>
+</ul>
+</li>
+<li>2015.07 –  至今（北京阳光公采科技有限公司）<ul>
+<li><a href="http://www.govbuy.cn" target="_blank" rel="external">http://www.govbuy.cn</a> </li>
+</ul>
+</li>
+</ul>
 
       
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/07/01/ruby object-to-s之后如何找到之前的object/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
     </div>
     
   </div>
   
+    
+  
 </article>
 
 
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
 
 
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="undefined" data-title="关于我" data-url="http://tianlitao.github.io/about/index.html"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"tianlitao"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
-  
-  
+
+
 </div>
       <footer id="footer">
 <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
@@ -314,7 +356,7 @@
 		isHome: false,
 		isPost: false,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false
 	}
