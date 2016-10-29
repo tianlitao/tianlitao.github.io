@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+    <link rel="shortcut icon" type="image/ico" href="/img/avatar.ico">
+  
+  <title>sql datetime whether two date range overlap | tianlitao|田力涛</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="碰到一个需求，一个时间段内只允许有一个计划，也就是说数据库中的时间区间不能有重复或交叉，记录下从复杂到简单的简化过程。1.刚开始想的时候感觉这个有很多种情况，然后把每一次情况都用sql标识出来，写的语句如下。12345678910111213141516#情况如下：#  a:       |------|#  b:   |------|#  a.start_time &amp;gt;= start_at">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql datetime whether two date range overlap">
+<meta property="og:url" content="http://tianlitao.github.io/2016/10/29/datetime-whether-two-date-range-overlap/index.html">
+<meta property="og:site_name" content="tianlitao|田力涛">
+<meta property="og:description" content="碰到一个需求，一个时间段内只允许有一个计划，也就是说数据库中的时间区间不能有重复或交叉，记录下从复杂到简单的简化过程。1.刚开始想的时候感觉这个有很多种情况，然后把每一次情况都用sql标识出来，写的语句如下。12345678910111213141516#情况如下：#  a:       |------|#  b:   |------|#  a.start_time &amp;gt;= start_at">
+<meta property="og:updated_time" content="2016-10-29T14:03:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sql datetime whether two date range overlap">
+<meta name="twitter:description" content="碰到一个需求，一个时间段内只允许有一个计划，也就是说数据库中的时间区间不能有重复或交叉，记录下从复杂到简单的简化过程。1.刚开始想的时候感觉这个有很多种情况，然后把每一次情况都用sql标识出来，写的语句如下。12345678910111213141516#情况如下：#  a:       |------|#  b:   |------|#  a.start_time &amp;gt;= start_at">
+  
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">tianlitao</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/music">music</a></li>
+				        
+							<li><a href="/video">video</a></li>
+				        
+							<li><a href="/about">about</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="http://github.com/tianlitao" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:tianlitao3399@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/RSA-证书签名验签/" style="font-size: 10px;">RSA 证书签名验签</a> <a href="/tags/expect/" style="font-size: 10px;">expect</a> <a href="/tags/expect-脚本-服务器自动登陆/" style="font-size: 10px;">expect 脚本 服务器自动登陆</a> <a href="/tags/find-each/" style="font-size: 10px;">find_each</a> <a href="/tags/git操作/" style="font-size: 10px;">git操作</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/ie8/" style="font-size: 10px;">ie8</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/oauth认证/" style="font-size: 10px;">oauth认证</a> <a href="/tags/order/" style="font-size: 10px;">order</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/rails-find-each-with-order/" style="font-size: 10px;">rails find_each_with_order</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/ruby/" style="font-size: 15px;">ruby</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/sql-datetime-between/" style="font-size: 10px;">sql datetime between</a> <a href="/tags/ubuntu/" style="font-size: 15px;">ubuntu</a> <a href="/tags/北京生活/" style="font-size: 10px;">北京生活</a> <a href="/tags/服务器/" style="font-size: 15px;">服务器</a> <a href="/tags/服务器部署/" style="font-size: 10px;">服务器部署</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/高中-最爱/" style="font-size: 10px;">高中-最爱</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">当记忆中得湿润又一次沾染了西湖之畔的离歌，当纷杂褪去，你是否会想起那夜那歌，那浅笑，那落寞。。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">tianlitao</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/avatar.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">tianlitao</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/music">music</a></li>
+		        
+					<li><a href="/video">video</a></li>
+		        
+					<li><a href="/about">about</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="http://github.com/tianlitao" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:tianlitao3399@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-datetime-whether-two-date-range-overlap" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/29/datetime-whether-two-date-range-overlap/" class="article-date">
+  	<time datetime="2016-10-29T13:41:36.000Z" itemprop="datePublished">Oct 29 2016</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      sql datetime whether two date range overlap
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql-datetime-between/">sql datetime between</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="碰到一个需求，一个时间段内只允许有一个计划，也就是说数据库中的时间区间不能有重复或交叉，记录下从复杂到简单的简化过程。">碰到一个需求，一个时间段内只允许有一个计划，也就是说数据库中的时间区间不能有重复或交叉，记录下从复杂到简单的简化过程。</h3><h3 id="1-刚开始想的时候感觉这个有很多种情况，然后把每一次情况都用sql标识出来，写的语句如下。">1.刚开始想的时候感觉这个有很多种情况，然后把每一次情况都用sql标识出来，写的语句如下。</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#情况如下：</span></span><br><span class="line"><span class="comment">#  a:       |------|</span></span><br><span class="line"><span class="comment">#  b:   |------|</span></span><br><span class="line"><span class="comment">#  a.start_time &gt;= start_at and a.start_time &lt;= end_at</span></span><br><span class="line"><span class="comment">#  a: |------| </span></span><br><span class="line"><span class="comment">#  b:    |------|</span></span><br><span class="line"><span class="comment">#  a.end_time &gt;= start_at and a.end_time &lt;= end_at</span></span><br><span class="line"><span class="comment">#  a:   |------|</span></span><br><span class="line"><span class="comment">#  b: |----------|</span></span><br><span class="line"><span class="comment">#  a.start_time &gt;= start_at and a.end_time &lt;= end_at</span></span><br><span class="line"><span class="comment">#  a: |----------|</span></span><br><span class="line"><span class="comment">#  b:   |------|</span></span><br><span class="line"><span class="comment">#  a.start_time &lt;= start_at and a.end_time &gt;= end_at</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#代码如下：</span></span><br><span class="line">plan = <span class="constant">Plan</span>.where(<span class="string">'((start_time &gt;= ? and start_time &lt;= ?) or (end_time &gt;= ? and end_time &lt;= ?) or (start_time  &gt;=  ? and end_time &lt;= ?) or (start_time &lt;= ? and end_time &gt;= ?) )'</span>,start_at, end_at, start_at, end_at, start_at, end_at, start_at, end_at)</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="2-后来感觉太复杂了，就在论坛里发帖问了下，rails代码可以这么写">2.后来感觉太复杂了，就在论坛里发帖问了下，rails代码可以这么写</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plan = <span class="constant">Plan</span>.where(<span class="string">'((start_time &gt;= :start_at and start_time &lt;= :end_at) or (end_time &gt;= :start_at and end_time &lt;=  :end_at) or (start_time  &gt;= :start_at and end_time &lt;=  :end_at) or (start_time &lt;= :start_at and end_time &gt;=  :end_at) )'</span>,<span class="symbol">start_at:</span> start_at, <span class="symbol">end_at:</span> end_at)</span><br></pre></td></tr></table></figure>
+<h3 id="3-后来优化了一次，发现好多情况其实都是重复的，优化之后的情况为：">3.后来优化了一次，发现好多情况其实都是重复的，优化之后的情况为：</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#  a:       |------|</span></span><br><span class="line"><span class="comment">#  b:   |------|</span></span><br><span class="line"><span class="comment">#  a.start_time &gt;= start_at and a.start_time &lt;= end_at</span></span><br><span class="line"><span class="comment">#  a: |------| </span></span><br><span class="line"><span class="comment">#  b:    |------|</span></span><br><span class="line"><span class="comment">#  a.start_time &lt;= start_at and a.end_time &gt;= start_at</span></span><br><span class="line"></span><br><span class="line">plan = <span class="constant">Plan</span>.where(<span class="string">'((start_time &gt;= :start_at and start_time &lt;= :end_at) or (start_time &lt;= :start_at and end_time &gt;=  :start_at) )'</span>,<span class="symbol">start_at:</span> start_at, <span class="symbol">end_at:</span> end_at)</span><br></pre></td></tr></table></figure>
+<h3 id="4-@quakewang_帮着理了一下思路，最后的结果为：">4.@quakewang 帮着理了一下思路，最后的结果为：</h3><p>先是判断时间区段不重叠，有2种情况<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">                        |start_a ----- end_a| </span><br><span class="line">|start_b ----- end_b|                       </span><br><span class="line"></span><br><span class="line">---------------------------------------------</span><br><span class="line"></span><br><span class="line">|start_a ----- end_a|                        </span><br><span class="line">                        |start_b ----- end_b|</span><br></pre></td></tr></table></figure></p>
+<p>得出不重叠的表达式是：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start_a &gt; end_b || end_a &lt; start_b</span><br></pre></td></tr></table></figure></p>
+<p>那么不重叠就是取反<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!(start_a &gt; end_b || end_a &lt; start_b)</span><br></pre></td></tr></table></figure></p>
+<p>布尔运算等价于<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start_a &lt;= end_b <span class="keyword">and</span> end_a &gt;= start_b</span><br></pre></td></tr></table></figure></p>
+<p>最终的结果为：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plan = <span class="constant">Plan</span>.where(<span class="string">'start_time &lt;= ? and end_time &gt;= ?'</span>, end_at, start_at）</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://ruby-china.org/topics/31330" target="_blank" rel="external">参考链接1</a><br><a href="http://stackoverflow.com/questions/325933/determine-whether-two-date-ranges-overlap" target="_blank" rel="external">参考链接2</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/10/15/expect-auto-login/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">expect-auto-login</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="datetime-whether-two-date-range-overlap" data-title="sql datetime whether two date range overlap" data-url="http://tianlitao.github.io/2016/10/29/datetime-whether-two-date-range-overlap/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"tianlitao"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+</div>
+      <footer id="footer">
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 tianlitao
+        <span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
