@@ -4,30 +4,21 @@
   <meta charset="utf-8">
     <link rel="shortcut icon" type="image/ico" href="/img/avatar.ico">
   
-  <title>自动登录 服务器部署 | tianlitao|田力涛</title>
+  <title>ruby object.to_s之后如何找到之前的object | tianlitao|田力涛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ssh不输入密码，自动登陆1.在本机 ~/.ssh 下新建config ，添加服务器ip，以及host简称，格式如下：Host emall
-  HostName 139.129.128.51
-  Port 22
-  User root
-   保存后 ssh emall就相当于 ssh root@139.129.128.51">
+  <meta name="description" content="今天同事问了我一个问题，已知12a = User.first.to_s&quot;#&amp;lt;User:0x007fe9a579ba30&amp;gt;&quot;
+如何通过a找到User.first这个实例对象">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自动登录 服务器部署">
-<meta property="og:url" content="http://tianlitao.github.io/2016/01/31/自动登录 服务器部署/index.html">
+<meta property="og:title" content="ruby object.to_s之后如何找到之前的object">
+<meta property="og:url" content="http://tianlitao.github.io/2016/07/01/ruby-object-to-s之后如何找到之前的object/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
-<meta property="og:description" content="ssh不输入密码，自动登陆1.在本机 ~/.ssh 下新建config ，添加服务器ip，以及host简称，格式如下：Host emall
-  HostName 139.129.128.51
-  Port 22
-  User root
-   保存后 ssh emall就相当于 ssh root@139.129.128.51">
-<meta property="og:updated_time" content="2016-09-23T12:39:32.000Z">
+<meta property="og:description" content="今天同事问了我一个问题，已知12a = User.first.to_s&quot;#&amp;lt;User:0x007fe9a579ba30&amp;gt;&quot;
+如何通过a找到User.first这个实例对象">
+<meta property="og:updated_time" content="2016-09-03T08:52:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自动登录 服务器部署">
-<meta name="twitter:description" content="ssh不输入密码，自动登陆1.在本机 ~/.ssh 下新建config ，添加服务器ip，以及host简称，格式如下：Host emall
-  HostName 139.129.128.51
-  Port 22
-  User root
-   保存后 ssh emall就相当于 ssh root@139.129.128.51">
+<meta name="twitter:title" content="ruby object.to_s之后如何找到之前的object">
+<meta name="twitter:description" content="今天同事问了我一个问题，已知12a = User.first.to_s&quot;#&amp;lt;User:0x007fe9a579ba30&amp;gt;&quot;
+如何通过a找到User.first这个实例对象">
   
   
   <link rel="stylesheet" href="/css/style.css" type="text/css">
@@ -117,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/RSA-证书签名验签/" style="font-size: 10px;">RSA 证书签名验签</a> <a href="/tags/expect/" style="font-size: 10px;">expect</a> <a href="/tags/expect-脚本-服务器自动登陆/" style="font-size: 10px;">expect 脚本 服务器自动登陆</a> <a href="/tags/find-each/" style="font-size: 10px;">find_each</a> <a href="/tags/git操作/" style="font-size: 10px;">git操作</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/ie8/" style="font-size: 10px;">ie8</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/oauth认证/" style="font-size: 10px;">oauth认证</a> <a href="/tags/order/" style="font-size: 10px;">order</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/rails-find-each-with-order/" style="font-size: 10px;">rails find_each_with_order</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/ruby/" style="font-size: 15px;">ruby</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/sql-datetime-between/" style="font-size: 10px;">sql datetime between</a> <a href="/tags/ubuntu/" style="font-size: 15px;">ubuntu</a> <a href="/tags/北京生活/" style="font-size: 10px;">北京生活</a> <a href="/tags/服务器/" style="font-size: 15px;">服务器</a> <a href="/tags/服务器部署/" style="font-size: 10px;">服务器部署</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/高中-最爱/" style="font-size: 10px;">高中-最爱</a>
+						<a href="/tags/RSA-证书签名验签/" style="font-size: 10px;">RSA 证书签名验签</a> <a href="/tags/expect/" style="font-size: 10px;">expect</a> <a href="/tags/expect-脚本-服务器自动登陆/" style="font-size: 10px;">expect 脚本 服务器自动登陆</a> <a href="/tags/find-each/" style="font-size: 10px;">find_each</a> <a href="/tags/git操作/" style="font-size: 10px;">git操作</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/ie8/" style="font-size: 10px;">ie8</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/oauth认证/" style="font-size: 10px;">oauth认证</a> <a href="/tags/order/" style="font-size: 10px;">order</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/rails-find-each-with-order/" style="font-size: 10px;">rails find_each_with_order</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/ruby/" style="font-size: 15px;">ruby</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/sql-datetime-between/" style="font-size: 10px;">sql datetime between</a> <a href="/tags/squid-nginx-内网-正向代理-转发/" style="font-size: 10px;">squid nginx 内网 正向代理 转发</a> <a href="/tags/ubuntu/" style="font-size: 15px;">ubuntu</a> <a href="/tags/北京生活/" style="font-size: 10px;">北京生活</a> <a href="/tags/服务器/" style="font-size: 15px;">服务器</a> <a href="/tags/服务器部署/" style="font-size: 10px;">服务器部署</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/高中-最爱/" style="font-size: 10px;">高中-最爱</a>
 					</div>
 				</section>
 				
@@ -179,11 +170,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-自动登录 服务器部署" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-ruby-object-to-s之后如何找到之前的object" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/01/31/自动登录 服务器部署/" class="article-date">
-  	<time datetime="2016-01-31T07:00:37.000Z" itemprop="datePublished">Jan 31 2016</time>
+      <a href="/2016/07/01/ruby-object-to-s之后如何找到之前的object/" class="article-date">
+  	<time datetime="2016-07-01T04:37:39.000Z" itemprop="datePublished">Jul 1 2016</time>
 </a>
     </div>
   
@@ -196,7 +187,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      自动登录 服务器部署
+      ruby object.to_s之后如何找到之前的object
     </h1>
   
 
@@ -205,7 +196,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/服务器/">服务器</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ruby/">ruby</a></li></ul>
 	</div>
 
         
@@ -216,35 +207,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="ssh不输入密码，自动登陆">ssh不输入密码，自动登陆</h1><h3 id="1-在本机_~/-ssh_下新建config_，添加服务器ip，以及host简称，格式如下：">1.在本机 ~/.ssh 下新建config ，添加服务器ip，以及host简称，格式如下：</h3><pre><code><span class="tag">Host</span> <span class="tag">emall</span>
-  <span class="tag">HostName</span> 139<span class="class">.129</span><span class="class">.128</span><span class="class">.51</span>
-  <span class="tag">Port</span> 22
-  <span class="tag">User</span> <span class="tag">root</span>
-</code></pre><p>   保存后 ssh emall就相当于 ssh root@139.129.128.51 <a id="more"></a></p>
-<h3 id="2-在本机终端执行命令">2.在本机终端执行命令</h3><pre><code>ssh-keygen -t rsa
-</code></pre><p>   一路回车执行，会生成key。private_key会保存在 ~/.ssh/id_rsa ,public_key会保存在 ~/.ssh/id_rsa.pub下</p>
-<h3 id="3-将本地的public_key复制到远程服务器上实现免登陆">3.将本地的public_key复制到远程服务器上实现免登陆</h3><pre><code>ssh-copy-id -<span class="tag">i</span> ~/.ssh/id_rsa<span class="class">.pub</span> root@<span class="number">139.129</span>.<span class="number">128.51</span>
-</code></pre><h3 id="4-完成之后即可通过_ssh_emall_来登陆服务器">4.完成之后即可通过 ssh emall 来登陆服务器</h3><h1 id="ruby_passenger以及nginx配置等，可参考文章">ruby passenger以及nginx配置等，可参考文章</h1><p>   <a href="https://ruby-china.org/topics/17553" target="_blank" rel="external">在 Aliyun 上快速部署 Ruby on Rails</a></p>
-<h1 id="在服务器上添加自动部署脚本">在服务器上添加自动部署脚本</h1><h3 id="1-在服务器新建脚本文件_/emall-sh">1.在服务器新建脚本文件 /emall.sh</h3><pre><code><span class="shebang">#!/bin/bash</span>
-<span class="built_in">cd</span> /alidata1/project
-
-git pull origin master
-
-<span class="built_in">source</span> /etc/profile
-
-bundle
-
-bundle <span class="built_in">exec</span> rake assets:precompile RAILS_ENV=production
-
-bundle <span class="built_in">exec</span> rake db:migrate RAILS_ENV=production
-
-god restart nginx <span class="comment">#通过god来重启nginx，如果不用god，可以通过sudo nginx -s reload</span>
-</code></pre><h3 id="2-在本地新建脚本_emall_restart-sh">2.在本地新建脚本 emall_restart.sh</h3><pre><code><span class="shebang">#!/bin/bash</span>
-<span class="built_in">echo</span> <span class="string">'服务器更新开始'</span>
-ssh emall <span class="string">'/bin/bash /alidata1/emall.sh'</span>
-<span class="built_in">echo</span> <span class="string">'服务器更新结束'</span>
-</code></pre><h3 id="3-需要重新拉代码更新服务器的时候执行">3.需要重新拉代码更新服务器的时候执行</h3><pre><code><span class="regexp">/bin/</span>bash  <span class="regexp">/home/</span>tlt<span class="regexp">/work/</span>shell<span class="regexp">/emall_restart.sh</span>
-</code></pre><p>   即可重新部署服务器上的项目</p>
+        <h3 id="今天同事问了我一个问题，已知">今天同事问了我一个问题，已知</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="constant">User</span>.first.to_s</span><br><span class="line"><span class="string">"#&lt;User:0x007fe9a579ba30&gt;"</span></span><br></pre></td></tr></table></figure>
+<p>如何通过a找到User.first这个实例对象<a id="more"></a></p>
+<h3 id="首先查看了一下文档，找到了object-to_s方法,object-to_s方法是取到object的class_name以及object_id，但是它显示出的十六进制，跟直接通过">首先查看了一下<a href="http://ruby-doc.org/core-2.3.1/Object.html#method-i-to_s" target="_blank" rel="external">文档</a>，找到了object.to_s方法,object.to_s方法是取到object的class_name以及object_id，但是它显示出的十六进制，跟直接通过</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">b = <span class="constant">User</span>.first.object_id</span><br><span class="line"><span class="number">70320739687060</span></span><br></pre></td></tr></table></figure>
+<p>取出来的object_id不同,但是object.to_s取出object_id的时候对它是如何处理的呢？然后我搜到了一篇<a href="http://qa.helplib.com/882299" target="_blank" rel="external">文章</a>,里面有讲</p>
+<blockquote>
+<p>C 中的注释源底层的实现 object_id 显示， 有不同的 Ruby值和对象id ， 具体取决于对象的类型( 例如 最低位全部Fixnums除外) 似乎为零.</p>
+</blockquote>
+<p>然后查看Object#object_id <a href="http://ruby-doc.org/core-2.3.1/Object.html#method-i-object_id" target="_blank" rel="external">docs</a></p>
+<h3 id="最后得出结果">最后得出结果</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="constant">User</span>.first</span><br><span class="line"><span class="string">"#&lt;User:0x007fe9a5673b58&gt;"</span></span><br><span class="line">a.object_id</span><br><span class="line"><span class="number">70320739556780</span></span><br><span class="line"><span class="string">'0x007fe9a5673b58'</span>.hex <span class="prompt">&gt;&gt; </span><span class="number">1</span></span><br><span class="line"><span class="number">70320739556780</span></span><br></pre></td></tr></table></figure>
+<p>取出to_s生成的16进制object_id，把它转换为十进制，并右移一位。</p>
+<h3 id="找到了正确可用的object_id就可以通过">找到了正确可用的object_id就可以通过</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">user = <span class="constant">ObjectSpace</span>._id2ref(<span class="number">70320739556780</span>)</span><br><span class="line">user == a</span><br><span class="line"><span class="keyword">true</span></span><br></pre></td></tr></table></figure>
+<p>取到需要的实例对象。</p>
 
       
     </div>
@@ -254,18 +228,18 @@ ssh emall <span class="string">'/bin/bash /alidata1/emall.sh'</span>
     
 <nav id="article-nav">
   
-    <a href="/2016/01/31/rails oauth 第三方登陆/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/07/07/redis作为页面缓存设置缓存大小/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          rails oauth第三方登陆
+          redis作为页面缓存设置缓存大小
         
       </div>
     </a>
   
   
-    <a href="/2016/01/31/我的2015-北京/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">我的2015-北京</div>
+    <a href="/2016/03/12/ruby-银行对接证书的签名以及验签/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ruby 银行对接证书的签名以及验签</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -294,7 +268,7 @@ ssh emall <span class="string">'/bin/bash /alidata1/emall.sh'</span>
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="自动登录 服务器部署" data-title="自动登录 服务器部署" data-url="http://tianlitao.github.io/2016/01/31/自动登录 服务器部署/"></div>
+	<div class="ds-thread" data-thread-key="ruby-object-to-s之后如何找到之前的object" data-title="ruby object.to_s之后如何找到之前的object" data-url="http://tianlitao.github.io/2016/07/01/ruby-object-to-s之后如何找到之前的object/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
