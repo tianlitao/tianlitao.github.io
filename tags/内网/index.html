@@ -4,12 +4,12 @@
   <meta charset="utf-8">
     <link rel="shortcut icon" type="image/ico" href="/img/avatar.ico">
   
-  <title>Tag: 服务器部署 | tianlitao|田力涛</title>
+  <title>Tag: 内网 | tianlitao|田力涛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="tianlitao 田力涛 rails ubuntu">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tianlitao|田力涛">
-<meta property="og:url" content="http://tianlitao.github.io/tags/服务器部署/index.html">
+<meta property="og:url" content="http://tianlitao.github.io/tags/内网/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
 <meta property="og:description" content="tianlitao 田力涛 rails ubuntu">
 <meta name="twitter:card" content="summary">
@@ -168,11 +168,11 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-使用expect脚本-服务器自动登陆部署" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-使用squid、nginx实现代理服务器内网转发-md" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/08/30/使用expect脚本-服务器自动登陆部署/" class="article-date">
-  	<time datetime="2016-08-30T03:25:48.000Z" itemprop="datePublished">Aug 30 2016</time>
+      <a href="/2016/11/06/使用squid、nginx实现代理服务器内网转发-md/" class="article-date">
+  	<time datetime="2016-11-06T05:00:50.000Z" itemprop="datePublished">Nov 6 2016</time>
 </a>
     </div>
   
@@ -185,7 +185,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/30/使用expect脚本-服务器自动登陆部署/">使用expect脚本 服务器自动登陆部署</a>
+      <a class="article-title" href="/2016/11/06/使用squid、nginx实现代理服务器内网转发-md/">使用squid、nginx实现代理服务器内网转发</a>
     </h1>
   
 
@@ -194,22 +194,23 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="之前写过一篇blog，使用公钥和私钥来实现自动登录，后来发现这种方式有一些局限性，比如说服务器设置了用户权限，不允许root用户直接登录，而其它用户又没有~/-ssh的权限，又或者使用了跳转机等。每次登录都要复制两次密码来登录，很是麻烦，后来google了一下，了解了一下expect，来实现服务器的自动登录、跳转、部署等。">之前写过一篇blog，使用<a href="http://tianlitao.github.io/2016/01/31/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/">公钥和私钥来实现自动登录</a>，后来发现这种方式有一些局限性，比如说服务器设置了用户权限，不允许root用户直接登录，而其它用户又没有~/.ssh的权限，又或者使用了跳转机等。每次登录都要复制两次密码来登录，很是麻烦，后来google了一下，了解了一下expect，来实现服务器的自动登录、跳转、部署等。</h3><h3 id="1-Expect用途">1.Expect用途</h3><blockquote>
-<p>Expect是一个用来处理交互的命令。借助Expect，我们可以将交互过程写在一个脚本上，使之自动化完成。形象的说，ssh登录，ftp登录等都符合交互的定义。<br>
+        <h3 id="这周要上线一个项目，有台服务器是内网的所以弄起来比较复杂，搞了好几天才搞好，讲下需求以及解决方案。">这周要上线一个项目，有台服务器是内网的所以弄起来比较复杂，搞了好几天才搞好，讲下需求以及解决方案。</h3><p>客户的其它机器都是在内网环境下的，不可访问外网，a(58.212.225.181)为内网服务器，可通过网闸请求到一台外网服务器c(192.168.158.211)，因为网站有很多的外链图片,以及接口请求,把所有的图片都抓回来当然也是可以的，但是我觉得用代理的方式解决更好一些，况且很多接口也是必须要请求外网的，这个时候就要想办法通过代理来出去了。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a(<span class="number">58.212</span>.<span class="number">225.181</span>) --&gt; 通过网闸 <span class="number">192.168</span>.<span class="number">1.100</span> 访问--&gt; c(<span class="number">192.168</span>.<span class="number">158.211</span>)的<span class="number">80</span> <span class="number">3128</span>端口</span><br></pre></td></tr></table></figure></p>
+<h3 id="首先，我们要解决图片的问题，我们项目会有很多诸如_http://img11-360buyimg-com/n1/g14/M04/0E/0F/rBEhVVInCfkIAAAAAADYUmG1fPoAAC07QGslDkAANhq075-jpg_此类的外链图片，因为客户本地的电脑是内网环境，不能直接访问外网，这个时候我们就要对所有的图片链接进行处理了，代码为：">首先，我们要解决图片的问题，我们项目会有很多诸如 <a href="http://img11.360buyimg.com/n1/g14/M04/0E/0F/rBEhVVInCfkIAAAAAADYUmG1fPoAAC07QGslDkAANhq075.jpg">http://img11.360buyimg.com/n1/g14/M04/0E/0F/rBEhVVInCfkIAAAAAADYUmG1fPoAAC07QGslDkAANhq075.jpg</a> 此类的外链图片，因为客户本地的电脑是内网环境，不能直接访问外网，这个时候我们就要对所有的图片链接进行处理了，代码为：</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">product.image_url = product.image_url.gsub(<span class="regexp">/(http:.*\.jpg)/</span>)&#123;|m| <span class="string">"/emall_image?url=<span class="subst">#&#123;<span class="variable">$1</span>&#125;</span>"</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>在所有图片url之前加上/emall_image?url= 这样所有的图片请求就都会请求内网服务器a，这个时候看一下内网服务器a(58.212.225.181)的nginx配置<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##为所有图片请求添加cache，加快响应速度##</span></span><br><span class="line">proxy_connect_timeout <span class="number">5</span>;</span><br><span class="line">proxy_read_timeout <span class="number">60</span>;</span><br><span class="line">proxy_send_timeout <span class="number">5</span>;</span><br><span class="line">proxy_buffer_size <span class="number">16</span>k;</span><br><span class="line">proxy_buffers <span class="number">4</span> <span class="number">64</span>k;</span><br><span class="line">proxy_busy_buffers_size <span class="number">128</span>k;</span><br><span class="line">proxy_temp_file_write_size <span class="number">128</span>k;</span><br><span class="line">proxy_temp_path /home/temp_dir;</span><br><span class="line">proxy_cache_path /home/cache levels=<span class="number">1</span><span class="symbol">:</span><span class="number">2</span> keys_zone=<span class="symbol">cache_one:</span><span class="number">200</span>m inactive=<span class="number">1</span>d max_size=<span class="number">30</span>g;</span><br><span class="line"><span class="comment">##end##</span></span><br><span class="line">resolver <span class="number">8.8</span>.<span class="number">8.8</span>;</span><br><span class="line">server &#123;</span><br><span class="line">  listen <span class="number">80</span>;</span><br><span class="line">  server_name localhost <span class="number">58.212</span>.<span class="number">225.181</span>; </span><br><span class="line">  location /emall_image &#123;</span><br><span class="line">    proxy_pass <span class="symbol">http:</span>/<span class="regexp">/192.168.1.100/emall</span>_image?url=<span class="variable">$arg_url</span>; <span class="comment">#如果没有缓存，获取到url，转发到外网服务器c</span></span><br><span class="line">    proxy_cache cache_one;</span><br><span class="line">    proxy_cache_valid <span class="number">200</span> <span class="number">302</span> <span class="number">1</span>h;</span><br><span class="line">    proxy_cache_valid <span class="number">301</span> <span class="number">1</span>d;</span><br><span class="line">    proxy_cache_valid any <span class="number">1</span>m;</span><br><span class="line">    expires <span class="number">30</span>d;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
       
     </div>
     
     <div class="article-info article-info-index">
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/expect/">expect</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/服务器部署/">服务器部署</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/脚本/">脚本</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/squid/">squid</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/内网/">内网</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/正向代理/">正向代理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/转发/">转发</a></li></ul>
 	</div>
 
       
 
       
         <p class="article-more-link">
-          <a  href="/2016/08/30/使用expect脚本-服务器自动登陆部署/#more">more >></a>
+          <a  href="/2016/11/06/使用squid、nginx实现代理服务器内网转发-md/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
