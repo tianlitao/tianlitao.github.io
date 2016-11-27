@@ -104,7 +104,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/RSA-证书签名验签/" style="font-size: 10px;">RSA 证书签名验签</a> <a href="/tags/between/" style="font-size: 10px;">between</a> <a href="/tags/datetime/" style="font-size: 10px;">datetime</a> <a href="/tags/expect/" style="font-size: 15px;">expect</a> <a href="/tags/find-each/" style="font-size: 10px;">find_each</a> <a href="/tags/find-each-with-order/" style="font-size: 10px;">find_each_with_order</a> <a href="/tags/git操作/" style="font-size: 10px;">git操作</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/ie8/" style="font-size: 10px;">ie8</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/oauth认证/" style="font-size: 10px;">oauth认证</a> <a href="/tags/order/" style="font-size: 10px;">order</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/ruby/" style="font-size: 15px;">ruby</a> <a href="/tags/sql/" style="font-size: 15px;">sql</a> <a href="/tags/squid/" style="font-size: 10px;">squid</a> <a href="/tags/ubuntu/" style="font-size: 15px;">ubuntu</a> <a href="/tags/内网/" style="font-size: 10px;">内网</a> <a href="/tags/北京生活/" style="font-size: 10px;">北京生活</a> <a href="/tags/服务器/" style="font-size: 15px;">服务器</a> <a href="/tags/服务器自动登陆/" style="font-size: 10px;">服务器自动登陆</a> <a href="/tags/服务器部署/" style="font-size: 10px;">服务器部署</a> <a href="/tags/正向代理/" style="font-size: 10px;">正向代理</a> <a href="/tags/脚本/" style="font-size: 15px;">脚本</a> <a href="/tags/转发/" style="font-size: 10px;">转发</a> <a href="/tags/高中-最爱/" style="font-size: 10px;">高中-最爱</a>
+						<a href="/tags/RSA-证书签名验签/" style="font-size: 10px;">RSA 证书签名验签</a> <a href="/tags/between/" style="font-size: 10px;">between</a> <a href="/tags/datetime/" style="font-size: 10px;">datetime</a> <a href="/tags/expect/" style="font-size: 15px;">expect</a> <a href="/tags/find-each/" style="font-size: 10px;">find_each</a> <a href="/tags/find-each-with-order/" style="font-size: 10px;">find_each_with_order</a> <a href="/tags/git操作/" style="font-size: 10px;">git操作</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/ie8/" style="font-size: 10px;">ie8</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/oauth认证/" style="font-size: 10px;">oauth认证</a> <a href="/tags/order/" style="font-size: 10px;">order</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/ruby/" style="font-size: 15px;">ruby</a> <a href="/tags/sql/" style="font-size: 15px;">sql</a> <a href="/tags/squid/" style="font-size: 10px;">squid</a> <a href="/tags/ubuntu/" style="font-size: 15px;">ubuntu</a> <a href="/tags/update/" style="font-size: 10px;">update</a> <a href="/tags/内网/" style="font-size: 10px;">内网</a> <a href="/tags/北京生活/" style="font-size: 10px;">北京生活</a> <a href="/tags/服务器/" style="font-size: 15px;">服务器</a> <a href="/tags/服务器自动登陆/" style="font-size: 10px;">服务器自动登陆</a> <a href="/tags/服务器部署/" style="font-size: 10px;">服务器部署</a> <a href="/tags/正向代理/" style="font-size: 10px;">正向代理</a> <a href="/tags/脚本/" style="font-size: 15px;">脚本</a> <a href="/tags/转发/" style="font-size: 10px;">转发</a> <a href="/tags/高中-最爱/" style="font-size: 10px;">高中-最爱</a>
 					</div>
 				</section>
 				
@@ -167,6 +167,64 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-update-redis-from-2-2-to-2-8-15" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/11/27/update-redis-from-2-2-to-2-8-15/" class="article-date">
+  	<time datetime="2016-11-27T03:01:15.000Z" itemprop="datePublished">Nov 27 2016</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/27/update-redis-from-2-2-to-2-8-15/">update_redis_from_2.2_to_2.8.15</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>项目在启用sidekiq的时候，提示由于redis版本太低而无法启用，需要将redis2.2升级到2.8，记录下升级过程。<br>卸载旧版redis<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ps aux|grep redis <span class="comment">#如果正在运行中，kill掉，然后执行</span></span><br><span class="line">apt-get remove redis-server</span><br></pre></td></tr></table></figure></p>
+<p>下载官方redis，并编译安装<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget <span class="symbol">http:</span>/<span class="regexp">/download.redis.io/redis</span>-stable.tar.gz</span><br><span class="line">tar xvzf redis-stable.tar.gz</span><br><span class="line">cd redis-stable</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure></p>
+<p>把配置文件复制到/etc/redis 下，并修改配置<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp /redis-stable/redis.conf /etc/redis/redis.conf</span><br><span class="line">vim redis.conf</span><br></pre></td></tr></table></figure></p>
+<p>修改的具体参数为<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">requirepass <span class="number">123456</span>  <span class="comment">#设置密码</span></span><br><span class="line">daemonize yes <span class="comment">#设置为后台运行</span></span><br><span class="line">maxmemory <span class="number">2</span>gb  <span class="comment">#设置最大占用内存</span></span><br><span class="line">maxmemory-policy allkeys-lru  <span class="comment">#内存清除策略</span></span><br></pre></td></tr></table></figure></p>
+<p>配置完成后，启动redis即可<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server /etc/redis/redis.conf</span><br></pre></td></tr></table></figure></p>
+<p>查看redis版本<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis-cli --version</span><br><span class="line">redis-cli <span class="number">2.8</span>.<span class="number">15</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/update/">update</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
   
     <article id="post-redis作为页面缓存设置缓存大小" class="article article-type-post" itemscope itemprop="blogPost">
   
