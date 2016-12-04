@@ -104,7 +104,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/RSA-证书签名验签/" style="font-size: 10px;">RSA 证书签名验签</a> <a href="/tags/between/" style="font-size: 10px;">between</a> <a href="/tags/datetime/" style="font-size: 10px;">datetime</a> <a href="/tags/expect/" style="font-size: 15px;">expect</a> <a href="/tags/find-each/" style="font-size: 10px;">find_each</a> <a href="/tags/find-each-with-order/" style="font-size: 10px;">find_each_with_order</a> <a href="/tags/git操作/" style="font-size: 10px;">git操作</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/ie8/" style="font-size: 10px;">ie8</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/oauth认证/" style="font-size: 10px;">oauth认证</a> <a href="/tags/order/" style="font-size: 10px;">order</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/ruby/" style="font-size: 15px;">ruby</a> <a href="/tags/sql/" style="font-size: 15px;">sql</a> <a href="/tags/squid/" style="font-size: 10px;">squid</a> <a href="/tags/ubuntu/" style="font-size: 15px;">ubuntu</a> <a href="/tags/update/" style="font-size: 10px;">update</a> <a href="/tags/内网/" style="font-size: 10px;">内网</a> <a href="/tags/北京生活/" style="font-size: 10px;">北京生活</a> <a href="/tags/服务器/" style="font-size: 15px;">服务器</a> <a href="/tags/服务器自动登陆/" style="font-size: 10px;">服务器自动登陆</a> <a href="/tags/服务器部署/" style="font-size: 10px;">服务器部署</a> <a href="/tags/正向代理/" style="font-size: 10px;">正向代理</a> <a href="/tags/脚本/" style="font-size: 15px;">脚本</a> <a href="/tags/转发/" style="font-size: 10px;">转发</a> <a href="/tags/高中-最爱/" style="font-size: 10px;">高中-最爱</a>
+						<a href="/tags/RSA-证书签名验签/" style="font-size: 10px;">RSA 证书签名验签</a> <a href="/tags/between/" style="font-size: 10px;">between</a> <a href="/tags/csv/" style="font-size: 10px;">csv</a> <a href="/tags/datetime/" style="font-size: 10px;">datetime</a> <a href="/tags/expect/" style="font-size: 15px;">expect</a> <a href="/tags/find-each/" style="font-size: 10px;">find_each</a> <a href="/tags/find-each-with-order/" style="font-size: 10px;">find_each_with_order</a> <a href="/tags/git操作/" style="font-size: 10px;">git操作</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/ie8/" style="font-size: 10px;">ie8</a> <a href="/tags/import/" style="font-size: 10px;">import</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/oauth认证/" style="font-size: 10px;">oauth认证</a> <a href="/tags/order/" style="font-size: 10px;">order</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/ruby/" style="font-size: 15px;">ruby</a> <a href="/tags/sql/" style="font-size: 15px;">sql</a> <a href="/tags/squid/" style="font-size: 10px;">squid</a> <a href="/tags/ubuntu/" style="font-size: 15px;">ubuntu</a> <a href="/tags/update/" style="font-size: 10px;">update</a> <a href="/tags/xls/" style="font-size: 10px;">xls</a> <a href="/tags/内网/" style="font-size: 10px;">内网</a> <a href="/tags/北京生活/" style="font-size: 10px;">北京生活</a> <a href="/tags/服务器/" style="font-size: 15px;">服务器</a> <a href="/tags/服务器自动登陆/" style="font-size: 10px;">服务器自动登陆</a> <a href="/tags/服务器部署/" style="font-size: 10px;">服务器部署</a> <a href="/tags/正向代理/" style="font-size: 10px;">正向代理</a> <a href="/tags/脚本/" style="font-size: 15px;">脚本</a> <a href="/tags/转发/" style="font-size: 10px;">转发</a> <a href="/tags/高中-最爱/" style="font-size: 10px;">高中-最爱</a>
 					</div>
 				</section>
 				
@@ -167,6 +167,64 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-rails-import-xls-and-csv" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/12/04/rails-import-xls-and-csv/" class="article-date">
+  	<time datetime="2016-12-04T05:36:37.000Z" itemprop="datePublished">Dec 4 2016</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/04/rails-import-xls-and-csv/">rails_import_xls_and_csv</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>项目中经常会遇到需要导入excel以及csv等文件格式的数据到数据库中。<br>1.导入xls文件,<a href="https://github.com/zdavatz/spreadsheet/blob/master/GUIDE.md">文档</a><br>添加gem<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem <span class="string">'spreadsheet'</span>, <span class="string">'1.0.0'</span></span><br></pre></td></tr></table></figure></p>
+<p>导入的只能是xls格式的，如果为xlsx格式的需要先手动转化为xls格式在进行导入,直接在rails c 中读取文件，然后操作<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">book = <span class="constant">Spreadsheet</span>.open(<span class="string">'public/a.xls'</span>); <span class="comment">#如果是在rails c中直接读取的时候，最后记得加上分号，如果不加分号会全部读取，要等很长时间</span></span><br><span class="line">sheet = book.worksheet <span class="number">0</span> <span class="comment">#后面的数字是代表读取那个工作区间的</span></span><br><span class="line">sheet.each_with_index <span class="keyword">do</span> |row, index|</span><br><span class="line">  p row[<span class="number">0</span>] <span class="comment">#index为行数 row为具体行里的内容，row[0]指的是取出第一列</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<p>2.导出xls文件<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">xls_report = <span class="constant">StringIO</span>.new</span><br><span class="line"><span class="constant">Spreadsheet</span>.client_encoding = <span class="string">'UTF-8'</span></span><br><span class="line">book = <span class="constant">Spreadsheet::Workbook</span>.new </span><br><span class="line">sheet1 = book.create_worksheet <span class="symbol">name:</span> <span class="string">'测试'</span> <span class="comment">#工作区</span></span><br><span class="line">sheet1.row(<span class="number">0</span>).concat([第一列,第二列])</span><br><span class="line">sheet1[<span class="number">1</span>,<span class="number">0</span>] = <span class="string">'china'</span></span><br><span class="line">sheet1.column(<span class="number">0</span>).default_format = <span class="constant">Spreadsheet::Format</span>.new <span class="symbol">align:</span> <span class="symbol">:right</span>,<span class="symbol">weight:</span> <span class="symbol">:bold</span> <span class="comment">#局右加粗</span></span><br><span class="line">book.write xls_report <span class="comment">#保存</span></span><br></pre></td></tr></table></figure></p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/csv/">csv</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/import/">import</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xls/">xls</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/12/04/rails-import-xls-and-csv/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
   
     <article id="post-update-redis-from-2-2-to-2-8-15" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -325,63 +383,6 @@
       
         <p class="article-more-link">
           <a  href="/2016/10/29/datetime-whether-two-date-range-overlap/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
-    <article id="post-expect-auto-login" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/15/expect-auto-login/" class="article-date">
-  	<time datetime="2016-10-15T05:22:53.000Z" itemprop="datePublished">Oct 15 2016</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/15/expect-auto-login/">expect-auto-login</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>之前写过两篇blog，介绍通过 <a href="http://tianlitao.github.io/2016/01/31/%E8%87%AA%E5%8A%A8%E7%99%BB%E5%BD%95%20%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/">public_key来服务器自动登陆</a>以及使用<a href="http://tianlitao.github.io/2016/08/30/%E4%BD%BF%E7%94%A8expect%E8%84%9A%E6%9C%AC%20%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%87%AA%E5%8A%A8%E7%99%BB%E9%99%86%E9%83%A8%E7%BD%B2/">expect脚本来登陆</a>,后来发现服务器多了的话每个服务器写一个脚本太不现实了，就考虑写一个通用的脚本，通过传参以及读取配置文件来实现自动登陆。看下改造完之后的脚本。</p>
-<h3 id="第一种，通过expect脚本读取配置文件。">第一种，通过expect脚本读取配置文件。</h3>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/expect/">expect</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/服务器自动登陆/">服务器自动登陆</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/脚本/">脚本</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/10/15/expect-auto-login/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
