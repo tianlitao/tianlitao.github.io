@@ -4,17 +4,18 @@
   <meta charset="utf-8">
     <link rel="shortcut icon" type="image/ico" href="/img/avatar.ico">
   
-  <title>tianlitao|田力涛</title>
+  <title>rails_devise_warden_登陆解析 | tianlitao|田力涛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="tianlitao 田力涛 rails ubuntu">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tianlitao|田力涛">
-<meta property="og:url" content="http://tianlitao.github.io/index.html">
+  <meta name="description" content="devise是rails用的比较多的一个用户登陆注册模块，研究了下他的登陆以及验证的策略（虽说还没有完全吃透），先记录下。devise的具体使用可以参照他的文档devise的认证机制是基于warden，所以要先了解一下warden才能理解。用户名以及密码的验证我们这里暂且不提，主要看一下sign_in方法做了什么，以及登陆之后下次请求是如何把已登录的信息带过来验证的。1.先看下sign_in方法1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rails_devise_warden_登陆解析">
+<meta property="og:url" content="http://tianlitao.github.io/2016/12/11/rails-devise-warden-登陆解析/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
-<meta property="og:description" content="tianlitao 田力涛 rails ubuntu">
+<meta property="og:description" content="devise是rails用的比较多的一个用户登陆注册模块，研究了下他的登陆以及验证的策略（虽说还没有完全吃透），先记录下。devise的具体使用可以参照他的文档devise的认证机制是基于warden，所以要先了解一下warden才能理解。用户名以及密码的验证我们这里暂且不提，主要看一下sign_in方法做了什么，以及登陆之后下次请求是如何把已登录的信息带过来验证的。1.先看下sign_in方法1">
+<meta property="og:updated_time" content="2016-12-11T06:31:25.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tianlitao|田力涛">
-<meta name="twitter:description" content="tianlitao 田力涛 rails ubuntu">
+<meta name="twitter:title" content="rails_devise_warden_登陆解析">
+<meta name="twitter:description" content="devise是rails用的比较多的一个用户登陆注册模块，研究了下他的登陆以及验证的策略（虽说还没有完全吃透），先记录下。devise的具体使用可以参照他的文档devise的认证机制是基于warden，所以要先了解一下warden才能理解。用户名以及密码的验证我们这里暂且不提，主要看一下sign_in方法做了什么，以及登陆之后下次请求是如何把已登录的信息带过来验证的。1.先看下sign_in方法1">
   
   
   <link rel="stylesheet" href="/css/style.css" type="text/css">
@@ -166,9 +167,7 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-rails-devise-warden-登陆解析" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-rails-devise-warden-登陆解析" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/12/11/rails-devise-warden-登陆解析/" class="article-date">
@@ -184,12 +183,23 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/11/rails-devise-warden-登陆解析/">rails_devise_warden_登陆解析</a>
+    <h1 class="article-title" itemprop="name">
+      rails_devise_warden_登陆解析
     </h1>
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cookie/">cookie</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/devise/">devise</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/session/">session</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wardden/">wardden</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -208,207 +218,60 @@ warden.session_serializer.method(<span class="symbol">:store</span>).source_loca
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cookie/">cookie</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/devise/">devise</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/session/">session</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wardden/">wardden</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/12/04/rails-import-xls-and-csv/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">rails_import_xls_and_csv</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
   
 </article>
 
 
-
-
-
-
-  
-    <article id="post-rails-import-xls-and-csv" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/12/04/rails-import-xls-and-csv/" class="article-date">
-  	<time datetime="2016-12-04T05:36:37.000Z" itemprop="datePublished">Dec 4 2016</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/04/rails-import-xls-and-csv/">rails_import_xls_and_csv</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>项目中经常会遇到需要导入excel以及csv等文件格式的数据到数据库中。<br>1.导入xls文件,<a href="https://github.com/zdavatz/spreadsheet/blob/master/GUIDE.md">文档</a><br>添加gem<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem <span class="string">'spreadsheet'</span>, <span class="string">'1.0.0'</span></span><br></pre></td></tr></table></figure></p>
-<p>导入的只能是xls格式的，如果为xlsx格式的需要先手动转化为xls格式在进行导入,直接在rails c 中读取文件，然后操作<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">book = <span class="constant">Spreadsheet</span>.open(<span class="string">'public/a.xls'</span>); <span class="comment">#如果是在rails c中直接读取的时候，最后记得加上分号，如果不加分号会全部读取，要等很长时间</span></span><br><span class="line">sheet = book.worksheet <span class="number">0</span> <span class="comment">#后面的数字是代表读取那个工作区间的</span></span><br><span class="line">sheet.each_with_index <span class="keyword">do</span> |row, index|</span><br><span class="line">  p row[<span class="number">0</span>] <span class="comment">#index为行数 row为具体行里的内容，row[0]指的是取出第一列</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
-<p>2.导出xls文件<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">xls_report = <span class="constant">StringIO</span>.new</span><br><span class="line"><span class="constant">Spreadsheet</span>.client_encoding = <span class="string">'UTF-8'</span></span><br><span class="line">book = <span class="constant">Spreadsheet::Workbook</span>.new </span><br><span class="line">sheet1 = book.create_worksheet <span class="symbol">name:</span> <span class="string">'测试'</span> <span class="comment">#工作区</span></span><br><span class="line">sheet1.row(<span class="number">0</span>).concat([第一列,第二列])</span><br><span class="line">sheet1[<span class="number">1</span>,<span class="number">0</span>] = <span class="string">'china'</span></span><br><span class="line">sheet1.column(<span class="number">0</span>).default_format = <span class="constant">Spreadsheet::Format</span>.new <span class="symbol">align:</span> <span class="symbol">:right</span>,<span class="symbol">weight:</span> <span class="symbol">:bold</span> <span class="comment">#局右加粗</span></span><br><span class="line">book.write xls_report <span class="comment">#保存</span></span><br></pre></td></tr></table></figure></p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/csv/">csv</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/import/">import</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xls/">xls</a></li></ul>
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
 	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/12/04/rails-import-xls-and-csv/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
 
 
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="rails-devise-warden-登陆解析" data-title="rails_devise_warden_登陆解析" data-url="http://tianlitao.github.io/2016/12/11/rails-devise-warden-登陆解析/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"tianlitao"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
 
-
-  
-    <article id="post-update-redis-from-2-2-to-2-8-15" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/11/27/update-redis-from-2-2-to-2-8-15/" class="article-date">
-  	<time datetime="2016-11-27T03:01:15.000Z" itemprop="datePublished">Nov 27 2016</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/27/update-redis-from-2-2-to-2-8-15/">update_redis_from_2.2_to_2.8.15</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>项目在启用sidekiq的时候，提示由于redis版本太低而无法启用，需要将redis2.2升级到2.8，记录下升级过程。<br>卸载旧版redis<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ps aux|grep redis <span class="comment">#如果正在运行中，kill掉，然后执行</span></span><br><span class="line">apt-get remove redis-server</span><br></pre></td></tr></table></figure></p>
-<p>下载官方redis，并编译安装<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget <span class="symbol">http:</span>/<span class="regexp">/download.redis.io/redis</span>-stable.tar.gz</span><br><span class="line">tar xvzf redis-stable.tar.gz</span><br><span class="line">cd redis-stable</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure></p>
-<p>把配置文件复制到/etc/redis 下，并修改配置<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp /redis-stable/redis.conf /etc/redis/redis.conf</span><br><span class="line">vim redis.conf</span><br></pre></td></tr></table></figure></p>
-<p>修改的具体参数为<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">requirepass <span class="number">123456</span>  <span class="comment">#设置密码</span></span><br><span class="line">daemonize yes <span class="comment">#设置为后台运行</span></span><br><span class="line">maxmemory <span class="number">2</span>gb  <span class="comment">#设置最大占用内存</span></span><br><span class="line">maxmemory-policy allkeys-lru  <span class="comment">#内存清除策略</span></span><br></pre></td></tr></table></figure></p>
-<p>配置完成后，启动redis即可<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server /etc/redis/redis.conf</span><br></pre></td></tr></table></figure></p>
-<p>查看redis版本<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis-cli --version</span><br><span class="line">redis-cli <span class="number">2.8</span>.<span class="number">15</span></span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/update/">update</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
-    <article id="post-使用squid、nginx实现代理服务器内网转发-md" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/11/06/使用squid、nginx实现代理服务器内网转发-md/" class="article-date">
-  	<time datetime="2016-11-06T05:00:50.000Z" itemprop="datePublished">Nov 6 2016</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/06/使用squid、nginx实现代理服务器内网转发-md/">使用squid、nginx实现代理服务器内网转发</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="这周要上线一个项目，有台服务器是内网的所以弄起来比较复杂，搞了好几天才搞好，讲下需求以及解决方案。">这周要上线一个项目，有台服务器是内网的所以弄起来比较复杂，搞了好几天才搞好，讲下需求以及解决方案。</h3><p>客户的其它机器都是在内网环境下的，不可访问外网，a(58.212.225.181)为内网服务器，可通过网闸请求到一台外网服务器c(192.168.158.211)，因为网站有很多的外链图片,以及接口请求,把所有的图片都抓回来当然也是可以的，但是我觉得用代理的方式解决更好一些，况且很多接口也是必须要请求外网的，这个时候就要想办法通过代理来出去了。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a(<span class="number">58.212</span>.<span class="number">225.181</span>) --&gt; 通过网闸 <span class="number">192.168</span>.<span class="number">1.100</span> 访问--&gt; c(<span class="number">192.168</span>.<span class="number">158.211</span>)的<span class="number">80</span> <span class="number">3128</span>端口</span><br></pre></td></tr></table></figure></p>
-<h3 id="首先，我们要解决图片的问题，我们项目会有很多诸如_http://img11-360buyimg-com/n1/g14/M04/0E/0F/rBEhVVInCfkIAAAAAADYUmG1fPoAAC07QGslDkAANhq075-jpg_此类的外链图片，因为客户本地的电脑是内网环境，不能直接访问外网，这个时候我们就要对所有的图片链接进行处理了，代码为：">首先，我们要解决图片的问题，我们项目会有很多诸如 <a href="http://img11.360buyimg.com/n1/g14/M04/0E/0F/rBEhVVInCfkIAAAAAADYUmG1fPoAAC07QGslDkAANhq075.jpg">http://img11.360buyimg.com/n1/g14/M04/0E/0F/rBEhVVInCfkIAAAAAADYUmG1fPoAAC07QGslDkAANhq075.jpg</a> 此类的外链图片，因为客户本地的电脑是内网环境，不能直接访问外网，这个时候我们就要对所有的图片链接进行处理了，代码为：</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">product.image_url = product.image_url.gsub(<span class="regexp">/(http:.*\.jpg)/</span>)&#123;|m| <span class="string">"/emall_image?url=<span class="subst">#&#123;<span class="variable">$1</span>&#125;</span>"</span> &#125;</span><br></pre></td></tr></table></figure>
-<p>在所有图片url之前加上/emall_image?url= 这样所有的图片请求就都会请求内网服务器a，这个时候看一下内网服务器a(58.212.225.181)的nginx配置<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##为所有图片请求添加cache，加快响应速度##</span></span><br><span class="line">proxy_connect_timeout <span class="number">5</span>;</span><br><span class="line">proxy_read_timeout <span class="number">60</span>;</span><br><span class="line">proxy_send_timeout <span class="number">5</span>;</span><br><span class="line">proxy_buffer_size <span class="number">16</span>k;</span><br><span class="line">proxy_buffers <span class="number">4</span> <span class="number">64</span>k;</span><br><span class="line">proxy_busy_buffers_size <span class="number">128</span>k;</span><br><span class="line">proxy_temp_file_write_size <span class="number">128</span>k;</span><br><span class="line">proxy_temp_path /home/temp_dir;</span><br><span class="line">proxy_cache_path /home/cache levels=<span class="number">1</span><span class="symbol">:</span><span class="number">2</span> keys_zone=<span class="symbol">cache_one:</span><span class="number">200</span>m inactive=<span class="number">1</span>d max_size=<span class="number">30</span>g;</span><br><span class="line"><span class="comment">##end##</span></span><br><span class="line">resolver <span class="number">8.8</span>.<span class="number">8.8</span>;</span><br><span class="line">server &#123;</span><br><span class="line">  listen <span class="number">80</span>;</span><br><span class="line">  server_name localhost <span class="number">58.212</span>.<span class="number">225.181</span>; </span><br><span class="line">  location /emall_image &#123;</span><br><span class="line">    proxy_pass <span class="symbol">http:</span>/<span class="regexp">/192.168.1.100/emall</span>_image?url=<span class="variable">$arg_url</span>; <span class="comment">#如果没有缓存，获取到url，转发到外网服务器c</span></span><br><span class="line">    proxy_cache cache_one;</span><br><span class="line">    proxy_cache_valid <span class="number">200</span> <span class="number">302</span> <span class="number">1</span>h;</span><br><span class="line">    proxy_cache_valid <span class="number">301</span> <span class="number">1</span>d;</span><br><span class="line">    proxy_cache_valid any <span class="number">1</span>m;</span><br><span class="line">    expires <span class="number">30</span>d;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/squid/">squid</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/内网/">内网</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/正向代理/">正向代理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/转发/">转发</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/11/06/使用squid、nginx实现代理服务器内网转发-md/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
-  
 
 </div>
       <footer id="footer">
@@ -438,8 +301,8 @@ warden.session_serializer.method(<span class="symbol">:store</span>).source_loca
 		fancybox: true,
 		mathjax: true,
 		animate: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
