@@ -4,12 +4,12 @@
   <meta charset="utf-8">
     <link rel="shortcut icon" type="image/ico" href="/img/avatar.ico">
   
-  <title>Archives: 2016/11 | tianlitao|田力涛</title>
+  <title>Tag: php | tianlitao|田力涛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="tianlitao 田力涛 rails ubuntu">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tianlitao|田力涛">
-<meta property="og:url" content="http://tianlitao.github.io/archives/2016/11/index.html">
+<meta property="og:url" content="http://tianlitao.github.io/tags/php/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
 <meta property="og:description" content="tianlitao 田力涛 rails ubuntu">
 <meta name="twitter:card" content="summary">
@@ -168,79 +168,67 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-mac配置php环境" class="article article-type-post" itemscope itemprop="blogPost">
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/11/27/update-redis-from-2-2-to-2-8-15/" class="archive-article-date">
-  	<time datetime="2016-11-27T03:01:15.000Z" itemprop="datePublished">Nov 27</time>
+    <div class="article-meta">
+      <a href="/2016/12/18/mac配置php环境/" class="article-date">
+  	<time datetime="2016-12-18T11:08:20.000Z" itemprop="datePublished">Dec 18 2016</time>
 </a>
-        </div>
-    	 
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/11/27/update-redis-from-2-2-to-2-8-15/">update_redis_from_2.2_to_2.8.15</a>
+      <a class="article-title" href="/2016/12/18/mac配置php环境/">mac配置php环境</a>
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>要帮同学搭一个网站，发现网上php这类的源码比较多，找了一个项目的源码，就想搭一个环境跑一下试试（其实我内心是想用rails的，奈何源码不好找，姑且就先用php试一下）。<br>OSX下自带php的环境，可通过查看版本<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>php -v</span><br><span class="line"><span class="constant">PHP</span> <span class="number">5.5</span>.<span class="number">36</span> (cli)</span><br></pre></td></tr></table></figure></p>
+<p>启动Apache<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>apachectl start</span><br></pre></td></tr></table></figure></p>
+<p>浏览器通过访问 <a href="http://localhost">http://localhost</a> 应该就可以看到欢迎页面，如果访问不到，可以通过命令<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>apachectl configtest</span><br></pre></td></tr></table></figure></p>
+<p>来检查配置文件是否有误，如果有误，根据提示来修改配置文件，直到返回<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span><span class="constant">Syntax</span> <span class="constant">OK</span></span><br></pre></td></tr></table></figure></p>
+<p>然后在访问 <a href="http://localhost">http://localhost</a> 应该就可以看到欢迎页面了，默认的项目路径在<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>/<span class="constant">Library</span>/<span class="constant">WebServer</span>/<span class="constant">Documents</span></span><br></pre></td></tr></table></figure></p>
+<p>接下来我们要配置一下php的配置文件,养成一个好习惯，修改配置文件之前先做备份，以备后用<br>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/update/">update</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mac/">mac</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
+      
+        <p class="article-more-link">
+          <a  href="/2016/12/18/mac配置php环境/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/11/06/使用squid、nginx实现代理服务器内网转发-md/" class="archive-article-date">
-  	<time datetime="2016-11-06T05:00:50.000Z" itemprop="datePublished">Nov 6</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/11/06/使用squid、nginx实现代理服务器内网转发-md/">使用squid、nginx实现代理服务器内网转发</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/squid/">squid</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/内网/">内网</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/正向代理/">正向代理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/转发/">转发</a></li></ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
   </div>
+  
 </article>
+
+
+
+
+
+
   
-  
-    </div></section>
   
 </div>
       <footer id="footer">
@@ -272,8 +260,8 @@
 		animate: true,
 		isHome: false,
 		isPost: false,
-		isArchive: true,
-		isTag: false,
+		isArchive: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false
 	}
