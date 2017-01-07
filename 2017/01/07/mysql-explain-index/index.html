@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+    <link rel="shortcut icon" type="image/ico" href="/img/avatar.ico">
+  
+  <title>mysql使用explain优化，以及索引的建立 | tianlitao|田力涛</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="通过使用explain来优化sql，对于基础的项目来说，访问速度慢的主要原因几乎上都是sql语句，或者有垃圾代码，导致了很多不必要的计算或者查询。我们可以通过explain选择更好的索引写出速度更快的查询语句。使用explain分析sql，会输出分析结果，例如：1explain SELECT `products`.* FROM `products`  WHERE `products`.`state">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql使用explain优化，以及索引的建立">
+<meta property="og:url" content="http://tianlitao.github.io/2017/01/07/mysql-explain-index/index.html">
+<meta property="og:site_name" content="tianlitao|田力涛">
+<meta property="og:description" content="通过使用explain来优化sql，对于基础的项目来说，访问速度慢的主要原因几乎上都是sql语句，或者有垃圾代码，导致了很多不必要的计算或者查询。我们可以通过explain选择更好的索引写出速度更快的查询语句。使用explain分析sql，会输出分析结果，例如：1explain SELECT `products`.* FROM `products`  WHERE `products`.`state">
+<meta property="og:image" content="http://tianlitao.github.io/img/explain.png">
+<meta property="og:image" content="http://tianlitao.github.io/img/explain1.png">
+<meta property="og:updated_time" content="2017-01-07T14:24:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql使用explain优化，以及索引的建立">
+<meta name="twitter:description" content="通过使用explain来优化sql，对于基础的项目来说，访问速度慢的主要原因几乎上都是sql语句，或者有垃圾代码，导致了很多不必要的计算或者查询。我们可以通过explain选择更好的索引写出速度更快的查询语句。使用explain分析sql，会输出分析结果，例如：1explain SELECT `products`.* FROM `products`  WHERE `products`.`state">
+  
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">tianlitao</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/music">music</a></li>
+				        
+							<li><a href="/video">video</a></li>
+				        
+							<li><a href="/about">about</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="http://github.com/tianlitao" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:tianlitao3399@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/RSA-证书签名验签/" style="font-size: 10px;">RSA 证书签名验签</a> <a href="/tags/between/" style="font-size: 10px;">between</a> <a href="/tags/cookie/" style="font-size: 10px;">cookie</a> <a href="/tags/csv/" style="font-size: 10px;">csv</a> <a href="/tags/datetime/" style="font-size: 10px;">datetime</a> <a href="/tags/devise/" style="font-size: 10px;">devise</a> <a href="/tags/expect/" style="font-size: 15px;">expect</a> <a href="/tags/explain/" style="font-size: 10px;">explain</a> <a href="/tags/find-each/" style="font-size: 10px;">find_each</a> <a href="/tags/find-each-with-order/" style="font-size: 10px;">find_each_with_order</a> <a href="/tags/git操作/" style="font-size: 10px;">git操作</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/ie8/" style="font-size: 10px;">ie8</a> <a href="/tags/import/" style="font-size: 10px;">import</a> <a href="/tags/laravel/" style="font-size: 10px;">laravel</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/oauth认证/" style="font-size: 10px;">oauth认证</a> <a href="/tags/order/" style="font-size: 10px;">order</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/ruby/" style="font-size: 15px;">ruby</a> <a href="/tags/session/" style="font-size: 10px;">session</a> <a href="/tags/sql/" style="font-size: 15px;">sql</a> <a href="/tags/squid/" style="font-size: 10px;">squid</a> <a href="/tags/ubuntu/" style="font-size: 15px;">ubuntu</a> <a href="/tags/update/" style="font-size: 10px;">update</a> <a href="/tags/wardden/" style="font-size: 10px;">wardden</a> <a href="/tags/xls/" style="font-size: 10px;">xls</a> <a href="/tags/内网/" style="font-size: 10px;">内网</a> <a href="/tags/北京生活/" style="font-size: 10px;">北京生活</a> <a href="/tags/服务器/" style="font-size: 15px;">服务器</a> <a href="/tags/服务器自动登陆/" style="font-size: 10px;">服务器自动登陆</a> <a href="/tags/服务器部署/" style="font-size: 10px;">服务器部署</a> <a href="/tags/正向代理/" style="font-size: 10px;">正向代理</a> <a href="/tags/脚本/" style="font-size: 15px;">脚本</a> <a href="/tags/转发/" style="font-size: 10px;">转发</a> <a href="/tags/高中-最爱/" style="font-size: 10px;">高中-最爱</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">当记忆中得湿润又一次沾染了西湖之畔的离歌，当纷杂褪去，你是否会想起那夜那歌，那浅笑，那落寞。。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">tianlitao</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/avatar.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">tianlitao</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/music">music</a></li>
+		        
+					<li><a href="/video">video</a></li>
+		        
+					<li><a href="/about">about</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="http://github.com/tianlitao" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:tianlitao3399@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-mysql-explain-index" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/01/07/mysql-explain-index/" class="article-date">
+  	<time datetime="2017-01-07T13:05:13.000Z" itemprop="datePublished">Jan 7 2017</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      mysql使用explain优化，以及索引的建立
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/explain/">explain</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="通过使用explain来优化sql，对于基础的项目来说，访问速度慢的主要原因几乎上都是sql语句，或者有垃圾代码，导致了很多不必要的计算或者查询。我们可以通过explain选择更好的索引写出速度更快的查询语句。">通过使用explain来优化sql，对于基础的项目来说，访问速度慢的主要原因几乎上都是sql语句，或者有垃圾代码，导致了很多不必要的计算或者查询。我们可以通过explain选择更好的索引写出速度更快的查询语句。</h3><h3 id="使用explain分析sql，会输出分析结果，例如：">使用explain分析sql，会输出分析结果，例如：</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain <span class="constant">SELECT</span> <span class="string">`products`</span>.* <span class="constant">FROM</span> <span class="string">`products`</span>  <span class="constant">WHERE</span> <span class="string">`products`</span>.<span class="string">`state`</span> = <span class="number">1</span> <span class="constant">AND</span> <span class="string">`products`</span>.<span class="string">`catalog_id`</span> = <span class="number">335</span> <span class="constant">AND</span> <span class="string">`products`</span>.<span class="string">`sell`</span> = <span class="number">1</span>  <span class="constant">ORDER</span> <span class="constant">BY</span> priority desc limit <span class="number">20</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/explain.png" alt=""><br>介绍一下各列的意义，其中：</p>
+<ol>
+<li>id列数字越大越先执行，如果说数字一样大，那么就从上往下依次执行，id列为null的就表示这是一个结果集，不需要使用它来进行查询。</li>
+<li>select_type,select类型，它有以下几种值<br>2.1：simple：表示不需要union操作或者不包含子查询的简单select查询。有连接查询时，外层的查询为simple，且只有一个<br>2.2：primary：一个需要union操作或者含有子查询的select，位于最外层的单位查询的select_type即为primary。且只有一个<br>2.3：union：union连接的两个select查询，第一个查询是dervied派生表，除了第一个表外，第二个以后的表select_type都是union<br>2.4：dependent union：与union一样，出现在union 或union all语句中，但是这个查询要受到外部查询的影响<br>2.5：union result：包含union的结果集，在union和union all语句中,因为它不需要参与查询，所以id字段为null<br>F：subquery：除了from字句中包含的子查询外，其他地方出现的子查询都可能是subquery<br>2.6：dependent subquery：与dependent union类似，表示这个subquery的查询要受到外部表查询的影响<br>2.7：derived：from字句中出现的子查询，也叫做派生表，其他数据库中可能叫做内联视图或嵌套select<a id="more"></a></li>
+<li><p>table 就是表名</p>
+</li>
+<li><p>type 连接类型（很重要的一列参数，从最佳到最差依次排序，4.6之前是比较理想的索引使用情况，4.6之后就要想办法优化索引了。）</p>
+<p>4.1：system：表中只有一行数据或者是空表，且只能用于myisam和memory表。如果是Innodb引擎表，type列在这个情况通常都是all或者index<br>4.2：const：使用唯一索引或者主键，返回记录一定是1行记录的等值where条件时，通常type是const。其他数据库也叫做唯一索引扫描<br>4.3：eq_ref：出现在要连接过个表的查询计划中，驱动表只返回一行数据，且这行数据是第二个表的主键或者唯一索引，且必须为not null，唯一索引和主键是多列时，只有所有的列都用作比较时才会出现eq_ref<br>4.4：ref：不像eq_ref那样要求连接顺序，也没有主键和唯一索引的要求，只要使用相等条件检索时就可能出现，常见与辅助索引的等值查找。或者多列主键、唯一索引中，使用第一个列之外的列作为等值查找也会出现，总之，返回数据不唯一的等值查找就可能出现。<br>4.5：fulltext：全文索引检索，要注意，全文索引的优先级很高，若全文索引和普通索引同时存在时，mysql不管代价，优先选择使用全文索引<br>4.6：ref_or_null：与ref方法类似，只是增加了null值的比较。实际用的不多。<br>4.7：unique_subquery：用于where中的in形式子查询，子查询返回不重复值唯一值<br>4.8：index_subquery：用于in形式子查询使用到了辅助索引或者in常数列表，子查询可能返回重复值，可以使用索引将子查询去重。<br>4.9：range：索引范围扫描，常见于使用&gt;,&lt;,is null,between ,in ,like等运算符的查询中。<br>4.10：index_merge：表示查询使用了两个以上的索引，最后取交集或者并集，常见and ，or的条件使用了不同的索引，官方排序这个在ref_or_null之后，但是实际上由于要读取所个索引，性能可能大部分时间都不如range<br>4.11：index：索引全表扫描，把索引从头到尾扫一遍，常见于使用索引列就可以处理不需要读取数据文件的查询、可以使用索引排序或者分组的查询。<br>4.12：all：这个就是全表扫描数据文件，然后再在server层进行过滤返回符合要求的记录。</p>
+</li>
+<li><p>possible_keys 可能使用到的索引都会在这里列出来</p>
+</li>
+<li><p>key 查询真正使用到的索引（重要）</p>
+</li>
+<li><p>key_len<br>用于处理查询的索引长度，如果是单列索引，那就整个索引长度算进去，如果是多列索引，那么查询不一定都能使用到所有的列，具体使用到了多少个列的索引，这里就会计算进去，没有使用到的列，这里不会计算进去。留意下这个列的值，算一下你的多列索引总长度就知道有没有使用到所有的列了。要注意，mysql的ICP特性使用到的索引不会计入其中。另外，key_len只计算where条件用到的索引长度，而排序和分组就算用到了索引，也不会计算到key_len中。</p>
+</li>
+<li>ref   ref列显示使用哪个列或常数与key一起从表中选择行。</li>
+<li><p>rows 显示MYSQL执行查询的行数，很重要，数值越大性能越差。</p>
+</li>
+<li><p>extra 该列包含MySQL解决查询的详细信息。(重要)</p>
+<p>10.1 distinct：在select部分使用了distinc关键字<br>10.2 no tables used：不带from字句的查询或者From dual查询<br>10.3 使用not in()形式子查询或not exists运算符的连接查询，这种叫做反连接。即，一般连接查询是先查询内表，再查询外表，反连接就是先查询外表，再查询内表。<br>10.4 using filesort：排序时无法使用到索引时，就会出现这个。常见于order by和group by语句中<br>10.5 using index：查询时不需要回表查询，直接通过索引就可以获取查询的数据。<br>10.6 using join buffer（block nested loop），using join buffer（batched key accss）：5.6.x之后的版本优化关联查询的BNL，BKA特性。主要是减少内表的循环数量以及比较顺序地扫描查询。<br>10.7 using union：表示使用or连接各个使用索引的条件时，该信息表示从处理结果获取并集<br>10.8 using sort_union和using sort_intersection：与前面两个对应的类似，只是他们是出现在用and和or查询信息量大时，先查询主键，然后进行排序合并后，才能读取记录并返回。<br>10.9 using temporary：表示使用了临时表存储中间结果。临时表可以是内存临时表和磁盘临时表，执行计划中看不出来，需要查看status变量，used_tmp_table，used_tmp_disk_table才能看出来。<br>10.10 using where：表示存储引擎返回的记录并不是所有的都满足查询条件，需要在server层进行过滤。查询条件中分为限制条件和检查条件，5.6之前，存储引擎只能根据限制条件扫描数据并返回，然后server层根据检查条件进行过滤再返回真正符合查询的数据。5.6.x之后支持ICP特性，可以把检查条件也下推到存储引擎层，不符合检查条件和限制条件的数据，直接不读取，这样就大大减少了存储引擎扫描的记录数量。extra列显示using index condition<br>10.11 firstmatch(tb_name)：5.6.x开始引入的优化子查询的新特性之一，常见于where字句含有in()类型的子查询。如果内表的数据量比较大，就可能出现这个<br>10.12 loosescan(m..n)：5.6.x之后引入的优化子查询的新特性之一，在in()类型的子查询中，子查询返回的可能有重复记录时，就可能出现这个</p>
+<h3 id="由以上可以我们要对刚才的sql优化，建立索引。">由以上可以我们要对刚才的sql优化，建立索引。</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index_products_on_state_and_catalog_id_and_sell_and_priority</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>建立索引字段的顺序跟where语句条件的顺序要一致，以及排序的字段也要加上，然后加上索引之后的大幅提升了查询的速度。<br><img src="/img/explain1.png" alt=""></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/12/18/mac配置php环境/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mac配置php环境</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="mysql-explain-index" data-title="mysql使用explain优化，以及索引的建立" data-url="http://tianlitao.github.io/2017/01/07/mysql-explain-index/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"tianlitao"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+</div>
+      <footer id="footer">
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 tianlitao
+        <span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
