@@ -4,18 +4,18 @@
   <meta charset="utf-8">
     <link rel="shortcut icon" type="image/ico" href="/img/avatar.ico">
   
-  <title>暖暖 | tianlitao|田力涛</title>
+  <title>rails发送邮件 smtp qq | tianlitao|田力涛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="暖暖 - 梁静茹都可以随便的你说的我都愿意去小火车摆动的旋律都可以是真的你说的我都会相信因为我完全信任你细腻的喜欢毛毯般的厚重感晒过太阳熟悉的安全感分享热汤我们两支汤匙一个碗左心房暖暖的好饱满我想说其实你很好你自己却不知道真心的对我好不要求回报爱一个人希望他过更好打从心里暖暖的你比自己更重要都可以随便的你说的我都愿意去回忆里满足的旋律都可以是真的你说的我都会相信因为我完全信任你细腻的喜欢你手掌的厚">
-<meta property="og:type" content="website">
-<meta property="og:title" content="暖暖">
-<meta property="og:url" content="http://tianlitao.github.io/music/index.html">
+  <meta name="description" content="rails中使用邮件服务是非常方便的，直接加配置文件就可以，但是配置的时候很多时候会有问题，无法看到具体的报错信息，这里记录下qq smtp的踩坑过程。production.rb需要添加如下配置：123456789101112131415ActionMailer::Base.delivery_method = :smtpconfig.action_mailer.perform_deliveries">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rails发送邮件 smtp qq">
+<meta property="og:url" content="http://tianlitao.github.io/2017/01/15/rails-smtp-qq/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
-<meta property="og:description" content="暖暖 - 梁静茹都可以随便的你说的我都愿意去小火车摆动的旋律都可以是真的你说的我都会相信因为我完全信任你细腻的喜欢毛毯般的厚重感晒过太阳熟悉的安全感分享热汤我们两支汤匙一个碗左心房暖暖的好饱满我想说其实你很好你自己却不知道真心的对我好不要求回报爱一个人希望他过更好打从心里暖暖的你比自己更重要都可以随便的你说的我都愿意去回忆里满足的旋律都可以是真的你说的我都会相信因为我完全信任你细腻的喜欢你手掌的厚">
-<meta property="og:updated_time" content="2015-06-19T09:25:00.000Z">
+<meta property="og:description" content="rails中使用邮件服务是非常方便的，直接加配置文件就可以，但是配置的时候很多时候会有问题，无法看到具体的报错信息，这里记录下qq smtp的踩坑过程。production.rb需要添加如下配置：123456789101112131415ActionMailer::Base.delivery_method = :smtpconfig.action_mailer.perform_deliveries">
+<meta property="og:updated_time" content="2017-01-15T12:59:02.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="暖暖">
-<meta name="twitter:description" content="暖暖 - 梁静茹都可以随便的你说的我都愿意去小火车摆动的旋律都可以是真的你说的我都会相信因为我完全信任你细腻的喜欢毛毯般的厚重感晒过太阳熟悉的安全感分享热汤我们两支汤匙一个碗左心房暖暖的好饱满我想说其实你很好你自己却不知道真心的对我好不要求回报爱一个人希望他过更好打从心里暖暖的你比自己更重要都可以随便的你说的我都愿意去回忆里满足的旋律都可以是真的你说的我都会相信因为我完全信任你细腻的喜欢你手掌的厚">
+<meta name="twitter:title" content="rails发送邮件 smtp qq">
+<meta name="twitter:description" content="rails中使用邮件服务是非常方便的，直接加配置文件就可以，但是配置的时候很多时候会有问题，无法看到具体的报错信息，这里记录下qq smtp的踩坑过程。production.rb需要添加如下配置：123456789101112131415ActionMailer::Base.delivery_method = :smtpconfig.action_mailer.perform_deliveries">
   
   
   <link rel="stylesheet" href="/css/style.css" type="text/css">
@@ -167,11 +167,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-rails-smtp-qq" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/music/index.html" class="article-date">
-  	<time datetime="2015-06-17T12:31:20.000Z" itemprop="datePublished">Jun 17 2015</time>
+      <a href="/2017/01/15/rails-smtp-qq/" class="article-date">
+  	<time datetime="2017-01-15T12:16:45.000Z" itemprop="datePublished">Jan 15 2017</time>
 </a>
     </div>
   
@@ -184,7 +184,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      暖暖
+      rails发送邮件 smtp qq
     </h1>
   
 
@@ -192,6 +192,10 @@
       
       <div class="article-info article-info-post">
         
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/qq/">qq</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/smtp/">smtp</a></li></ul>
+	</div>
+
         
 
         <div class="clearfix"></div>
@@ -200,14 +204,24 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="暖暖_-_梁静茹">暖暖 - 梁静茹</h1><p>都可以随便的<br>你说的我都愿意去<br>小火车摆动的旋律<br>都可以是真的<br>你说的我都会相信<br>因为我完全信任你<br>细腻的喜欢<br>毛毯般的厚重感<br>晒过太阳熟悉的安全感<br>分享热汤<br>我们两支汤匙一个碗<br>左心房暖暖的好饱满<br>我想说其实你很好<br>你自己却不知道<br>真心的对我好<br>不要求回报<br>爱一个人希望他过更好<br>打从心里暖暖的<br>你比自己更重要<br>都可以随便的<br>你说的我都愿意去<br>回忆里满足的旋律<br>都可以是真的<br>你说的我都会相信<br>因为我完全信任你<br>细腻的喜欢<br>你手掌的厚实感<br>什么困难都觉得有希望<br>我哼着歌<br>你自然的就接下一段<br>我知道暖暖就在胸膛<br>我想说其实你很好<br>你自己却不知道<br>真心的对我好<br>不要求回报<br>爱一个人希望他过更好<br>打从心里暖暖的<br>你比自己更重要<br>我想说其实你很好<br>你自己却不知道<br>从来都很低调<br>自信心不高<br>爱一个人希望他过更好<br>打从心里暖暖的<br>你比自己更重要<br>我想说其实你很好<br>你自己却不知道<br>真心的对我好<br>不要求回报<br>爱一个人希望他过更好<br>打从心里暖暖的<br>你比自己更重要<br>我也希望变更好</p>
-<audio src="http://7rylu2.com1.z0.glb.clouddn.com/nuannuan.ogg" controls="controls" autoplay="autoplay"><br>Your browser does not support the audio tag.<br></audio>
+        <h2 id="rails中使用邮件服务是非常方便的，直接加配置文件就可以，但是配置的时候很多时候会有问题，无法看到具体的报错信息，这里记录下qq_smtp的踩坑过程。">rails中使用邮件服务是非常方便的，直接加配置文件就可以，但是配置的时候很多时候会有问题，无法看到具体的报错信息，这里记录下qq smtp的踩坑过程。</h2><p>production.rb需要添加如下配置：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">ActionMailer::Base</span>.delivery_method = <span class="symbol">:smtp</span></span><br><span class="line">config.action_mailer.perform_deliveries = <span class="keyword">true</span></span><br><span class="line">config.action_mailer.raise_delivery_errors = <span class="keyword">true</span></span><br><span class="line">config.action_mailer.default <span class="symbol">:charset</span> =&gt; <span class="string">"utf-8"</span></span><br><span class="line"></span><br><span class="line"><span class="constant">ActionMailer::Base</span>.smtp_settings = &#123;</span><br><span class="line">    <span class="symbol">:address</span>              =&gt; <span class="string">'smtp.qq.com'</span>,</span><br><span class="line">    <span class="symbol">:port</span>                 =&gt; <span class="number">465</span>,</span><br><span class="line">    <span class="symbol">:domain</span>               =&gt; <span class="string">'qq.com'</span>,</span><br><span class="line">    <span class="symbol">:user_name</span>            =&gt; <span class="string">'xxx@qq.com'</span>,</span><br><span class="line">    <span class="symbol">:password</span>             =&gt; <span class="string">'xxxxxxxxx'</span>,</span><br><span class="line">    <span class="symbol">:authentication</span>       =&gt; <span class="string">'plain'</span>,</span><br><span class="line">    <span class="symbol">:ssl</span> =&gt; <span class="keyword">true</span>,</span><br><span class="line">    <span class="symbol">:enable_starttls_auto</span> =&gt; <span class="keyword">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="切记，qq邮箱后台要开启POP3/SMTP服务，开启的时候需要通过发送短信息启用，启用的时候会生成一个授权码，配置文件的password只需要填写授权码即可。">切记，qq邮箱后台要开启POP3/SMTP服务，开启的时候需要通过发送短信息启用，启用的时候会生成一个授权码，配置文件的password只需要填写授权码即可。</h3>
       
     </div>
     
   </div>
   
     
+<nav id="article-nav">
+  
+  
+    <a href="/2017/01/07/mysql-explain-index/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql使用explain优化，以及索引的建立</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
   
 </article>
 
@@ -231,7 +245,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="undefined" data-title="暖暖" data-url="http://tianlitao.github.io/music/index.html"></div>
+	<div class="ds-thread" data-thread-key="rails-smtp-qq" data-title="rails发送邮件 smtp qq" data-url="http://tianlitao.github.io/2017/01/15/rails-smtp-qq/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -279,7 +293,7 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
