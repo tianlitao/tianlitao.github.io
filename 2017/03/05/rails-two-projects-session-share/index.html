@@ -4,18 +4,21 @@
   <meta charset="utf-8">
     <link rel="shortcut icon" type="image/ico" href="/img/avatar.ico">
   
-  <title>rails发送邮件 smtp qq | tianlitao|田力涛</title>
+  <title>rails多个项目，登陆共享session | tianlitao|田力涛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="rails中使用邮件服务是非常方便的，直接加配置文件就可以，但是配置的时候很多时候会有问题，无法看到具体的报错信息，这里记录下qq smtp的踩坑过程。production.rb需要添加如下配置：123456789101112131415ActionMailer::Base.delivery_method = :smtpconfig.action_mailer.perform_deliveries">
+  <meta name="description" content="最近在做一个项目，需要根据业务模块拆分出来多个项目来开发，在主项目直接登录，跳转到其它项目的时候，无需再次登陆。
+1.如果两个项目共用一个数据库，可以这么用，将sesssion id存入数据库。rails是4.1以上的话，gemfile添加">
 <meta property="og:type" content="article">
-<meta property="og:title" content="rails发送邮件 smtp qq">
-<meta property="og:url" content="http://tianlitao.github.io/2017/01/15/rails-smtp-qq/index.html">
+<meta property="og:title" content="rails多个项目，登陆共享session">
+<meta property="og:url" content="http://tianlitao.github.io/2017/03/05/rails-two-projects-session-share/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
-<meta property="og:description" content="rails中使用邮件服务是非常方便的，直接加配置文件就可以，但是配置的时候很多时候会有问题，无法看到具体的报错信息，这里记录下qq smtp的踩坑过程。production.rb需要添加如下配置：123456789101112131415ActionMailer::Base.delivery_method = :smtpconfig.action_mailer.perform_deliveries">
-<meta property="og:updated_time" content="2017-01-15T12:59:02.000Z">
+<meta property="og:description" content="最近在做一个项目，需要根据业务模块拆分出来多个项目来开发，在主项目直接登录，跳转到其它项目的时候，无需再次登陆。
+1.如果两个项目共用一个数据库，可以这么用，将sesssion id存入数据库。rails是4.1以上的话，gemfile添加">
+<meta property="og:updated_time" content="2017-03-05T14:13:59.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="rails发送邮件 smtp qq">
-<meta name="twitter:description" content="rails中使用邮件服务是非常方便的，直接加配置文件就可以，但是配置的时候很多时候会有问题，无法看到具体的报错信息，这里记录下qq smtp的踩坑过程。production.rb需要添加如下配置：123456789101112131415ActionMailer::Base.delivery_method = :smtpconfig.action_mailer.perform_deliveries">
+<meta name="twitter:title" content="rails多个项目，登陆共享session">
+<meta name="twitter:description" content="最近在做一个项目，需要根据业务模块拆分出来多个项目来开发，在主项目直接登录，跳转到其它项目的时候，无需再次登陆。
+1.如果两个项目共用一个数据库，可以这么用，将sesssion id存入数据库。rails是4.1以上的话，gemfile添加">
   
   
   <link rel="stylesheet" href="/css/style.css" type="text/css">
@@ -167,11 +170,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-rails-smtp-qq" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-rails-two-projects-session-share" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/01/15/rails-smtp-qq/" class="article-date">
-  	<time datetime="2017-01-15T12:16:45.000Z" itemprop="datePublished">Jan 15 2017</time>
+      <a href="/2017/03/05/rails-two-projects-session-share/" class="article-date">
+  	<time datetime="2017-03-05T13:25:28.000Z" itemprop="datePublished">Mar 5 2017</time>
 </a>
     </div>
   
@@ -184,7 +187,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      rails发送邮件 smtp qq
+      rails多个项目，登陆共享session
     </h1>
   
 
@@ -193,7 +196,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/qq/">qq</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/smtp/">smtp</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/session/">session</a></li></ul>
 	</div>
 
         
@@ -204,8 +207,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="rails中使用邮件服务是非常方便的，直接加配置文件就可以，但是配置的时候很多时候会有问题，无法看到具体的报错信息，这里记录下qq_smtp的踩坑过程。">rails中使用邮件服务是非常方便的，直接加配置文件就可以，但是配置的时候很多时候会有问题，无法看到具体的报错信息，这里记录下qq smtp的踩坑过程。</h2><p>production.rb需要添加如下配置：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">ActionMailer::Base</span>.delivery_method = <span class="symbol">:smtp</span></span><br><span class="line">config.action_mailer.perform_deliveries = <span class="keyword">true</span></span><br><span class="line">config.action_mailer.raise_delivery_errors = <span class="keyword">true</span></span><br><span class="line">config.action_mailer.default <span class="symbol">:charset</span> =&gt; <span class="string">"utf-8"</span></span><br><span class="line"></span><br><span class="line"><span class="constant">ActionMailer::Base</span>.smtp_settings = &#123;</span><br><span class="line">    <span class="symbol">:address</span>              =&gt; <span class="string">'smtp.qq.com'</span>,</span><br><span class="line">    <span class="symbol">:port</span>                 =&gt; <span class="number">465</span>,</span><br><span class="line">    <span class="symbol">:domain</span>               =&gt; <span class="string">'qq.com'</span>,</span><br><span class="line">    <span class="symbol">:user_name</span>            =&gt; <span class="string">'xxx@qq.com'</span>,</span><br><span class="line">    <span class="symbol">:password</span>             =&gt; <span class="string">'xxxxxxxxx'</span>,</span><br><span class="line">    <span class="symbol">:authentication</span>       =&gt; <span class="string">'plain'</span>,</span><br><span class="line">    <span class="symbol">:ssl</span> =&gt; <span class="keyword">true</span>,</span><br><span class="line">    <span class="symbol">:enable_starttls_auto</span> =&gt; <span class="keyword">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="切记，qq邮箱后台要开启POP3/SMTP服务，开启的时候需要通过发送短信息启用，启用的时候会生成一个授权码，配置文件的password只需要填写授权码即可。">切记，qq邮箱后台要开启POP3/SMTP服务，开启的时候需要通过发送短信息启用，启用的时候会生成一个授权码，配置文件的password只需要填写授权码即可。</h3>
+        <p>最近在做一个项目，需要根据业务模块拆分出来多个项目来开发，在主项目直接登录，跳转到其它项目的时候，无需再次登陆。</p>
+<h3 id="1-如果两个项目共用一个数据库，可以这么用，将sesssion_id存入数据库。">1.如果两个项目共用一个数据库，可以这么用，将sesssion id存入数据库。</h3><p>rails是4.1以上的话，gemfile添加<a id="more"></a><br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem <span class="string">'activerecord-session_store'</span></span><br></pre></td></tr></table></figure></p>
+<p>生成migration<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rails generate <span class="symbol">active_record:</span>session_migration</span><br></pre></td></tr></table></figure></p>
+<p>执行migration<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rake <span class="symbol">db:</span>migrate</span><br></pre></td></tr></table></figure></p>
+<p>修改session_store.rb，两个项目key,以及secrets.yml中的secret_key_base要保持一致,以保证同一客户端生成的session_id一致。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Rails</span>.application.config.session_store <span class="symbol">:active_record_store</span>, <span class="symbol">key:</span> <span class="string">'_test'</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="2-如果不是共用同一个数据库,可以通过redis来保存用户的登陆信息。">2.如果不是共用同一个数据库,可以通过redis来保存用户的登陆信息。</h3><p>修改session_store.rb<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Rails</span>.application.config.session_store <span class="symbol">:cookie_store</span>, <span class="symbol">key:</span> <span class="string">'_test'</span></span><br></pre></td></tr></table></figure></p>
+<p>修改secrets.yml的secret_key_base，保证两个项目同一个客户端生成的session相同。用户登陆后，保存用户信息到redis上。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis = <span class="constant">Redis</span>.new(<span class="symbol">:host=&gt;<span class="string">'172.30.1.100'</span></span>, <span class="symbol">:port</span> =&gt; <span class="number">6380</span>, <span class="symbol">:db</span> =&gt; <span class="number">2</span>)</span><br><span class="line"><span class="comment">#因为是登录用的是devise做权限验证，所以用户信息保存在current_user</span></span><br><span class="line"><span class="comment">#注意方法的第二个参数必须是个hash队列，所以用current_user.attributes</span></span><br><span class="line">redis.mapped_hmset(session.id,current_user.attributes)</span><br></pre></td></tr></table></figure></p>
+<p>读取用户信息<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建的redis实例必须参数相同 ，不同的db数据不能互通</span></span><br><span class="line">r = <span class="constant">Redis</span>.new(<span class="symbol">:host=&gt;<span class="string">'172.30.1.100'</span></span>, <span class="symbol">:port</span> =&gt; <span class="number">6380</span>, <span class="symbol">:db</span> =&gt; <span class="number">2</span>)</span><br><span class="line"><span class="comment"># 按 （key,fieldname） 方式获取，username的value</span></span><br><span class="line">r.hmget(<span class="string">'f7e046e16349c98f29b9d102c309219c'</span>,<span class="string">'username'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;</span> [<span class="string">"xulq"</span>]</span><br><span class="line"><span class="comment">#我们返回的是Array类型，所以我们取里面的.first,得到我们要的值</span></span><br><span class="line">r.hmget(<span class="string">'f7e046e16349c98f29b9d102c309219c'</span>,<span class="string">'username'</span>).first</span><br><span class="line"><span class="prompt">&gt;&gt;</span> <span class="string">"xulq"</span></span><br><span class="line"><span class="comment"># 获取，key对应的hash队列所有的filedname,只是filedname,没有value</span></span><br><span class="line">r.hkeys(<span class="string">'f7e046e16349c98f29b9d102c309219c'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;</span>[<span class="string">"id"</span>, <span class="string">"email"</span>, <span class="string">"encrypted_password"</span>, <span class="string">"reset_password_token"</span>, <span class="string">"reset_password_sent_at"</span>, <span class="string">"remember_created_at"</span>, <span class="string">"sign_in_count"</span>, <span class="string">"current_sign_in_at"</span>, <span class="string">"last_sign_in_at"</span>, <span class="string">"current_sign_in_ip"</span>, <span class="string">"last_sign_in_ip"</span>, <span class="string">"created_at"</span>, <span class="string">"updated_at"</span>, <span class="string">"username"</span>]</span><br><span class="line"><span class="comment"># 获取，key对应 hash队列的长度</span></span><br><span class="line">r.hlen(<span class="string">'f7e046e16349c98f29b9d102c309219c'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;</span><span class="number">14</span></span><br></pre></td></tr></table></figure></p>
+<p>参考链接<br><a href="https://github.com/rails/activerecord-session_store" target="_blank" rel="external">https://github.com/rails/activerecord-session_store</a><br><a href="http://www.cnblogs.com/richard1234/p/3783689.html" target="_blank" rel="external">http://www.cnblogs.com/richard1234/p/3783689.html</a></p>
+
       
     </div>
     
@@ -214,18 +225,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/02/20/mac-rails-connect-oracle/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          mac下rails项目连接oracle数据库
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/01/07/mysql-explain-index/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">mysql使用explain优化，以及索引的建立</div>
+    <a href="/2017/02/20/mac-rails-connect-oracle/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mac下rails项目连接oracle数据库</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -254,7 +256,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="rails-smtp-qq" data-title="rails发送邮件 smtp qq" data-url="http://tianlitao.github.io/2017/01/15/rails-smtp-qq/"></div>
+	<div class="ds-thread" data-thread-key="rails-two-projects-session-share" data-title="rails多个项目，登陆共享session" data-url="http://tianlitao.github.io/2017/03/05/rails-two-projects-session-share/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

@@ -4,12 +4,12 @@
   <meta charset="utf-8">
     <link rel="shortcut icon" type="image/ico" href="/img/avatar.ico">
   
-  <title>Tag: csv | tianlitao|田力涛</title>
+  <title>Archives: 2017/3 | tianlitao|田力涛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="tianlitao 田力涛 rails ubuntu">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tianlitao|田力涛">
-<meta property="og:url" content="http://tianlitao.github.io/tags/csv/index.html">
+<meta property="og:url" content="http://tianlitao.github.io/archives/2017/03/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
 <meta property="og:description" content="tianlitao 田力涛 rails ubuntu">
 <meta name="twitter:card" content="summary">
@@ -168,64 +168,48 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-rails-import-xls-and-csv" class="article article-type-post" itemscope itemprop="blogPost">
   
-    <div class="article-meta">
-      <a href="/2016/12/04/rails-import-xls-and-csv/" class="article-date">
-  	<time datetime="2016-12-04T05:36:37.000Z" itemprop="datePublished">Dec 4 2016</time>
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/03/05/rails-two-projects-session-share/" class="archive-article-date">
+  	<time datetime="2017-03-05T13:25:28.000Z" itemprop="datePublished">Mar 5</time>
 </a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
+        </div>
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/04/rails-import-xls-and-csv/">rails_import_xls_and_csv</a>
+      <a class="archive-article-title" href="/2017/03/05/rails-two-projects-session-share/">rails多个项目，登陆共享session</a>
     </h1>
   
 
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>项目中经常会遇到需要导入excel以及csv等文件格式的数据到数据库中。<br>1.导入xls文件,<a href="https://github.com/zdavatz/spreadsheet/blob/master/GUIDE.md">文档</a><br>添加gem<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem <span class="string">'spreadsheet'</span>, <span class="string">'1.0.0'</span></span><br></pre></td></tr></table></figure></p>
-<p>导入的只能是xls格式的，如果为xlsx格式的需要先手动转化为xls格式在进行导入,直接在rails c 中读取文件，然后操作<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">book = <span class="constant">Spreadsheet</span>.open(<span class="string">'public/a.xls'</span>); <span class="comment">#如果是在rails c中直接读取的时候，最后记得加上分号，如果不加分号会全部读取，要等很长时间</span></span><br><span class="line">sheet = book.worksheet <span class="number">0</span> <span class="comment">#后面的数字是代表读取那个工作区间的</span></span><br><span class="line">sheet.each_with_index <span class="keyword">do</span> |row, index|</span><br><span class="line">  p row[<span class="number">0</span>] <span class="comment">#index为行数 row为具体行里的内容，row[0]指的是取出第一列</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
-<p>2.导出xls文件<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">xls_report = <span class="constant">StringIO</span>.new</span><br><span class="line"><span class="constant">Spreadsheet</span>.client_encoding = <span class="string">'UTF-8'</span></span><br><span class="line">book = <span class="constant">Spreadsheet::Workbook</span>.new </span><br><span class="line">sheet1 = book.create_worksheet <span class="symbol">name:</span> <span class="string">'测试'</span> <span class="comment">#工作区</span></span><br><span class="line">sheet1.row(<span class="number">0</span>).concat([第一列,第二列])</span><br><span class="line">sheet1[<span class="number">1</span>,<span class="number">0</span>] = <span class="string">'china'</span></span><br><span class="line">sheet1.column(<span class="number">0</span>).default_format = <span class="constant">Spreadsheet::Format</span>.new <span class="symbol">align:</span> <span class="symbol">:right</span>,<span class="symbol">weight:</span> <span class="symbol">:bold</span> <span class="comment">#局右加粗</span></span><br><span class="line">book.write xls_report <span class="comment">#保存</span></span><br></pre></td></tr></table></figure></p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/csv/">csv</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/import/">import</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xls/">xls</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/session/">session</a></li></ul>
 	</div>
 
-      
+          
 
-      
-        <p class="article-more-link">
-          <a  href="/2016/12/04/rails-import-xls-and-csv/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
-  
 </article>
-
-
-
-
-
-
   
+  
+    </div></section>
   
 </div>
       <footer id="footer">
@@ -257,8 +241,8 @@
 		animate: true,
 		isHome: false,
 		isPost: false,
-		isArchive: false,
-		isTag: true,
+		isArchive: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false
 	}
