@@ -7,18 +7,27 @@
   <title>redis作为页面缓存设置缓存大小 | tianlitao|田力涛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="为了加快网页响应速度，网站采取了使用redis作为页面缓存1.用到的gem12gem &apos;redis&apos;gem &apos;redis-objects&apos;">
+<meta name="keywords" content="redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="redis作为页面缓存设置缓存大小">
 <meta property="og:url" content="http://tianlitao.github.io/2016/07/07/redis作为页面缓存设置缓存大小/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
 <meta property="og:description" content="为了加快网页响应速度，网站采取了使用redis作为页面缓存1.用到的gem12gem &apos;redis&apos;gem &apos;redis-objects&apos;">
+<meta property="og:locale" content="utf-8">
 <meta property="og:updated_time" content="2016-07-07T13:38:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis作为页面缓存设置缓存大小">
 <meta name="twitter:description" content="为了加快网页响应速度，网站采取了使用redis作为页面缓存1.用到的gem12gem &apos;redis&apos;gem &apos;redis-objects&apos;">
   
   
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1908633103224987",
+    enable_page_level_ads: true
+  });
+</script>
 </head>
 <body>
   <div id="container">
@@ -204,13 +213,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="为了加快网页响应速度，网站采取了使用redis作为页面缓存">为了加快网页响应速度，网站采取了使用redis作为页面缓存</h3><p>1.用到的gem<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gem <span class="string">'redis'</span></span><br><span class="line">gem <span class="string">'redis-objects'</span></span><br></pre></td></tr></table></figure></p>
+        <h3 id="为了加快网页响应速度，网站采取了使用redis作为页面缓存">为了加快网页响应速度，网站采取了使用redis作为页面缓存</h3><p>1.用到的gem<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gem <span class="string">'redis'</span></div><div class="line">gem <span class="string">'redis-objects'</span></div></pre></td></tr></table></figure></p>
 <a id="more"></a>
-<p>2.为了实现挂载到某个实例下，在需要挂载的model添加类<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Personality</span> <span class="inheritance">&lt; <span class="parent">ActiveRecord::Base</span></span></span></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">PersonalHtml</span></span></span><br><span class="line">    <span class="keyword">include</span> <span class="constant">::Redis::Objects</span></span><br><span class="line">    hash_key <span class="symbol">:index</span>, <span class="symbol">:expiration</span> =&gt; <span class="number">1</span>.day</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> </span>initialize(obj)</span><br><span class="line">      <span class="variable">@id</span> = obj.code</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> </span>id</span><br><span class="line">      <span class="variable">@id</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
-<p>3.添加实例方法，以供调用<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> </span>my_html</span><br><span class="line">  instance_variable_fetch <span class="symbol">:my_html</span>, <span class="constant">PersonalHtml</span>.new(<span class="keyword">self</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
-<p>4.储存页面，以及展示页面<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">render <span class="symbol">text:</span> personality.my_html.index[<span class="string">"1"</span>].presence || (personality.my_html.index[<span class="string">"1"</span>] = render_to_string(<span class="string">'index'</span>))</span><br></pre></td></tr></table></figure></p>
-<p>5.redis的服务器配置，因为设置的页面缓存，所以说在用户并发量大，或者过期时间设置不合理的时候，内存可能会爆，所以要更改一下redis的默认配置。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">maxmemory <span class="number">2</span>g</span><br><span class="line">maxmemory-policy allkeys-lru</span><br></pre></td></tr></table></figure></p>
-<p>官方文档对此的注释为<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">配置文件</span><br><span class="line">maxmemory 限制最大可用内存大小(单位字节)</span><br><span class="line">maxmemory-policy 超过限制时的删除策略，一直删除直到小于指定内存</span><br><span class="line"></span><br><span class="line">volatile-lru  使用<span class="constant">LRU</span>算法删除一个键，只对设置了生存时间的</span><br><span class="line">allkeys-lru   使用<span class="constant">LRU</span>算法删除一个键</span><br><span class="line">volatile-random 随机，只对设置了生存时间的</span><br><span class="line">allkeys-random</span><br><span class="line">volatile-ttl    删除生存时间最近的</span><br><span class="line">noeviction      不删除键，返回错误</span><br></pre></td></tr></table></figure></p>
+<p>2.为了实现挂载到某个实例下，在需要挂载的model添加类<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Personality</span> &lt; ActiveRecord::Base</span></div><div class="line">  <span class="class"><span class="keyword">class</span> <span class="title">PersonalHtml</span></span></div><div class="line">    <span class="keyword">include</span> <span class="symbol">:</span><span class="symbol">:Redis</span><span class="symbol">:</span><span class="symbol">:Objects</span></div><div class="line">    hash_key <span class="symbol">:index</span>, <span class="symbol">:expiration</span> =&gt; <span class="number">1</span>.day</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">initialize</span><span class="params">(obj)</span></span></div><div class="line">      @id = obj.code</div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">id</span></span></div><div class="line">      @id</div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>3.添加实例方法，以供调用<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_html</span></span></div><div class="line">  instance_variable_fetch <span class="symbol">:my_html</span>, PersonalHtml.new(<span class="keyword">self</span>)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>4.储存页面，以及展示页面<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">render <span class="symbol">text:</span> personality.my_html.index[<span class="string">"1"</span>].presence <span class="params">||</span> (personality.my_html.index[<span class="string">"1"</span>] = render_to_string(<span class="string">'index'</span>))</div></pre></td></tr></table></figure></p>
+<p>5.redis的服务器配置，因为设置的页面缓存，所以说在用户并发量大，或者过期时间设置不合理的时候，内存可能会爆，所以要更改一下redis的默认配置。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">maxmemory <span class="number">2</span>g</div><div class="line">maxmemory-policy allkeys-lru</div></pre></td></tr></table></figure></p>
+<p>官方文档对此的注释为<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">配置文件</div><div class="line">maxmemory 限制最大可用内存大小(单位字节)</div><div class="line">maxmemory-policy 超过限制时的删除策略，一直删除直到小于指定内存</div><div class="line"></div><div class="line">volatile-lru  使用LRU算法删除一个键，只对设置了生存时间的</div><div class="line">allkeys-lru   使用LRU算法删除一个键</div><div class="line">volatile-random 随机，只对设置了生存时间的</div><div class="line">allkeys-random</div><div class="line">volatile-ttl    删除生存时间最近的</div><div class="line">noeviction      不删除键，返回错误</div></pre></td></tr></table></figure></p>
 <p>可以根据自己的需要来配置。</p>
 
       
@@ -300,7 +309,7 @@
 </footer>
     </div>
     
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
 
 
 <script>
@@ -316,8 +325,8 @@
 		open_in_new: false
 	}
 </script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
-<script src="/js/main.js" type="text/javascript"></script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
 
 
 

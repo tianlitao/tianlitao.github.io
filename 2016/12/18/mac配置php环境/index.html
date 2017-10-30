@@ -6,25 +6,28 @@
   
   <title>mac配置php环境 | tianlitao|田力涛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="要帮同学搭一个网站，发现网上php这类的源码比较多，找了一个项目的源码，就想搭一个环境跑一下试试（其实我内心是想用rails的，奈何源码不好找，姑且就先用php试一下）。OSX下自带php的环境，可通过查看版本12$ php -vPHP 5.5.36 (cli)
-启动Apache1$ apachectl start
-浏览器通过访问 http://localhost 应该就可以看到欢迎页面，如果访问">
+  <meta name="description" content="要帮同学搭一个网站，发现网上php这类的源码比较多，找了一个项目的源码，就想搭一个环境跑一下试试（其实我内心是想用rails的，奈何源码不好找，姑且就先用php试一下）。OSX下自带php的环境，可通过查看版本12$ php -vPHP 5.5.36 (cli) 启动Apache1$ apachectl start 浏览器通过访问 http://localhost 应该就可以看到欢迎页面，如果访问">
+<meta name="keywords" content="mac,php">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mac配置php环境">
 <meta property="og:url" content="http://tianlitao.github.io/2016/12/18/mac配置php环境/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
-<meta property="og:description" content="要帮同学搭一个网站，发现网上php这类的源码比较多，找了一个项目的源码，就想搭一个环境跑一下试试（其实我内心是想用rails的，奈何源码不好找，姑且就先用php试一下）。OSX下自带php的环境，可通过查看版本12$ php -vPHP 5.5.36 (cli)
-启动Apache1$ apachectl start
-浏览器通过访问 http://localhost 应该就可以看到欢迎页面，如果访问">
+<meta property="og:description" content="要帮同学搭一个网站，发现网上php这类的源码比较多，找了一个项目的源码，就想搭一个环境跑一下试试（其实我内心是想用rails的，奈何源码不好找，姑且就先用php试一下）。OSX下自带php的环境，可通过查看版本12$ php -vPHP 5.5.36 (cli) 启动Apache1$ apachectl start 浏览器通过访问 http://localhost 应该就可以看到欢迎页面，如果访问">
+<meta property="og:locale" content="utf-8">
 <meta property="og:updated_time" content="2016-12-18T11:49:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mac配置php环境">
-<meta name="twitter:description" content="要帮同学搭一个网站，发现网上php这类的源码比较多，找了一个项目的源码，就想搭一个环境跑一下试试（其实我内心是想用rails的，奈何源码不好找，姑且就先用php试一下）。OSX下自带php的环境，可通过查看版本12$ php -vPHP 5.5.36 (cli)
-启动Apache1$ apachectl start
-浏览器通过访问 http://localhost 应该就可以看到欢迎页面，如果访问">
+<meta name="twitter:description" content="要帮同学搭一个网站，发现网上php这类的源码比较多，找了一个项目的源码，就想搭一个环境跑一下试试（其实我内心是想用rails的，奈何源码不好找，姑且就先用php试一下）。OSX下自带php的环境，可通过查看版本12$ php -vPHP 5.5.36 (cli) 启动Apache1$ apachectl start 浏览器通过访问 http://localhost 应该就可以看到欢迎页面，如果访问">
   
   
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1908633103224987",
+    enable_page_level_ads: true
+  });
+</script>
 </head>
 <body>
   <div id="container">
@@ -210,15 +213,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>要帮同学搭一个网站，发现网上php这类的源码比较多，找了一个项目的源码，就想搭一个环境跑一下试试（其实我内心是想用rails的，奈何源码不好找，姑且就先用php试一下）。<br>OSX下自带php的环境，可通过查看版本<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>php -v</span><br><span class="line"><span class="constant">PHP</span> <span class="number">5.5</span>.<span class="number">36</span> (cli)</span><br></pre></td></tr></table></figure></p>
-<p>启动Apache<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>apachectl start</span><br></pre></td></tr></table></figure></p>
-<p>浏览器通过访问 <a href="http://localhost" target="_blank" rel="external">http://localhost</a> 应该就可以看到欢迎页面，如果访问不到，可以通过命令<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>apachectl configtest</span><br></pre></td></tr></table></figure></p>
-<p>来检查配置文件是否有误，如果有误，根据提示来修改配置文件，直到返回<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span><span class="constant">Syntax</span> <span class="constant">OK</span></span><br></pre></td></tr></table></figure></p>
-<p>然后在访问 <a href="http://localhost" target="_blank" rel="external">http://localhost</a> 应该就可以看到欢迎页面了，默认的项目路径在<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>/<span class="constant">Library</span>/<span class="constant">WebServer</span>/<span class="constant">Documents</span></span><br></pre></td></tr></table></figure></p>
-<p>接下来我们要配置一下php的配置文件,养成一个好习惯，修改配置文件之前先做备份，以备后用<br><a id="more"></a><br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>cp /etc/apache2/httpd.conf /etc/apache2/httpd.conf.bak</span><br><span class="line"><span class="variable">$ </span>sudo vim /etc/apache2/httpd.conf</span><br></pre></td></tr></table></figure></p>
-<p>具体的修改为<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Listen</span> <span class="number">8000</span>  <span class="comment">#修改默认的80端口</span></span><br><span class="line"><span class="constant">LoadModule</span> php5_module libexec/apache2/libphp5.so <span class="comment">#开放php模组</span></span><br><span class="line"><span class="constant">User</span> test <span class="comment">#修改用户</span></span><br><span class="line"><span class="constant">DocumentRoot</span> <span class="string">"/Users/test/php_project/web"</span> <span class="comment">#修改默认的项目路径</span></span><br><span class="line">&lt;<span class="constant">Directory</span> <span class="string">"/Users/test/php_project/web"</span>&gt;</span><br></pre></td></tr></table></figure></p>
-<p>现在php的环境已经配置好了，重启下apache就可以访问<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>apachectl restart</span><br></pre></td></tr></table></figure></p>
-<p>下载的源码中有很多数据库文件，以.frm .myd .myi结尾的，需要把他们导入到本地的数据库中，把此文件夹复制到本地的mysql下即可。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>cp -r test_db /usr/local/var/mysql</span><br></pre></td></tr></table></figure></p>
+        <p>要帮同学搭一个网站，发现网上php这类的源码比较多，找了一个项目的源码，就想搭一个环境跑一下试试（其实我内心是想用rails的，奈何源码不好找，姑且就先用php试一下）。<br>OSX下自带php的环境，可通过查看版本<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ php -v</div><div class="line">PHP <span class="number">5.5</span>.<span class="number">36</span> (cli)</div></pre></td></tr></table></figure></p>
+<p>启动Apache<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ apachectl start</div></pre></td></tr></table></figure></p>
+<p>浏览器通过访问 <a href="http://localhost" target="_blank" rel="external">http://localhost</a> 应该就可以看到欢迎页面，如果访问不到，可以通过命令<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ apachectl configtest</div></pre></td></tr></table></figure></p>
+<p>来检查配置文件是否有误，如果有误，根据提示来修改配置文件，直到返回<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ Syntax OK</div></pre></td></tr></table></figure></p>
+<p>然后在访问 <a href="http://localhost" target="_blank" rel="external">http://localhost</a> 应该就可以看到欢迎页面了，默认的项目路径在<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ /Library/WebServer/Documents</div></pre></td></tr></table></figure></p>
+<p>接下来我们要配置一下php的配置文件,养成一个好习惯，修改配置文件之前先做备份，以备后用<br><a id="more"></a><br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cp /etc/apache2/httpd.conf /etc/apache2/httpd.conf.bak</div><div class="line">$ sudo vim /etc/apache2/httpd.conf</div></pre></td></tr></table></figure></p>
+<p>具体的修改为<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Listen <span class="number">8000</span>  <span class="comment">#修改默认的80端口</span></div><div class="line">LoadModule php5_module libexec/apache2/libphp5.so <span class="comment">#开放php模组</span></div><div class="line">User test <span class="comment">#修改用户</span></div><div class="line">DocumentRoot <span class="string">"/Users/test/php_project/web"</span> <span class="comment">#修改默认的项目路径</span></div><div class="line">&lt;Directory <span class="string">"/Users/test/php_project/web"</span>&gt;</div></pre></td></tr></table></figure></p>
+<p>现在php的环境已经配置好了，重启下apache就可以访问<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ apachectl restart</div></pre></td></tr></table></figure></p>
+<p>下载的源码中有很多数据库文件，以.frm .myd .myi结尾的，需要把他们导入到本地的数据库中，把此文件夹复制到本地的mysql下即可。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cp -r test_db /usr/local/var/mysql</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -307,7 +310,7 @@
 </footer>
     </div>
     
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
 
 
 <script>
@@ -323,8 +326,8 @@
 		open_in_new: false
 	}
 </script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
-<script src="/js/main.js" type="text/javascript"></script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
 
 
 

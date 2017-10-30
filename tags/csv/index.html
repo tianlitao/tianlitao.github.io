@@ -12,12 +12,20 @@
 <meta property="og:url" content="http://tianlitao.github.io/tags/csv/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
 <meta property="og:description" content="tianlitao 田力涛 rails ubuntu">
+<meta property="og:locale" content="utf-8">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="tianlitao|田力涛">
 <meta name="twitter:description" content="tianlitao 田力涛 rails ubuntu">
   
   
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1908633103224987",
+    enable_page_level_ads: true
+  });
+</script>
 </head>
 <body>
   <div id="container">
@@ -194,9 +202,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>项目中经常会遇到需要导入excel以及csv等文件格式的数据到数据库中。<br>1.导入xls文件,<a href="https://github.com/zdavatz/spreadsheet/blob/master/GUIDE.md">文档</a><br>添加gem<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem <span class="string">'spreadsheet'</span>, <span class="string">'1.0.0'</span></span><br></pre></td></tr></table></figure></p>
-<p>导入的只能是xls格式的，如果为xlsx格式的需要先手动转化为xls格式在进行导入,直接在rails c 中读取文件，然后操作<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">book = <span class="constant">Spreadsheet</span>.open(<span class="string">'public/a.xls'</span>); <span class="comment">#如果是在rails c中直接读取的时候，最后记得加上分号，如果不加分号会全部读取，要等很长时间</span></span><br><span class="line">sheet = book.worksheet <span class="number">0</span> <span class="comment">#后面的数字是代表读取那个工作区间的</span></span><br><span class="line">sheet.each_with_index <span class="keyword">do</span> |row, index|</span><br><span class="line">  p row[<span class="number">0</span>] <span class="comment">#index为行数 row为具体行里的内容，row[0]指的是取出第一列</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
-<p>2.导出xls文件<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">xls_report = <span class="constant">StringIO</span>.new</span><br><span class="line"><span class="constant">Spreadsheet</span>.client_encoding = <span class="string">'UTF-8'</span></span><br><span class="line">book = <span class="constant">Spreadsheet::Workbook</span>.new </span><br><span class="line">sheet1 = book.create_worksheet <span class="symbol">name:</span> <span class="string">'测试'</span> <span class="comment">#工作区</span></span><br><span class="line">sheet1.row(<span class="number">0</span>).concat([第一列,第二列])</span><br><span class="line">sheet1[<span class="number">1</span>,<span class="number">0</span>] = <span class="string">'china'</span></span><br><span class="line">sheet1.column(<span class="number">0</span>).default_format = <span class="constant">Spreadsheet::Format</span>.new <span class="symbol">align:</span> <span class="symbol">:right</span>,<span class="symbol">weight:</span> <span class="symbol">:bold</span> <span class="comment">#局右加粗</span></span><br><span class="line">book.write xls_report <span class="comment">#保存</span></span><br></pre></td></tr></table></figure></p>
+        <p>项目中经常会遇到需要导入excel以及csv等文件格式的数据到数据库中。<br>1.导入xls文件,<a href="https://github.com/zdavatz/spreadsheet/blob/master/GUIDE.md" target="_blank" rel="external">文档</a><br>添加gem<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gem <span class="string">'spreadsheet'</span>, <span class="string">'1.0.0'</span></div></pre></td></tr></table></figure></p>
+<p>导入的只能是xls格式的，如果为xlsx格式的需要先手动转化为xls格式在进行导入,直接在rails c 中读取文件，然后操作<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">book = Spreadsheet.open(<span class="string">'public/a.xls'</span>); <span class="comment">#如果是在rails c中直接读取的时候，最后记得加上分号，如果不加分号会全部读取，要等很长时间</span></div><div class="line">sheet = book.worksheet <span class="number">0</span> <span class="comment">#后面的数字是代表读取那个工作区间的</span></div><div class="line">sheet.each_with_index <span class="keyword">do</span> <span class="params">|row, index|</span></div><div class="line">  p row[<span class="number">0</span>] <span class="comment">#index为行数 row为具体行里的内容，row[0]指的是取出第一列</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>2.导出xls文件<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">xls_report = StringIO.new</div><div class="line">Spreadsheet.client_encoding = <span class="string">'UTF-8'</span></div><div class="line">book = Spreadsheet::Workbook.new </div><div class="line">sheet1 = book.create_worksheet <span class="symbol">name:</span> <span class="string">'测试'</span> <span class="comment">#工作区</span></div><div class="line">sheet1.row(<span class="number">0</span>).concat([第一列,第二列])</div><div class="line">sheet1[<span class="number">1</span>,<span class="number">0</span>] = <span class="string">'china'</span></div><div class="line">sheet1.column(<span class="number">0</span>).default_format = Spreadsheet::Format.new <span class="symbol">align:</span> <span class="symbol">:right</span>,<span class="symbol">weight:</span> <span class="symbol">:bold</span> <span class="comment">#局右加粗</span></div><div class="line">book.write xls_report <span class="comment">#保存</span></div></pre></td></tr></table></figure></p>
       
     </div>
     
@@ -247,7 +255,7 @@
 </footer>
     </div>
     
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
 
 
 <script>
@@ -263,8 +271,8 @@
 		open_in_new: false
 	}
 </script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
-<script src="/js/main.js" type="text/javascript"></script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
 
 
 

@@ -7,18 +7,27 @@
   <title>rails项目优化 sql优化 | tianlitao|田力涛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="因为项目的表数据量比较大，系统经常因为内存满而卡死，所以对整个rails项目进行了一次简单的优化，其中涉及到了几个比较关键的点，记录下来。假设有个product表，数量在百万级别的。因为是rails项目所以里面会包含一些rails注意事项，还有一些简单的sql语句优化，水平有限，如果有什么不对的地方，还请邮件联系我。">
+<meta name="keywords" content="rails,sql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="rails项目优化 sql优化">
 <meta property="og:url" content="http://tianlitao.github.io/2016/07/10/rails项目优化-sql优化/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
 <meta property="og:description" content="因为项目的表数据量比较大，系统经常因为内存满而卡死，所以对整个rails项目进行了一次简单的优化，其中涉及到了几个比较关键的点，记录下来。假设有个product表，数量在百万级别的。因为是rails项目所以里面会包含一些rails注意事项，还有一些简单的sql语句优化，水平有限，如果有什么不对的地方，还请邮件联系我。">
+<meta property="og:locale" content="utf-8">
 <meta property="og:updated_time" content="2016-09-23T12:38:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="rails项目优化 sql优化">
 <meta name="twitter:description" content="因为项目的表数据量比较大，系统经常因为内存满而卡死，所以对整个rails项目进行了一次简单的优化，其中涉及到了几个比较关键的点，记录下来。假设有个product表，数量在百万级别的。因为是rails项目所以里面会包含一些rails注意事项，还有一些简单的sql语句优化，水平有限，如果有什么不对的地方，还请邮件联系我。">
   
   
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1908633103224987",
+    enable_page_level_ads: true
+  });
+</script>
 </head>
 <body>
   <div id="container">
@@ -205,15 +214,15 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="因为项目的表数据量比较大，系统经常因为内存满而卡死，所以对整个rails项目进行了一次简单的优化，其中涉及到了几个比较关键的点，记录下来。假设有个product表，数量在百万级别的。">因为项目的表数据量比较大，系统经常因为内存满而卡死，所以对整个rails项目进行了一次简单的优化，其中涉及到了几个比较关键的点，记录下来。假设有个product表，数量在百万级别的。</h2><h2 id="因为是rails项目所以里面会包含一些rails注意事项，还有一些简单的sql语句优化，水平有限，如果有什么不对的地方，还请邮件联系我。">因为是rails项目所以里面会包含一些rails注意事项，还有一些简单的sql语句优化，水平有限，如果有什么不对的地方，还请邮件联系我。</h2><a id="more"></a>
-<h3 id="1-如果查询出来的数据特别多需要遍历，比如可能会有这种情况">1.如果查询出来的数据特别多需要遍历，比如可能会有这种情况</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Product</span>.all.each <span class="keyword">do</span> |product|</span><br><span class="line">  ....</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-如果查询出来的数据特别多需要遍历，比如可能会有这种情况">1.如果查询出来的数据特别多需要遍历，比如可能会有这种情况</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Product.all.each <span class="keyword">do</span> <span class="params">|product|</span></div><div class="line">  ....</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
 <p>这种做法是致命的，切记不要这么做，因为一次读出所有的product数据不仅慢，如果特别多，会把内存撑满的。一定要用 find_each或find_in_batches 代替 each，中文指南的文档在<a href="http://guides.ruby-china.org/active_record_querying.html#%E8%8E%B7%E5%8F%96%E5%A4%9A%E4%B8%AA%E5%AF%B9%E8%B1%A1" target="_blank" rel="external">这里</a></p>
-<h3 id="2-见到有些同事喜欢用这种写法">2.见到有些同事喜欢用这种写法</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Product</span>.sell.map(&amp;<span class="symbol">:name</span>)</span><br><span class="line"><span class="constant">SELECT</span> <span class="string">`products`</span>.* <span class="constant">FROM</span> <span class="string">`products`</span>  <span class="constant">WHERE</span> (products.sell = <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-<p>这样写在数据量大得时候查询会非常慢，并且占用内存会非常多，如果可以替换推荐的写法是用<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Product</span>.sell.pluck(<span class="symbol">:name</span>)</span><br><span class="line"><span class="constant">SELECT</span> <span class="string">`products`</span>.<span class="string">`name`</span> <span class="constant">FROM</span> <span class="string">`products`</span>  <span class="constant">WHERE</span> (products.sell = <span class="number">1</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-见到有些同事喜欢用这种写法">2.见到有些同事喜欢用这种写法</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Product.sell.map(&amp;<span class="symbol">:name</span>)</div><div class="line">SELECT <span class="string">`products`</span>.* FROM <span class="string">`products`</span>  WHERE (products.sell = <span class="number">1</span>)</div></pre></td></tr></table></figure>
+<p>这样写在数据量大得时候查询会非常慢，并且占用内存会非常多，如果可以替换推荐的写法是用<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Product.sell.pluck(<span class="symbol">:name</span>)</div><div class="line">SELECT <span class="string">`products`</span>.<span class="string">`name`</span> FROM <span class="string">`products`</span>  WHERE (products.sell = <span class="number">1</span>)</div></pre></td></tr></table></figure></p>
 <p>不仅查询的快，而且占用内存也会极大的降低。</p>
-<h3 id="3-使用includes，防止n+1查询，文档">3.使用includes，防止n+1查询，<a href="http://guides.ruby-china.org/active_record_querying.html#%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD%E5%85%B3%E8%81%94" target="_blank" rel="external">文档</a></h3><h3 id="4-防止预查询，有的时候我们会把一个查询语句赋给一个值，然后后边调用，比如说：">4.防止预查询，有的时候我们会把一个查询语句赋给一个值，然后后边调用，比如说：</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">products = <span class="constant">Product</span>.all</span><br><span class="line">product_names = products.pluck(<span class="symbol">:name</span>)</span><br><span class="line">product_brands = products.pluck(<span class="symbol">:brand</span>)</span><br></pre></td></tr></table></figure>
-<p>直接这样写的话在第一句的时候会直接把所有的product查询出来，不仅耗时，而且占用内存。防止预查询的做法是<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">products = <span class="constant">Product</span>.all; <span class="keyword">false</span> <span class="comment">## 此方法只试用rails3,之后的已经为lazy_load了</span></span><br><span class="line">product_names = products.pluck(<span class="symbol">:name</span>)</span><br><span class="line">product_brands = products.pluck(<span class="symbol">:brand</span>)</span><br></pre></td></tr></table></figure></p>
-<h3 id="5-查看日志的时候还找到了一个比较费时的sql">5.查看日志的时候还找到了一个比较费时的sql</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Product</span>.all.pluck(<span class="symbol">:brand_id</span>).uniq</span><br></pre></td></tr></table></figure>
-<p>后来我用distinct来代替了<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Product</span>.all.pluck(<span class="string">'distinct brand_id'</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-使用includes，防止n+1查询，文档">3.使用includes，防止n+1查询，<a href="http://guides.ruby-china.org/active_record_querying.html#%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD%E5%85%B3%E8%81%94" target="_blank" rel="external">文档</a></h3><h3 id="4-防止预查询，有的时候我们会把一个查询语句赋给一个值，然后后边调用，比如说：">4.防止预查询，有的时候我们会把一个查询语句赋给一个值，然后后边调用，比如说：</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">products = Product.all</div><div class="line">product_names = products.pluck(<span class="symbol">:name</span>)</div><div class="line">product_brands = products.pluck(<span class="symbol">:brand</span>)</div></pre></td></tr></table></figure>
+<p>直接这样写的话在第一句的时候会直接把所有的product查询出来，不仅耗时，而且占用内存。防止预查询的做法是<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">products = Product.all; <span class="literal">false</span> <span class="comment">## 此方法只试用rails3,之后的已经为lazy_load了</span></div><div class="line">product_names = products.pluck(<span class="symbol">:name</span>)</div><div class="line">product_brands = products.pluck(<span class="symbol">:brand</span>)</div></pre></td></tr></table></figure></p>
+<h3 id="5-查看日志的时候还找到了一个比较费时的sql">5.查看日志的时候还找到了一个比较费时的sql</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Product.all.pluck(<span class="symbol">:brand_id</span>).uniq</div></pre></td></tr></table></figure>
+<p>后来我用distinct来代替了<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Product.all.pluck(<span class="string">'distinct brand_id'</span>)</div></pre></td></tr></table></figure></p>
 <p>这样虽说加长了sql得运行时间但是减少了返回的数据量以及内存占用。</p>
 <h3 id="6-使用explain来优化sql，并建立相应的索引">6.使用explain来优化sql，并建立相应的索引</h3>
       
@@ -303,7 +312,7 @@
 </footer>
     </div>
     
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
 
 
 <script>
@@ -319,8 +328,8 @@
 		open_in_new: false
 	}
 </script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
-<script src="/js/main.js" type="text/javascript"></script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
 
 
 

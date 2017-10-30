@@ -6,25 +6,28 @@
   
   <title>ie8下Array不支持indexOf解决办法 | tianlitao|田力涛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天碰到了一个ie8兼容性的bug，Array使用indexOf()报错，先介绍下indexOf的用法：1var indexVar = Array.indexOf(array, item, start);
-
-搜索 Array 对象的指定元素并返回该元素的索引。array: 要搜索的数组。item: 要在数组中查找的对象。startIndex:（可选）指定在数组中搜索的起始元素的索引号。">
+  <meta name="description" content="今天碰到了一个ie8兼容性的bug，Array使用indexOf()报错，先介绍下indexOf的用法：1var indexVar = Array.indexOf(array, item, start);  搜索 Array 对象的指定元素并返回该元素的索引。array: 要搜索的数组。item: 要在数组中查找的对象。startIndex:（可选）指定在数组中搜索的起始元素的索引号。">
+<meta name="keywords" content="ie8">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ie8下Array不支持indexOf解决办法">
 <meta property="og:url" content="http://tianlitao.github.io/2016/09/18/ie8下Array不支持indexof解决办法/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
-<meta property="og:description" content="今天碰到了一个ie8兼容性的bug，Array使用indexOf()报错，先介绍下indexOf的用法：1var indexVar = Array.indexOf(array, item, start);
-
-搜索 Array 对象的指定元素并返回该元素的索引。array: 要搜索的数组。item: 要在数组中查找的对象。startIndex:（可选）指定在数组中搜索的起始元素的索引号。">
+<meta property="og:description" content="今天碰到了一个ie8兼容性的bug，Array使用indexOf()报错，先介绍下indexOf的用法：1var indexVar = Array.indexOf(array, item, start);  搜索 Array 对象的指定元素并返回该元素的索引。array: 要搜索的数组。item: 要在数组中查找的对象。startIndex:（可选）指定在数组中搜索的起始元素的索引号。">
+<meta property="og:locale" content="utf-8">
 <meta property="og:updated_time" content="2016-09-18T14:41:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ie8下Array不支持indexOf解决办法">
-<meta name="twitter:description" content="今天碰到了一个ie8兼容性的bug，Array使用indexOf()报错，先介绍下indexOf的用法：1var indexVar = Array.indexOf(array, item, start);
-
-搜索 Array 对象的指定元素并返回该元素的索引。array: 要搜索的数组。item: 要在数组中查找的对象。startIndex:（可选）指定在数组中搜索的起始元素的索引号。">
+<meta name="twitter:description" content="今天碰到了一个ie8兼容性的bug，Array使用indexOf()报错，先介绍下indexOf的用法：1var indexVar = Array.indexOf(array, item, start);  搜索 Array 对象的指定元素并返回该元素的索引。array: 要搜索的数组。item: 要在数组中查找的对象。startIndex:（可选）指定在数组中搜索的起始元素的索引号。">
   
   
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1908633103224987",
+    enable_page_level_ads: true
+  });
+</script>
 </head>
 <body>
   <div id="container">
@@ -210,15 +213,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>今天碰到了一个ie8兼容性的bug，Array使用indexOf()报错，先介绍下indexOf的用法：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var indexVar = <span class="constant">Array</span>.indexOf(array, item, start);</span><br></pre></td></tr></table></figure></p>
+        <p>今天碰到了一个ie8兼容性的bug，Array使用indexOf()报错，先介绍下indexOf的用法：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var indexVar = Array.indexOf(array, item, start);</div></pre></td></tr></table></figure></p>
 <blockquote>
 <p>搜索 Array 对象的指定元素并返回该元素的索引。<br>array: 要搜索的数组。<br>item: 要在数组中查找的对象。<br>startIndex:（可选）指定在数组中搜索的起始元素的索引号。</p>
 </blockquote>
 <a id="more"></a>
 <p>返回：<br>如果找到 item，则返回表示该元素在数组中的索引位置的编号；否则返回 -1。<br>在 Mozilla Firefox 中，如果调用 indexOf 时未设置 item 或将其设置为 undefined，则返回值为 undefined 的第一项的索引。 在同样的情况下，所有其他浏览器都返回 -1。</p>
-<p>例如：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var a = [<span class="string">'red'</span>, <span class="string">'blue'</span>, <span class="string">'green'</span>, <span class="string">'blue'</span>];</span><br><span class="line">var myFirstIndex = <span class="constant">Array</span>.indexOf(a, <span class="string">"blue"</span>);</span><br><span class="line"><span class="regexp">//</span> <span class="constant">View</span> the <span class="symbol">results:</span> <span class="string">"1"</span></span><br><span class="line">alert(<span class="string">"myFirstIndex: "</span> + myFirstIndex);</span><br><span class="line">var mySecondIndex = <span class="constant">Array</span>.indexOf(a, <span class="string">"blue"</span>, (myFirstIndex + <span class="number">1</span>) );</span><br><span class="line"><span class="regexp">//</span> <span class="constant">View</span> the <span class="symbol">results:</span> <span class="string">"3"</span></span><br><span class="line">alert(<span class="string">"mySecondIndex: "</span> + mySecondIndex);</span><br></pre></td></tr></table></figure></p>
-<p>这个方法在ie9以及其它浏览器上都是没有问题的<br>在网上找到的解决ie8的方法<br>1.在使用indexOf()方法之前，先执行一下下面这个方法。如果没有定义就先定义。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">//添加数组IndexOf方法</span><br><span class="line">if (!Array.prototype.indexOf)</span><br><span class="line">&#123;</span><br><span class="line">  Array.prototype.indexOf = function(elt /*, from*/)</span><br><span class="line">  &#123;</span><br><span class="line">    var len = this.length &gt;&gt;&gt; 0;</span><br><span class="line"></span><br><span class="line">    var from = Number(arguments[1]) || 0;</span><br><span class="line">    from = (from &lt; 0)</span><br><span class="line">         ? Math.ceil(from)</span><br><span class="line">         : Math.floor(from);</span><br><span class="line">    if (from &lt; 0)</span><br><span class="line">      from += len;</span><br><span class="line"></span><br><span class="line">    for (; from &lt; len; from++)</span><br><span class="line">    &#123;</span><br><span class="line">      if (from in this &amp;&amp;</span><br><span class="line">          this[from] === elt)</span><br><span class="line">        return from;</span><br><span class="line">    &#125;</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2.或者使用jquery的jQuery.inArray()来替换Array.prototype.indexOf<br>例如：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var arr = [ <span class="number">4</span>, <span class="string">"Pete"</span>, <span class="number">8</span>, <span class="string">"John"</span> ];</span><br><span class="line">jQuery.inArray(<span class="string">"John"</span>, arr);  <span class="regexp">//</span><span class="number">3</span></span><br></pre></td></tr></table></figure></p>
+<p>例如：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var a = [<span class="string">'red'</span>, <span class="string">'blue'</span>, <span class="string">'green'</span>, <span class="string">'blue'</span>];</div><div class="line">var myFirstIndex = Array.indexOf(a, <span class="string">"blue"</span>);</div><div class="line">/<span class="regexp">/ View the results: "1"</span></div><div class="line"><span class="regexp">alert("myFirstIndex: " + myFirstIndex);</span></div><div class="line"><span class="regexp">var mySecondIndex = Array.indexOf(a, "blue", (myFirstIndex + 1) );</span></div><div class="line"><span class="regexp">/</span><span class="regexp">/ View the results: "3"</span></div><div class="line"><span class="regexp">alert("mySecondIndex: " + mySecondIndex);</span></div></pre></td></tr></table></figure></p>
+<p>这个方法在ie9以及其它浏览器上都是没有问题的<br>在网上找到的解决ie8的方法<br>1.在使用indexOf()方法之前，先执行一下下面这个方法。如果没有定义就先定义。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">/<span class="regexp">/添加数组IndexOf方法</span></div><div class="line"><span class="regexp">if (!Array.prototype.indexOf)</span></div><div class="line"><span class="regexp">&#123;</span></div><div class="line"><span class="regexp">  Array.prototype.indexOf = function(elt /</span>*, from*<span class="regexp">/)</span></div><div class="line"><span class="regexp">  &#123;</span></div><div class="line"><span class="regexp">    var len = this.length &gt;&gt;&gt; 0;</span></div><div class="line"><span class="regexp"></span></div><div class="line"><span class="regexp">    var from = Number(arguments[1]) || 0;</span></div><div class="line"><span class="regexp">    from = (from &lt; 0)</span></div><div class="line"><span class="regexp">         ? Math.ceil(from)</span></div><div class="line"><span class="regexp">         : Math.floor(from);</span></div><div class="line"><span class="regexp">    if (from &lt; 0)</span></div><div class="line"><span class="regexp">      from += len;</span></div><div class="line"><span class="regexp"></span></div><div class="line"><span class="regexp">    for (; from &lt; len; from++)</span></div><div class="line"><span class="regexp">    &#123;</span></div><div class="line"><span class="regexp">      if (from in this &amp;&amp;</span></div><div class="line"><span class="regexp">          this[from] === elt)</span></div><div class="line"><span class="regexp">        return from;</span></div><div class="line"><span class="regexp">    &#125;</span></div><div class="line"><span class="regexp">    return -1;</span></div><div class="line"><span class="regexp">  &#125;;</span></div><div class="line"><span class="regexp">&#125;</span></div></pre></td></tr></table></figure></p>
+<p>2.或者使用jquery的jQuery.inArray()来替换Array.prototype.indexOf<br>例如：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var arr = [ <span class="number">4</span>, <span class="string">"Pete"</span>, <span class="number">8</span>, <span class="string">"John"</span> ];</div><div class="line">jQuery.inArray(<span class="string">"John"</span>, arr);  <span class="regexp">//</span><span class="number">3</span></div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -307,7 +310,7 @@
 </footer>
     </div>
     
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
 
 
 <script>
@@ -323,8 +326,8 @@
 		open_in_new: false
 	}
 </script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
-<script src="/js/main.js" type="text/javascript"></script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
 
 
 

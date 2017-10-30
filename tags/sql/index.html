@@ -12,12 +12,20 @@
 <meta property="og:url" content="http://tianlitao.github.io/tags/sql/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
 <meta property="og:description" content="tianlitao 田力涛 rails ubuntu">
+<meta property="og:locale" content="utf-8">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="tianlitao|田力涛">
 <meta name="twitter:description" content="tianlitao 田力涛 rails ubuntu">
   
   
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1908633103224987",
+    enable_page_level_ads: true
+  });
+</script>
 </head>
 <body>
   <div id="container">
@@ -194,7 +202,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="碰到一个需求，一个时间段内只允许有一个计划，也就是说数据库中的时间区间不能有重复或交叉，记录下从复杂到简单的简化过程。">碰到一个需求，一个时间段内只允许有一个计划，也就是说数据库中的时间区间不能有重复或交叉，记录下从复杂到简单的简化过程。</h3><h3 id="1-刚开始想的时候感觉这个有很多种情况，然后把每一次情况都用sql标识出来，写的语句如下。">1.刚开始想的时候感觉这个有很多种情况，然后把每一次情况都用sql标识出来，写的语句如下。</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#情况如下：</span></span><br><span class="line"><span class="comment">#  a:       |------|</span></span><br><span class="line"><span class="comment">#  b:   |------|</span></span><br><span class="line"><span class="comment">#  a.start_time &gt;= start_at and a.start_time &lt;= end_at</span></span><br><span class="line"><span class="comment">#  a: |------| </span></span><br><span class="line"><span class="comment">#  b:    |------|</span></span><br><span class="line"><span class="comment">#  a.end_time &gt;= start_at and a.end_time &lt;= end_at</span></span><br><span class="line"><span class="comment">#  a:   |------|</span></span><br><span class="line"><span class="comment">#  b: |----------|</span></span><br><span class="line"><span class="comment">#  a.start_time &gt;= start_at and a.end_time &lt;= end_at</span></span><br><span class="line"><span class="comment">#  a: |----------|</span></span><br><span class="line"><span class="comment">#  b:   |------|</span></span><br><span class="line"><span class="comment">#  a.start_time &lt;= start_at and a.end_time &gt;= end_at</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#代码如下：</span></span><br><span class="line">plan = <span class="constant">Plan</span>.where(<span class="string">'((start_time &gt;= ? and start_time &lt;= ?) or (end_time &gt;= ? and end_time &lt;= ?) or (start_time  &gt;=  ? and end_time &lt;= ?) or (start_time &lt;= ? and end_time &gt;= ?) )'</span>,start_at, end_at, start_at, end_at, start_at, end_at, start_at, end_at)</span><br></pre></td></tr></table></figure>
+        <h3 id="碰到一个需求，一个时间段内只允许有一个计划，也就是说数据库中的时间区间不能有重复或交叉，记录下从复杂到简单的简化过程。">碰到一个需求，一个时间段内只允许有一个计划，也就是说数据库中的时间区间不能有重复或交叉，记录下从复杂到简单的简化过程。</h3><h3 id="1-刚开始想的时候感觉这个有很多种情况，然后把每一次情况都用sql标识出来，写的语句如下。">1.刚开始想的时候感觉这个有很多种情况，然后把每一次情况都用sql标识出来，写的语句如下。</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#情况如下：</span></div><div class="line"><span class="comment">#  a:       |------|</span></div><div class="line"><span class="comment">#  b:   |------|</span></div><div class="line"><span class="comment">#  a.start_time &gt;= start_at and a.start_time &lt;= end_at</span></div><div class="line"><span class="comment">#  a: |------| </span></div><div class="line"><span class="comment">#  b:    |------|</span></div><div class="line"><span class="comment">#  a.end_time &gt;= start_at and a.end_time &lt;= end_at</span></div><div class="line"><span class="comment">#  a:   |------|</span></div><div class="line"><span class="comment">#  b: |----------|</span></div><div class="line"><span class="comment">#  a.start_time &gt;= start_at and a.end_time &lt;= end_at</span></div><div class="line"><span class="comment">#  a: |----------|</span></div><div class="line"><span class="comment">#  b:   |------|</span></div><div class="line"><span class="comment">#  a.start_time &lt;= start_at and a.end_time &gt;= end_at</span></div><div class="line"></div><div class="line"><span class="comment">#代码如下：</span></div><div class="line">plan = Plan.where(<span class="string">'((start_time &gt;= ? and start_time &lt;= ?) or (end_time &gt;= ? and end_time &lt;= ?) or (start_time  &gt;=  ? and end_time &lt;= ?) or (start_time &lt;= ? and end_time &gt;= ?) )'</span>,start_at, end_at, start_at, end_at, start_at, end_at, start_at, end_at)</div></pre></td></tr></table></figure>
       
     </div>
     
@@ -301,7 +309,7 @@
 </footer>
     </div>
     
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
 
 
 <script>
@@ -317,8 +325,8 @@
 		open_in_new: false
 	}
 </script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
-<script src="/js/main.js" type="text/javascript"></script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
 
 
 

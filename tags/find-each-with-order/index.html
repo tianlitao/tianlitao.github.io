@@ -12,12 +12,20 @@
 <meta property="og:url" content="http://tianlitao.github.io/tags/find-each-with-order/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
 <meta property="og:description" content="tianlitao 田力涛 rails ubuntu">
+<meta property="og:locale" content="utf-8">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="tianlitao|田力涛">
 <meta name="twitter:description" content="tianlitao 田力涛 rails ubuntu">
   
   
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1908633103224987",
+    enable_page_level_ads: true
+  });
+</script>
 </head>
 <body>
   <div id="container">
@@ -194,8 +202,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="上一篇blog，分析了一下find_each的源码，后来又查了一下解决的办法，这里记录一下找到的几种可以代替find_each的方法。">上一篇blog，分析了一下find_each的源码，后来又查了一下解决的办法，这里记录一下找到的几种可以代替find_each的方法。</h3><h3 id="第一种_先排好序，获取到已经排好序的ids数组，然后对数组分组执行">第一种 先排好序，获取到已经排好序的ids数组，然后对数组分组执行</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">batch_size = <span class="number">512</span></span><br><span class="line">ids = <span class="constant">Thing</span>.order(<span class="string">'created_at DESC'</span>).pluck(<span class="symbol">:id</span>) <span class="comment"># Replace .order(:created_at) with your own scope</span></span><br><span class="line">ids.each_slice(batch_size) <span class="keyword">do</span> |chunk|</span><br><span class="line">    <span class="constant">Thing</span>.find(chunk, <span class="symbol">:order</span> =&gt; <span class="string">"field(id, <span class="subst">#&#123;chunk.join(<span class="string">','</span>)&#125;</span>)"</span>).each <span class="keyword">do</span> |thing|</span><br><span class="line">      <span class="comment"># Do things with thing</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<h3 id="第二种_通过指定好数组区间，然后分组获取，原理和方法一相同，代码如下">第二种 通过指定好数组区间，然后分组获取，原理和方法一相同，代码如下</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">total_records = <span class="number">50000</span></span><br><span class="line">batch = <span class="number">1000</span></span><br><span class="line">(<span class="number">0</span>..(total_records - batch)).step(batch) <span class="keyword">do</span> |i|</span><br><span class="line">  puts <span class="constant">Thing</span>.active.order(<span class="string">"created_at DESC"</span>).offset(i).limit(batch).to_sql</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+        <h3 id="上一篇blog，分析了一下find_each的源码，后来又查了一下解决的办法，这里记录一下找到的几种可以代替find_each的方法。">上一篇blog，分析了一下find_each的源码，后来又查了一下解决的办法，这里记录一下找到的几种可以代替find_each的方法。</h3><h3 id="第一种_先排好序，获取到已经排好序的ids数组，然后对数组分组执行">第一种 先排好序，获取到已经排好序的ids数组，然后对数组分组执行</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">batch_size = <span class="number">512</span></div><div class="line">ids = Thing.order(<span class="string">'created_at DESC'</span>).pluck(<span class="symbol">:id</span>) <span class="comment"># Replace .order(:created_at) with your own scope</span></div><div class="line">ids.each_slice(batch_size) <span class="keyword">do</span> <span class="params">|chunk|</span></div><div class="line">    Thing.find(chunk, <span class="symbol">:order</span> =&gt; <span class="string">"field(id, <span class="subst">#&#123;chunk.join(<span class="string">','</span>)&#125;</span>)"</span>).each <span class="keyword">do</span> <span class="params">|thing|</span></div><div class="line">      <span class="comment"># Do things with thing</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<h3 id="第二种_通过指定好数组区间，然后分组获取，原理和方法一相同，代码如下">第二种 通过指定好数组区间，然后分组获取，原理和方法一相同，代码如下</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">total_records = <span class="number">50000</span></div><div class="line">batch = <span class="number">1000</span></div><div class="line">(<span class="number">0</span>..(total_records - batch)).step(batch) <span class="keyword">do</span> <span class="params">|i|</span></div><div class="line">  puts Thing.active.order(<span class="string">"created_at DESC"</span>).offset(i).limit(batch).to_sql</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
       
     </div>
     
@@ -246,7 +254,7 @@
 </footer>
     </div>
     
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
 
 
 <script>
@@ -262,8 +270,8 @@
 		open_in_new: false
 	}
 </script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
-<script src="/js/main.js" type="text/javascript"></script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
 
 
 

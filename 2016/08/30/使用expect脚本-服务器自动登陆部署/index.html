@@ -6,22 +6,28 @@
   
   <title>使用expect脚本 服务器自动登陆部署 | tianlitao|田力涛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="之前写过一篇blog，使用公钥和私钥来实现自动登录，后来发现这种方式有一些局限性，比如说服务器设置了用户权限，不允许root用户直接登录，而其它用户又没有~/.ssh的权限，又或者使用了跳转机等。每次登录都要复制两次密码来登录，很是麻烦，后来google了一下，了解了一下expect，来实现服务器的自动登录、跳转、部署等。1.Expect用途
-Expect是一个用来处理交互的命令。借助Expect">
+  <meta name="description" content="之前写过一篇blog，使用公钥和私钥来实现自动登录，后来发现这种方式有一些局限性，比如说服务器设置了用户权限，不允许root用户直接登录，而其它用户又没有~/.ssh的权限，又或者使用了跳转机等。每次登录都要复制两次密码来登录，很是麻烦，后来google了一下，了解了一下expect，来实现服务器的自动登录、跳转、部署等。1.Expect用途 Expect是一个用来处理交互的命令。借助Expect">
+<meta name="keywords" content="expect,脚本,服务器部署">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用expect脚本 服务器自动登陆部署">
 <meta property="og:url" content="http://tianlitao.github.io/2016/08/30/使用expect脚本-服务器自动登陆部署/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
-<meta property="og:description" content="之前写过一篇blog，使用公钥和私钥来实现自动登录，后来发现这种方式有一些局限性，比如说服务器设置了用户权限，不允许root用户直接登录，而其它用户又没有~/.ssh的权限，又或者使用了跳转机等。每次登录都要复制两次密码来登录，很是麻烦，后来google了一下，了解了一下expect，来实现服务器的自动登录、跳转、部署等。1.Expect用途
-Expect是一个用来处理交互的命令。借助Expect">
+<meta property="og:description" content="之前写过一篇blog，使用公钥和私钥来实现自动登录，后来发现这种方式有一些局限性，比如说服务器设置了用户权限，不允许root用户直接登录，而其它用户又没有~/.ssh的权限，又或者使用了跳转机等。每次登录都要复制两次密码来登录，很是麻烦，后来google了一下，了解了一下expect，来实现服务器的自动登录、跳转、部署等。1.Expect用途 Expect是一个用来处理交互的命令。借助Expect">
+<meta property="og:locale" content="utf-8">
 <meta property="og:updated_time" content="2016-09-23T12:39:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用expect脚本 服务器自动登陆部署">
-<meta name="twitter:description" content="之前写过一篇blog，使用公钥和私钥来实现自动登录，后来发现这种方式有一些局限性，比如说服务器设置了用户权限，不允许root用户直接登录，而其它用户又没有~/.ssh的权限，又或者使用了跳转机等。每次登录都要复制两次密码来登录，很是麻烦，后来google了一下，了解了一下expect，来实现服务器的自动登录、跳转、部署等。1.Expect用途
-Expect是一个用来处理交互的命令。借助Expect">
+<meta name="twitter:description" content="之前写过一篇blog，使用公钥和私钥来实现自动登录，后来发现这种方式有一些局限性，比如说服务器设置了用户权限，不允许root用户直接登录，而其它用户又没有~/.ssh的权限，又或者使用了跳转机等。每次登录都要复制两次密码来登录，很是麻烦，后来google了一下，了解了一下expect，来实现服务器的自动登录、跳转、部署等。1.Expect用途 Expect是一个用来处理交互的命令。借助Expect">
   
   
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1908633103224987",
+    enable_page_level_ads: true
+  });
+</script>
 </head>
 <body>
   <div id="container">
@@ -210,32 +216,32 @@ Expect是一个用来处理交互的命令。借助Expect">
         <h3 id="之前写过一篇blog，使用公钥和私钥来实现自动登录，后来发现这种方式有一些局限性，比如说服务器设置了用户权限，不允许root用户直接登录，而其它用户又没有~/-ssh的权限，又或者使用了跳转机等。每次登录都要复制两次密码来登录，很是麻烦，后来google了一下，了解了一下expect，来实现服务器的自动登录、跳转、部署等。">之前写过一篇blog，使用<a href="http://tianlitao.github.io/2016/01/31/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/">公钥和私钥来实现自动登录</a>，后来发现这种方式有一些局限性，比如说服务器设置了用户权限，不允许root用户直接登录，而其它用户又没有~/.ssh的权限，又或者使用了跳转机等。每次登录都要复制两次密码来登录，很是麻烦，后来google了一下，了解了一下expect，来实现服务器的自动登录、跳转、部署等。</h3><h3 id="1-Expect用途">1.Expect用途</h3><blockquote>
 <p>Expect是一个用来处理交互的命令。借助Expect，我们可以将交互过程写在一个脚本上，使之自动化完成。形象的说，ssh登录，ftp登录等都符合交互的定义。<br><a id="more"></a></p>
 </blockquote>
-<h3 id="2-expect的安装">2.expect的安装</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install expect <span class="comment">#mac</span></span><br><span class="line">apt-get install expect <span class="comment">#ubuntu</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-expect的安装">2.expect的安装</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">brew install expect <span class="comment">#mac</span></div><div class="line">apt-get install expect <span class="comment">#ubuntu</span></div></pre></td></tr></table></figure>
 <h3 id="3-介绍一下我碰到的实际问题，以及写好的脚本。服务器A,有root用户以及test用户，服务器A只允许test用户登录，并且服务器上很多服务是用root安装的，需要用test用户登录，然后在切换到root来执行服务器部署操作命令。">3.介绍一下我碰到的实际问题，以及写好的脚本。服务器A,有root用户以及test用户，服务器A只允许test用户登录，并且服务器上很多服务是用root安装的，需要用test用户登录，然后在切换到root来执行服务器部署操作命令。</h3><ul>
-<li><h3 id="3-1-本地的登录服务器脚本_test-exp">3.1.本地的登录服务器脚本 test.exp</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/expect</span></span><br><span class="line">set timeout <span class="number">15</span></span><br><span class="line">spawn ssh test<span class="variable">@192</span>.<span class="number">168.1</span>.<span class="number">300</span></span><br><span class="line">expect &#123;</span><br><span class="line">        <span class="string">"(yes/no)"</span> &#123; send <span class="string">"yes\r"</span>; exp_continue &#125;</span><br><span class="line">        <span class="string">"*assword:"</span> &#123; send <span class="string">"test password\r"</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line">send <span class="string">"su - root \r"</span></span><br><span class="line">expect &#123;</span><br><span class="line">        <span class="string">"*assword:"</span> &#123; send <span class="string">"root password\r"</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line">send <span class="string">"yun\r"</span></span><br><span class="line">interact</span><br></pre></td></tr></table></figure>
+<li><h3 id="3-1-本地的登录服务器脚本_test-exp">3.1.本地的登录服务器脚本 test.exp</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/expect</span></div><div class="line">set timeout <span class="number">15</span></div><div class="line">spawn ssh test@192.<span class="number">168.1</span>.<span class="number">300</span></div><div class="line">expect &#123;</div><div class="line">        <span class="string">"(yes/no)"</span> &#123; send <span class="string">"yes\r"</span>; exp_continue &#125;</div><div class="line">        <span class="string">"*assword:"</span> &#123; send <span class="string">"test password\r"</span> &#125;</div><div class="line">&#125;</div><div class="line">send <span class="string">"su - root \r"</span></div><div class="line">expect &#123;</div><div class="line">        <span class="string">"*assword:"</span> &#123; send <span class="string">"root password\r"</span>&#125;</div><div class="line">&#125;</div><div class="line">send <span class="string">"yun\r"</span></div><div class="line">interact</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>其中，expect判断返回的信息，如果有匹配的就直接执行相应得命令，如果一直匹配不到，当timeout时间超过之后才会继续执行。send是要执行的命令。interact是交互模式，用户会停留在服务器A上。</p>
 <ul>
-<li><h3 id="3-2-新建的exp脚本要设置成可执行文件">3.2.新建的exp脚本要设置成可执行文件</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x test.exp</span><br></pre></td></tr></table></figure>
+<li><h3 id="3-2-新建的exp脚本要设置成可执行文件">3.2.新建的exp脚本要设置成可执行文件</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod +x test.exp</div></pre></td></tr></table></figure>
 </li>
-<li><h3 id="3-3-然后就可以直接执行，这个时候就会直接登录到服务器A">3.3.然后就可以直接执行，这个时候就会直接登录到服务器A</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./text.exp</span><br></pre></td></tr></table></figure>
+<li><h3 id="3-3-然后就可以直接执行，这个时候就会直接登录到服务器A">3.3.然后就可以直接执行，这个时候就会直接登录到服务器A</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./text.exp</div></pre></td></tr></table></figure>
 </li>
-<li><h3 id="3-4-我们登录到服务器上大部分都是执行重新部署命令，可以参考一下我的rails、nginx自动部署。服务器A上有脚本_a-sh">3.4.我们登录到服务器上大部分都是执行重新部署命令，可以参考一下我的rails、nginx自动部署。服务器A上有脚本 a.sh</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line">cd /project/</span><br><span class="line"></span><br><span class="line">git pull origin master</span><br><span class="line"></span><br><span class="line">bundle</span><br><span class="line"></span><br><span class="line">bundle exec rake <span class="symbol">assets:</span>precompile <span class="constant">RAILS_ENV</span>=production</span><br><span class="line"></span><br><span class="line">bundle exec rake <span class="symbol">db:</span>migrate <span class="constant">RAILS_ENV</span>=production</span><br><span class="line"></span><br><span class="line">god restart nginx</span><br></pre></td></tr></table></figure>
+<li><h3 id="3-4-我们登录到服务器上大部分都是执行重新部署命令，可以参考一下我的rails、nginx自动部署。服务器A上有脚本_a-sh">3.4.我们登录到服务器上大部分都是执行重新部署命令，可以参考一下我的rails、nginx自动部署。服务器A上有脚本 a.sh</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/bin/bash</span></div><div class="line">cd /project/</div><div class="line"></div><div class="line">git pull origin master</div><div class="line"></div><div class="line">bundle</div><div class="line"></div><div class="line">bundle exec rake <span class="symbol">assets:</span>precompile RAILS_ENV=production</div><div class="line"></div><div class="line">bundle exec rake <span class="symbol">db:</span>migrate RAILS_ENV=production</div><div class="line"></div><div class="line">god restart nginx</div></pre></td></tr></table></figure>
 </li>
-<li><h3 id="3-5-这个时候我们在重新创建一个本地的expect服务器部署脚本。为test_restart-exp，登录到服务器A，然后执行脚本a-sh,部署完成后退出。">3.5.这个时候我们在重新创建一个本地的expect服务器部署脚本。为test_restart.exp，登录到服务器A，然后执行脚本a.sh,部署完成后退出。</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/expect</span></span><br><span class="line">set timeout <span class="number">200</span></span><br><span class="line">spawn ssh test<span class="variable">@192</span>.<span class="number">168.1</span>.<span class="number">300</span></span><br><span class="line">expect &#123;</span><br><span class="line">        <span class="string">"(yes/no)"</span> &#123; send <span class="string">"yes\r"</span>; exp_continue &#125;</span><br><span class="line">        <span class="string">"*assword:"</span> &#123; send <span class="string">"test password\r"</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line">send <span class="string">"su - root \r"</span></span><br><span class="line">expect &#123;</span><br><span class="line">        <span class="string">"*assword:"</span> &#123; send <span class="string">"root password\r"</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line">expect <span class="string">"~#"</span></span><br><span class="line">send <span class="string">"/shell/a.sh\r"</span></span><br><span class="line">expect <span class="string">"nginx"</span></span><br><span class="line">send <span class="string">"exit\r"</span></span><br><span class="line">send <span class="string">"exit\r"</span></span><br><span class="line">expect eof ;</span><br></pre></td></tr></table></figure>
+<li><h3 id="3-5-这个时候我们在重新创建一个本地的expect服务器部署脚本。为test_restart-exp，登录到服务器A，然后执行脚本a-sh,部署完成后退出。">3.5.这个时候我们在重新创建一个本地的expect服务器部署脚本。为test_restart.exp，登录到服务器A，然后执行脚本a.sh,部署完成后退出。</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/expect</span></div><div class="line">set timeout <span class="number">200</span></div><div class="line">spawn ssh test@192.<span class="number">168.1</span>.<span class="number">300</span></div><div class="line">expect &#123;</div><div class="line">        <span class="string">"(yes/no)"</span> &#123; send <span class="string">"yes\r"</span>; exp_continue &#125;</div><div class="line">        <span class="string">"*assword:"</span> &#123; send <span class="string">"test password\r"</span> &#125;</div><div class="line">&#125;</div><div class="line">send <span class="string">"su - root \r"</span></div><div class="line">expect &#123;</div><div class="line">        <span class="string">"*assword:"</span> &#123; send <span class="string">"root password\r"</span>&#125;</div><div class="line">&#125;</div><div class="line">expect <span class="string">"~#"</span></div><div class="line">send <span class="string">"/shell/a.sh\r"</span></div><div class="line">expect <span class="string">"nginx"</span></div><div class="line">send <span class="string">"exit\r"</span></div><div class="line">send <span class="string">"exit\r"</span></div><div class="line">expect eof ;</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>因为编译和migrate的时间可能会有点长，所以这里设置timeout为200。</p>
 <ul>
-<li><h3 id="3-6-这个时候本地直接执行脚本就会自动部署。">3.6.这个时候本地直接执行脚本就会自动部署。</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./test_restart.exp</span><br></pre></td></tr></table></figure>
+<li><h3 id="3-6-这个时候本地直接执行脚本就会自动部署。">3.6.这个时候本地直接执行脚本就会自动部署。</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./test_restart.exp</div></pre></td></tr></table></figure>
 </li>
 <li><h3 id="3-7-当然为了更方便，我们还可以设置alias设置永久别名。">3.7.当然为了更方便，我们还可以设置alias设置永久别名。</h3></li>
 </ul>
-<p>首先你要看下你用的是什么shell,执行 echo $shell。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bash 配置 <span class="string">'~/.bashrc'</span></span><br><span class="line">csh 配置 <span class="string">'~/.cshrc'</span></span><br><span class="line">zsh 配置 <span class="string">'~/.zshrc'</span></span><br></pre></td></tr></table></figure></p>
-<p>比如我用的zsh，vi ~/.zshrc,在后面添加。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alias</span> test=<span class="string">'./test.exp'</span></span><br><span class="line"><span class="keyword">alias</span> test_restart=<span class="string">'./test_restart.exp'</span></span><br></pre></td></tr></table></figure></p>
+<p>首先你要看下你用的是什么shell,执行 echo $shell。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">bash 配置 <span class="string">'~/.bashrc'</span></div><div class="line">csh 配置 <span class="string">'~/.cshrc'</span></div><div class="line">zsh 配置 <span class="string">'~/.zshrc'</span></div></pre></td></tr></table></figure></p>
+<p>比如我用的zsh，vi ~/.zshrc,在后面添加。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alias</span> test=<span class="string">'./test.exp'</span></div><div class="line"><span class="keyword">alias</span> test_restart=<span class="string">'./test_restart.exp'</span></div></pre></td></tr></table></figure></p>
 <ul>
-<li><h3 id="3-8-这个时候无论在哪个目录，只要执行命令就可以直接登录，部署。跳转机的和此类似">3.8.这个时候无论在哪个目录，只要执行命令就可以直接登录，部署。跳转机的和此类似</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">test <span class="comment">#登录服务器</span></span><br><span class="line">test_restart  <span class="comment">#部署</span></span><br></pre></td></tr></table></figure>
+<li><h3 id="3-8-这个时候无论在哪个目录，只要执行命令就可以直接登录，部署。跳转机的和此类似">3.8.这个时候无论在哪个目录，只要执行命令就可以直接登录，部署。跳转机的和此类似</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">test <span class="comment">#登录服务器</span></div><div class="line">test_restart  <span class="comment">#部署</span></div></pre></td></tr></table></figure>
 </li>
 </ul>
 <p><a href="http://ntop001.github.io/2015/06/06/mac-shell/" target="_blank" rel="external">参考链接1 mac terminal的一些困惑</a><br><a href="http://xstarcd.github.io/wiki/shell/expect.html" target="_blank" rel="external">参考链接2 expect - 自动交互脚本</a></p>
@@ -327,7 +333,7 @@ Expect是一个用来处理交互的命令。借助Expect">
 </footer>
     </div>
     
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
 
 
 <script>
@@ -343,8 +349,8 @@ Expect是一个用来处理交互的命令。借助Expect">
 		open_in_new: false
 	}
 </script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
-<script src="/js/main.js" type="text/javascript"></script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
 
 
 

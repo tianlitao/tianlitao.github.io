@@ -6,22 +6,28 @@
   
   <title>ruby object.to_s之后如何找到之前的object | tianlitao|田力涛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天同事问了我一个问题，已知12a = User.first.to_s&quot;#&amp;lt;User:0x007fe9a579ba30&amp;gt;&quot;
-如何通过a找到User.first这个实例对象">
+  <meta name="description" content="今天同事问了我一个问题，已知12a = User.first.to_s&quot;#&amp;lt;User:0x007fe9a579ba30&amp;gt;&quot; 如何通过a找到User.first这个实例对象">
+<meta name="keywords" content="ruby">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ruby object.to_s之后如何找到之前的object">
 <meta property="og:url" content="http://tianlitao.github.io/2016/07/01/ruby-object-to-s之后如何找到之前的object/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
-<meta property="og:description" content="今天同事问了我一个问题，已知12a = User.first.to_s&quot;#&amp;lt;User:0x007fe9a579ba30&amp;gt;&quot;
-如何通过a找到User.first这个实例对象">
+<meta property="og:description" content="今天同事问了我一个问题，已知12a = User.first.to_s&quot;#&amp;lt;User:0x007fe9a579ba30&amp;gt;&quot; 如何通过a找到User.first这个实例对象">
+<meta property="og:locale" content="utf-8">
 <meta property="og:updated_time" content="2016-09-03T08:52:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ruby object.to_s之后如何找到之前的object">
-<meta name="twitter:description" content="今天同事问了我一个问题，已知12a = User.first.to_s&quot;#&amp;lt;User:0x007fe9a579ba30&amp;gt;&quot;
-如何通过a找到User.first这个实例对象">
+<meta name="twitter:description" content="今天同事问了我一个问题，已知12a = User.first.to_s&quot;#&amp;lt;User:0x007fe9a579ba30&amp;gt;&quot; 如何通过a找到User.first这个实例对象">
   
   
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1908633103224987",
+    enable_page_level_ads: true
+  });
+</script>
 </head>
 <body>
   <div id="container">
@@ -207,17 +213,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="今天同事问了我一个问题，已知">今天同事问了我一个问题，已知</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="constant">User</span>.first.to_s</span><br><span class="line"><span class="string">"#&lt;User:0x007fe9a579ba30&gt;"</span></span><br></pre></td></tr></table></figure>
+        <h3 id="今天同事问了我一个问题，已知">今天同事问了我一个问题，已知</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">a = User.first.to_s</div><div class="line"><span class="string">"#&lt;User:0x007fe9a579ba30&gt;"</span></div></pre></td></tr></table></figure>
 <p>如何通过a找到User.first这个实例对象<a id="more"></a></p>
-<h3 id="首先查看了一下文档，找到了object-to_s方法,object-to_s方法是取到object的class_name以及object_id，但是它显示出的十六进制，跟直接通过">首先查看了一下<a href="http://ruby-doc.org/core-2.3.1/Object.html#method-i-to_s" target="_blank" rel="external">文档</a>，找到了object.to_s方法,object.to_s方法是取到object的class_name以及object_id，但是它显示出的十六进制，跟直接通过</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">b = <span class="constant">User</span>.first.object_id</span><br><span class="line"><span class="number">70320739687060</span></span><br></pre></td></tr></table></figure>
+<h3 id="首先查看了一下文档，找到了object-to_s方法,object-to_s方法是取到object的class_name以及object_id，但是它显示出的十六进制，跟直接通过">首先查看了一下<a href="http://ruby-doc.org/core-2.3.1/Object.html#method-i-to_s" target="_blank" rel="external">文档</a>，找到了object.to_s方法,object.to_s方法是取到object的class_name以及object_id，但是它显示出的十六进制，跟直接通过</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">b = User.first.object_id</div><div class="line"><span class="number">70320739687060</span></div></pre></td></tr></table></figure>
 <p>取出来的object_id不同,但是object.to_s取出object_id的时候对它是如何处理的呢？然后我搜到了一篇<a href="http://qa.helplib.com/882299" target="_blank" rel="external">文章</a>,里面有讲</p>
 <blockquote>
 <p>C 中的注释源底层的实现 object_id 显示， 有不同的 Ruby值和对象id ， 具体取决于对象的类型( 例如 最低位全部Fixnums除外) 似乎为零.</p>
 </blockquote>
 <p>然后查看Object#object_id <a href="http://ruby-doc.org/core-2.3.1/Object.html#method-i-object_id" target="_blank" rel="external">docs</a></p>
-<h3 id="最后得出结果">最后得出结果</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="constant">User</span>.first</span><br><span class="line"><span class="string">"#&lt;User:0x007fe9a5673b58&gt;"</span></span><br><span class="line">a.object_id</span><br><span class="line"><span class="number">70320739556780</span></span><br><span class="line"><span class="string">'0x007fe9a5673b58'</span>.hex <span class="prompt">&gt;&gt; </span><span class="number">1</span></span><br><span class="line"><span class="number">70320739556780</span></span><br></pre></td></tr></table></figure>
+<h3 id="最后得出结果">最后得出结果</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">a = User.first</div><div class="line"><span class="string">"#&lt;User:0x007fe9a5673b58&gt;"</span></div><div class="line">a.object_id</div><div class="line"><span class="number">70320739556780</span></div><div class="line"><span class="string">'0x007fe9a5673b58'</span>.hex <span class="meta">&gt;&gt; </span><span class="number">1</span></div><div class="line"><span class="number">70320739556780</span></div></pre></td></tr></table></figure>
 <p>取出to_s生成的16进制object_id，把它转换为十进制，并右移一位。</p>
-<h3 id="找到了正确可用的object_id就可以通过">找到了正确可用的object_id就可以通过</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">user = <span class="constant">ObjectSpace</span>._id2ref(<span class="number">70320739556780</span>)</span><br><span class="line">user == a</span><br><span class="line"><span class="keyword">true</span></span><br></pre></td></tr></table></figure>
+<h3 id="找到了正确可用的object_id就可以通过">找到了正确可用的object_id就可以通过</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">user = ObjectSpace._id2ref(<span class="number">70320739556780</span>)</div><div class="line">user == a</div><div class="line"><span class="literal">true</span></div></pre></td></tr></table></figure>
 <p>取到需要的实例对象。</p>
 
       
@@ -307,7 +313,7 @@
 </footer>
     </div>
     
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
 
 
 <script>
@@ -323,8 +329,8 @@
 		open_in_new: false
 	}
 </script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
-<script src="/js/main.js" type="text/javascript"></script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
 
 
 

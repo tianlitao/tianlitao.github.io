@@ -12,12 +12,20 @@
 <meta property="og:url" content="http://tianlitao.github.io/tags/order/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
 <meta property="og:description" content="tianlitao 田力涛 rails ubuntu">
+<meta property="og:locale" content="utf-8">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="tianlitao|田力涛">
 <meta name="twitter:description" content="tianlitao 田力涛 rails ubuntu">
   
   
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1908633103224987",
+    enable_page_level_ads: true
+  });
+</script>
 </head>
 <body>
   <div id="container">
@@ -194,8 +202,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="在项目中我们经常会使用如下代码">在项目中我们经常会使用如下代码</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Product</span>.all.each <span class="keyword">do</span> |product|</span><br><span class="line">  do_something</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<h4 id="在实际应该中如果Product表太大，一次读取会把内存占满，Rails为了解决这个问题提供了两个方法，find_each和find_in_batches方法，把记录分成几个批次，因为find_each其实最终就是调用的find_in_batches，所以这里我们以find_in_batches为例。">在实际应该中如果Product表太大，一次读取会把内存占满，Rails为了解决这个问题提供了两个方法，find_each和find_in_batches方法，把记录分成几个批次，因为find_each其实最终就是调用的find_in_batches，所以这里我们以find_in_batches为例。</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Product</span>.all.find_in_batches(<span class="symbol">start:</span> <span class="number">2000</span>, <span class="symbol">batch_size:</span> <span class="number">5000</span>,<span class="symbol">include:</span> <span class="symbol">:infos</span>) <span class="keyword">do</span> |products|</span><br><span class="line">  do_something</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+        <h4 id="在项目中我们经常会使用如下代码">在项目中我们经常会使用如下代码</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Product.all.each <span class="keyword">do</span> <span class="params">|product|</span></div><div class="line">  do_something</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<h4 id="在实际应该中如果Product表太大，一次读取会把内存占满，Rails为了解决这个问题提供了两个方法，find_each和find_in_batches方法，把记录分成几个批次，因为find_each其实最终就是调用的find_in_batches，所以这里我们以find_in_batches为例。">在实际应该中如果Product表太大，一次读取会把内存占满，Rails为了解决这个问题提供了两个方法，find_each和find_in_batches方法，把记录分成几个批次，因为find_each其实最终就是调用的find_in_batches，所以这里我们以find_in_batches为例。</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Product.all.find_in_batches(<span class="symbol">start:</span> <span class="number">2000</span>, <span class="symbol">batch_size:</span> <span class="number">5000</span>,<span class="symbol">include:</span> <span class="symbol">:infos</span>) <span class="keyword">do</span> <span class="params">|products|</span></div><div class="line">  do_something</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
       
     </div>
     
@@ -246,7 +254,7 @@
 </footer>
     </div>
     
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
 
 
 <script>
@@ -262,8 +270,8 @@
 		open_in_new: false
 	}
 </script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
-<script src="/js/main.js" type="text/javascript"></script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
 
 
 
