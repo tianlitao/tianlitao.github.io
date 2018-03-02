@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="tianlitao|田力涛">
 <meta property="og:description" content="1. 执行命令，创建一个gem，rand_t就是你gem的名字，命名规范1bundle gem rand_t 执行完成之后，会生成如下文件结构1234567891011121314MIT License enabled in configCode of conduct enabled in config      create  rand_t/Gemfile      create  rand_t">
 <meta property="og:locale" content="utf-8">
-<meta property="og:updated_time" content="2018-03-02T03:35:24.000Z">
+<meta property="og:updated_time" content="2018-03-02T03:40:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="gem详解">
 <meta name="twitter:description" content="1. 执行命令，创建一个gem，rand_t就是你gem的名字，命名规范1bundle gem rand_t 执行完成之后，会生成如下文件结构1234567891011121314MIT License enabled in configCode of conduct enabled in config      create  rand_t/Gemfile      create  rand_t">
@@ -231,9 +231,9 @@
 <p>lib路径下的文件，是我们的主目录</p>
 <ul>
 <li>其中 rand_t.rb 是我们的入口文件，当其他程序 require ‘rand_t’ 的时候，这个文件会被加载。<br>入口文件 rand_t.rb 是为了加载 gem的依赖，这些依赖可以是内部的类，也可以是第三方的库。</li>
-<li>rand_t文件夹下，是我们要实现功能代码的地方</li>
+<li>rand_t文件夹下，是我们要实现功能代码的地方<a id="more"></a>
+LICENSE.txt 许可证</li>
 </ul>
-<p>LICENSE.txt 许可证</p>
 <p>README.md 是我们的gem使用文档</p>
 <p>Rakefile 引用这个库，可以让我们使用一些内置的rake任务来发布gem<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">require &quot;bundler/gem_tasks&quot;</div></pre></td></tr></table></figure></p>
 <p>.gitignore git忽略文件</p>
