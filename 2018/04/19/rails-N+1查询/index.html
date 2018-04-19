@@ -4,18 +4,20 @@
   <meta charset="utf-8">
     <link rel="shortcut icon" type="image/ico" href="/img/avatar.ico">
   
-  <title>Tag: nginx | tianlitao|田力涛</title>
+  <title>rails 性能优化以及代码质量 | tianlitao|田力涛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="tianlitao 田力涛 rails ubuntu">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tianlitao|田力涛">
-<meta property="og:url" content="http://tianlitao.github.io/tags/nginx/index.html">
+  <meta name="description" content="推荐几个gem，关于性能优化，以及项目代码质量的把关。 1、N+1查询检测Gemfile添加1234group :development, :test do  # notify you when you should add eager loading (N+1 queries)  gem &apos;bullet&apos;end development.rb添加，更多的配置项可以参考官方文档1234config.">
+<meta name="keywords" content="rails 性能优化 N+1 bullet 代码质量 rails_best_practices">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rails 性能优化以及代码质量">
+<meta property="og:url" content="http://tianlitao.github.io/2018/04/19/rails-N+1查询/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
-<meta property="og:description" content="tianlitao 田力涛 rails ubuntu">
+<meta property="og:description" content="推荐几个gem，关于性能优化，以及项目代码质量的把关。 1、N+1查询检测Gemfile添加1234group :development, :test do  # notify you when you should add eager loading (N+1 queries)  gem &apos;bullet&apos;end development.rb添加，更多的配置项可以参考官方文档1234config.">
 <meta property="og:locale" content="utf-8">
+<meta property="og:updated_time" content="2018-04-19T11:16:33.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tianlitao|田力涛">
-<meta name="twitter:description" content="tianlitao 田力涛 rails ubuntu">
+<meta name="twitter:title" content="rails 性能优化以及代码质量">
+<meta name="twitter:description" content="推荐几个gem，关于性能优化，以及项目代码质量的把关。 1、N+1查询检测Gemfile添加1234group :development, :test do  # notify you when you should add eager loading (N+1 queries)  gem &apos;bullet&apos;end development.rb添加，更多的配置项可以参考官方文档1234config.">
   
   
   <link rel="stylesheet" href="/css/style.css">
@@ -182,13 +184,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-使用squid、nginx实现代理服务器内网转发-md" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="rails-rails-N+1查询" class="article article-type-rails" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/11/06/使用squid、nginx实现代理服务器内网转发-md/" class="article-date">
-  	<time datetime="2016-11-06T05:00:50.000Z" itemprop="datePublished">Nov 6 2016</time>
+      <a href="/2018/04/19/rails-N+1查询/" class="article-date">
+  	<time datetime="2018-04-19T09:57:56.000Z" itemprop="datePublished">Apr 19 2018</time>
 </a>
     </div>
   
@@ -200,49 +200,95 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/06/使用squid、nginx实现代理服务器内网转发-md/">使用squid、nginx实现代理服务器内网转发</a>
+    <h1 class="article-title" itemprop="name">
+      rails 性能优化以及代码质量
     </h1>
   
 
       </header>
       
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails-性能优化-N-1-bullet-代码质量-rails-best-practices/">rails 性能优化 N+1 bullet 代码质量 rails_best_practices</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="这周要上线一个项目，有台服务器是内网的所以弄起来比较复杂，搞了好几天才搞好，讲下需求以及解决方案。">这周要上线一个项目，有台服务器是内网的所以弄起来比较复杂，搞了好几天才搞好，讲下需求以及解决方案。</h3><p>客户的其它机器都是在内网环境下的，不可访问外网，a(58.212.225.181)为内网服务器，可通过网闸请求到一台外网服务器c(192.168.158.211)，因为网站有很多的外链图片,以及接口请求,把所有的图片都抓回来当然也是可以的，但是我觉得用代理的方式解决更好一些，况且很多接口也是必须要请求外网的，这个时候就要想办法通过代理来出去了。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">a(<span class="number">58.212</span>.<span class="number">225.181</span>) --&gt; 通过网闸 <span class="number">192.168</span>.<span class="number">1.100</span> 访问--&gt; c(<span class="number">192.168</span>.<span class="number">158.211</span>)的<span class="number">80</span> <span class="number">3128</span>端口</div></pre></td></tr></table></figure></p>
-<h3 id="首先，我们要解决图片的问题，我们项目会有很多诸如_http://img11-360buyimg-com/n1/g14/M04/0E/0F/rBEhVVInCfkIAAAAAADYUmG1fPoAAC07QGslDkAANhq075-jpg_此类的外链图片，因为客户本地的电脑是内网环境，不能直接访问外网，这个时候我们就要对所有的图片链接进行处理了，代码为：">首先，我们要解决图片的问题，我们项目会有很多诸如 <a href="http://img11.360buyimg.com/n1/g14/M04/0E/0F/rBEhVVInCfkIAAAAAADYUmG1fPoAAC07QGslDkAANhq075.jpg" target="_blank" rel="external">http://img11.360buyimg.com/n1/g14/M04/0E/0F/rBEhVVInCfkIAAAAAADYUmG1fPoAAC07QGslDkAANhq075.jpg</a> 此类的外链图片，因为客户本地的电脑是内网环境，不能直接访问外网，这个时候我们就要对所有的图片链接进行处理了，代码为：</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">product.image_url = product.image_url.gsub(<span class="regexp">/(http:.*\.jpg)/</span>)&#123;<span class="params">|m|</span> <span class="string">"/emall_image?url=<span class="subst">#&#123;$1&#125;</span>"</span> &#125;</div></pre></td></tr></table></figure>
-<p>在所有图片url之前加上/emall_image?url= 这样所有的图片请求就都会请求内网服务器a，这个时候看一下内网服务器a(58.212.225.181)的nginx配置<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">##为所有图片请求添加cache，加快响应速度##</span></div><div class="line">proxy_connect_timeout <span class="number">5</span>;</div><div class="line">proxy_read_timeout <span class="number">60</span>;</div><div class="line">proxy_send_timeout <span class="number">5</span>;</div><div class="line">proxy_buffer_size <span class="number">16</span>k;</div><div class="line">proxy_buffers <span class="number">4</span> <span class="number">64</span>k;</div><div class="line">proxy_busy_buffers_size <span class="number">128</span>k;</div><div class="line">proxy_temp_file_write_size <span class="number">128</span>k;</div><div class="line">proxy_temp_path /home/temp_dir;</div><div class="line">proxy_cache_path /home/cache levels=<span class="number">1</span><span class="symbol">:</span><span class="number">2</span> keys_zone=<span class="symbol">cache_one:</span><span class="number">200</span>m inactive=<span class="number">1</span>d max_size=<span class="number">30</span>g;</div><div class="line"><span class="comment">##end##</span></div><div class="line">resolver <span class="number">8.8</span>.<span class="number">8.8</span>;</div><div class="line">server &#123;</div><div class="line">  listen <span class="number">80</span>;</div><div class="line">  server_name localhost <span class="number">58.212</span>.<span class="number">225.181</span>; </div><div class="line">  location /emall_image &#123;</div><div class="line">    proxy_pass <span class="symbol">http:</span>/<span class="regexp">/192.168.1.100/emall</span>_image?url=$arg_url; <span class="comment">#如果没有缓存，获取到url，转发到外网服务器c</span></div><div class="line">    proxy_cache cache_one;</div><div class="line">    proxy_cache_valid <span class="number">200</span> <span class="number">302</span> <span class="number">1</span>h;</div><div class="line">    proxy_cache_valid <span class="number">301</span> <span class="number">1</span>d;</div><div class="line">    proxy_cache_valid any <span class="number">1</span>m;</div><div class="line">    expires <span class="number">30</span>d;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/squid/">squid</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/内网/">内网</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/正向代理/">正向代理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/转发/">转发</a></li></ul>
-	</div>
+        <p>推荐几个gem，关于性能优化，以及项目代码质量的把关。</p>
+<h3 id="1、N+1查询检测">1、N+1查询检测</h3><p>Gemfile添加<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">group <span class="symbol">:development</span>, <span class="symbol">:test</span> <span class="keyword">do</span></div><div class="line">  <span class="comment"># notify you when you should add eager loading (N+1 queries)</span></div><div class="line">  gem <span class="string">'bullet'</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>development.rb添加，更多的配置项可以参考<a href="https://github.com/flyerhzm/bullet" target="_blank" rel="external">官方文档</a><br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">config.after_initialize <span class="keyword">do</span></div><div class="line">  Bullet.enable = <span class="literal">true</span> <span class="comment">#是否开启</span></div><div class="line">  Bullet.alert = <span class="literal">true</span>  <span class="comment">#是否提示</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>解决的方式就是通过添加includes，关联加载的几种写法<a href="https://doc.bccnsoft.com/docs/rails-guides-4.1-cn/active_record_querying.html#%E6%8C%87%E5%AE%9A%E7%94%A8%E4%BA%8E%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E8%A1%A8%E4%B8%8A%E7%9A%84%E6%9D%A1%E4%BB%B6" target="_blank" rel="external">中文指南</a></p>
+<h3 id="2、检测代码质量">2、检测代码质量</h3><p>Gemfile添加<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">group <span class="symbol">:development</span>, <span class="symbol">:test</span> <span class="keyword">do</span></div><div class="line">  <span class="comment"># rails_best_practices is a code metric tool to check the quality of Rails code.</span></div><div class="line">  gem <span class="string">'rails_best_practices'</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>bundle之后在项目路径下执行<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ rails_best_practices .</div></pre></td></tr></table></figure></p>
+<p>可查看到具体的提示信息，根据提示优化代码格式。<a href="https://github.com/flyerhzm/rails_best_practices" target="_blank" rel="external">官方文档</a></p>
+<h3 id="3、显示页面加载时间，以及sql、view耗时情况官方文档">3、显示页面加载时间，以及sql、view耗时情况<a href="https://github.com/MiniProfiler/rack-mini-profiler" target="_blank" rel="external">官方文档</a></h3><p>Gemfile添加<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">group <span class="symbol">:development</span>, <span class="symbol">:test</span> <span class="keyword">do</span></div><div class="line">  <span class="comment"># Middleware that displays speed badge for every html page. Designed to work both in production and in development.</span></div><div class="line">  gem <span class="string">'rack-mini-profiler'</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>可搭配其它插件一起使用，例如:<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># For memory profiling</span></div><div class="line">gem <span class="string">'memory_profiler'</span></div><div class="line"></div><div class="line"><span class="comment"># For call-stack profiling flamegraphs</span></div><div class="line">gem <span class="string">'flamegraph'</span></div><div class="line">gem <span class="string">'stackprof'</span></div></pre></td></tr></table></figure></p>
 
       
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/11/06/使用squid、nginx实现代理服务器内网转发-md/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
     </div>
     
   </div>
   
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/03/02/gem详解/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">gem详解</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
 </article>
 
 
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
 
 
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="rails-N+1查询" data-title="rails 性能优化以及代码质量" data-url="http://tianlitao.github.io/2018/04/19/rails-N+1查询/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"tianlitao"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
-  
-  
+
+
 </div>
       <footer id="footer">
 <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
@@ -272,9 +318,9 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false
 	}

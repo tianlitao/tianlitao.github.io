@@ -4,12 +4,12 @@
   <meta charset="utf-8">
     <link rel="shortcut icon" type="image/ico" href="/img/avatar.ico">
   
-  <title>Tag: nginx | tianlitao|田力涛</title>
+  <title>Archives: 2018/4 | tianlitao|田力涛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="tianlitao 田力涛 rails ubuntu">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tianlitao|田力涛">
-<meta property="og:url" content="http://tianlitao.github.io/tags/nginx/index.html">
+<meta property="og:url" content="http://tianlitao.github.io/archives/2018/04/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
 <meta property="og:description" content="tianlitao 田力涛 rails ubuntu">
 <meta property="og:locale" content="utf-8">
@@ -184,64 +184,48 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-使用squid、nginx实现代理服务器内网转发-md" class="article article-type-post" itemscope itemprop="blogPost">
   
-    <div class="article-meta">
-      <a href="/2016/11/06/使用squid、nginx实现代理服务器内网转发-md/" class="article-date">
-  	<time datetime="2016-11-06T05:00:50.000Z" itemprop="datePublished">Nov 6 2016</time>
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-rails">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/04/19/rails-N+1查询/" class="archive-article-date">
+  	<time datetime="2018-04-19T09:57:56.000Z" itemprop="datePublished">Apr 19</time>
 </a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
+        </div>
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/06/使用squid、nginx实现代理服务器内网转发-md/">使用squid、nginx实现代理服务器内网转发</a>
+      <a class="archive-article-title" href="/2018/04/19/rails-N+1查询/">rails 性能优化以及代码质量</a>
     </h1>
   
 
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="这周要上线一个项目，有台服务器是内网的所以弄起来比较复杂，搞了好几天才搞好，讲下需求以及解决方案。">这周要上线一个项目，有台服务器是内网的所以弄起来比较复杂，搞了好几天才搞好，讲下需求以及解决方案。</h3><p>客户的其它机器都是在内网环境下的，不可访问外网，a(58.212.225.181)为内网服务器，可通过网闸请求到一台外网服务器c(192.168.158.211)，因为网站有很多的外链图片,以及接口请求,把所有的图片都抓回来当然也是可以的，但是我觉得用代理的方式解决更好一些，况且很多接口也是必须要请求外网的，这个时候就要想办法通过代理来出去了。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">a(<span class="number">58.212</span>.<span class="number">225.181</span>) --&gt; 通过网闸 <span class="number">192.168</span>.<span class="number">1.100</span> 访问--&gt; c(<span class="number">192.168</span>.<span class="number">158.211</span>)的<span class="number">80</span> <span class="number">3128</span>端口</div></pre></td></tr></table></figure></p>
-<h3 id="首先，我们要解决图片的问题，我们项目会有很多诸如_http://img11-360buyimg-com/n1/g14/M04/0E/0F/rBEhVVInCfkIAAAAAADYUmG1fPoAAC07QGslDkAANhq075-jpg_此类的外链图片，因为客户本地的电脑是内网环境，不能直接访问外网，这个时候我们就要对所有的图片链接进行处理了，代码为：">首先，我们要解决图片的问题，我们项目会有很多诸如 <a href="http://img11.360buyimg.com/n1/g14/M04/0E/0F/rBEhVVInCfkIAAAAAADYUmG1fPoAAC07QGslDkAANhq075.jpg" target="_blank" rel="external">http://img11.360buyimg.com/n1/g14/M04/0E/0F/rBEhVVInCfkIAAAAAADYUmG1fPoAAC07QGslDkAANhq075.jpg</a> 此类的外链图片，因为客户本地的电脑是内网环境，不能直接访问外网，这个时候我们就要对所有的图片链接进行处理了，代码为：</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">product.image_url = product.image_url.gsub(<span class="regexp">/(http:.*\.jpg)/</span>)&#123;<span class="params">|m|</span> <span class="string">"/emall_image?url=<span class="subst">#&#123;$1&#125;</span>"</span> &#125;</div></pre></td></tr></table></figure>
-<p>在所有图片url之前加上/emall_image?url= 这样所有的图片请求就都会请求内网服务器a，这个时候看一下内网服务器a(58.212.225.181)的nginx配置<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">##为所有图片请求添加cache，加快响应速度##</span></div><div class="line">proxy_connect_timeout <span class="number">5</span>;</div><div class="line">proxy_read_timeout <span class="number">60</span>;</div><div class="line">proxy_send_timeout <span class="number">5</span>;</div><div class="line">proxy_buffer_size <span class="number">16</span>k;</div><div class="line">proxy_buffers <span class="number">4</span> <span class="number">64</span>k;</div><div class="line">proxy_busy_buffers_size <span class="number">128</span>k;</div><div class="line">proxy_temp_file_write_size <span class="number">128</span>k;</div><div class="line">proxy_temp_path /home/temp_dir;</div><div class="line">proxy_cache_path /home/cache levels=<span class="number">1</span><span class="symbol">:</span><span class="number">2</span> keys_zone=<span class="symbol">cache_one:</span><span class="number">200</span>m inactive=<span class="number">1</span>d max_size=<span class="number">30</span>g;</div><div class="line"><span class="comment">##end##</span></div><div class="line">resolver <span class="number">8.8</span>.<span class="number">8.8</span>;</div><div class="line">server &#123;</div><div class="line">  listen <span class="number">80</span>;</div><div class="line">  server_name localhost <span class="number">58.212</span>.<span class="number">225.181</span>; </div><div class="line">  location /emall_image &#123;</div><div class="line">    proxy_pass <span class="symbol">http:</span>/<span class="regexp">/192.168.1.100/emall</span>_image?url=$arg_url; <span class="comment">#如果没有缓存，获取到url，转发到外网服务器c</span></div><div class="line">    proxy_cache cache_one;</div><div class="line">    proxy_cache_valid <span class="number">200</span> <span class="number">302</span> <span class="number">1</span>h;</div><div class="line">    proxy_cache_valid <span class="number">301</span> <span class="number">1</span>d;</div><div class="line">    proxy_cache_valid any <span class="number">1</span>m;</div><div class="line">    expires <span class="number">30</span>d;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/squid/">squid</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/内网/">内网</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/正向代理/">正向代理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/转发/">转发</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails-性能优化-N-1-bullet-代码质量-rails-best-practices/">rails 性能优化 N+1 bullet 代码质量 rails_best_practices</a></li></ul>
 	</div>
 
-      
+          
 
-      
-        <p class="article-more-link">
-          <a  href="/2016/11/06/使用squid、nginx实现代理服务器内网转发-md/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
-  
 </article>
-
-
-
-
-
-
   
+  
+    </div></section>
   
 </div>
       <footer id="footer">
@@ -273,8 +257,8 @@
 		animate: true,
 		isHome: false,
 		isPost: false,
-		isArchive: false,
-		isTag: true,
+		isArchive: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false
 	}
