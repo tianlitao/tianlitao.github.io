@@ -4,12 +4,12 @@
   <meta charset="utf-8">
     <link rel="shortcut icon" type="image/ico" href="/img/avatar.ico">
   
-  <title>tianlitao|田力涛</title>
+  <title>Tag: rails初始化过程 启动分析 | tianlitao|田力涛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="tianlitao 田力涛 rails ubuntu">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tianlitao|田力涛">
-<meta property="og:url" content="http://tianlitao.github.io/index.html">
+<meta property="og:url" content="http://tianlitao.github.io/tags/rails初始化过程-启动分析/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
 <meta property="og:description" content="tianlitao 田力涛 rails ubuntu">
 <meta property="og:locale" content="utf-8">
@@ -256,197 +256,7 @@
 
 
   
-    <article id="rails-rails-N+1查询" class="article article-type-rails" itemscope itemprop="blogPost">
   
-    <div class="article-meta">
-      <a href="/2018/04/19/rails-N+1查询/" class="article-date">
-  	<time datetime="2018-04-19T09:57:56.000Z" itemprop="datePublished">Apr 19 2018</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/19/rails-N+1查询/">rails 性能优化以及代码质量</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>推荐几个gem，关于性能优化，以及项目代码质量的把关。</p>
-<h3 id="1、N+1查询检测">1、N+1查询检测</h3><p>Gemfile添加<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">group <span class="symbol">:development</span>, <span class="symbol">:test</span> <span class="keyword">do</span></div><div class="line">  <span class="comment"># notify you when you should add eager loading (N+1 queries)</span></div><div class="line">  gem <span class="string">'bullet'</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-<p>development.rb添加，更多的配置项可以参考<a href="https://github.com/flyerhzm/bullet" target="_blank" rel="external">官方文档</a><br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">config.after_initialize <span class="keyword">do</span></div><div class="line">  Bullet.enable = <span class="literal">true</span> <span class="comment">#是否开启</span></div><div class="line">  Bullet.alert = <span class="literal">true</span>  <span class="comment">#是否提示</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-<p>解决的方式就是通过添加includes，关联加载的几种写法<a href="https://doc.bccnsoft.com/docs/rails-guides-4.1-cn/active_record_querying.html#%E6%8C%87%E5%AE%9A%E7%94%A8%E4%BA%8E%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E8%A1%A8%E4%B8%8A%E7%9A%84%E6%9D%A1%E4%BB%B6" target="_blank" rel="external">中文指南</a></p>
-<h3 id="2、检测代码质量">2、检测代码质量</h3><p>Gemfile添加<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">group <span class="symbol">:development</span>, <span class="symbol">:test</span> <span class="keyword">do</span></div><div class="line">  <span class="comment"># rails_best_practices is a code metric tool to check the quality of Rails code.</span></div><div class="line">  gem <span class="string">'rails_best_practices'</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-<p>bundle之后在项目路径下执行<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ rails_best_practices .</div></pre></td></tr></table></figure></p>
-<p>可查看到具体的提示信息，根据提示优化代码格式。<a href="https://github.com/flyerhzm/rails_best_practices" target="_blank" rel="external">官方文档</a></p>
-<h3 id="3、显示页面加载时间，以及sql、view耗时情况官方文档">3、显示页面加载时间，以及sql、view耗时情况<a href="https://github.com/MiniProfiler/rack-mini-profiler" target="_blank" rel="external">官方文档</a></h3><p>Gemfile添加<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">group <span class="symbol">:development</span>, <span class="symbol">:test</span> <span class="keyword">do</span></div><div class="line">  <span class="comment"># Middleware that displays speed badge for every html page. Designed to work both in production and in development.</span></div><div class="line">  gem <span class="string">'rack-mini-profiler'</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-<p>可搭配其它插件一起使用，例如:<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># For memory profiling</span></div><div class="line">gem <span class="string">'memory_profiler'</span></div><div class="line"></div><div class="line"><span class="comment"># For call-stack profiling flamegraphs</span></div><div class="line">gem <span class="string">'flamegraph'</span></div><div class="line">gem <span class="string">'stackprof'</span></div></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails-性能优化-N-1-bullet-代码质量-rails-best-practices/">rails 性能优化 N+1 bullet 代码质量 rails_best_practices</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
-    <article id="post-gem详解" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/03/02/gem详解/" class="article-date">
-  	<time datetime="2018-03-02T01:39:51.000Z" itemprop="datePublished">Mar 2 2018</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/02/gem详解/">gem详解</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-_执行命令，创建一个gem，rand_t就是你gem的名字，命名规范">1. 执行命令，创建一个gem，rand_t就是你gem的名字，<a href="http://guides.rubygems.org/name-your-gem/" target="_blank" rel="external">命名规范</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bundle gem rand_t</div></pre></td></tr></table></figure>
-<p>执行完成之后，会生成如下文件结构<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">MIT License enabled in config</div><div class="line">Code of conduct enabled in config</div><div class="line">      create  rand_t/Gemfile</div><div class="line">      create  rand_t/.gitignore</div><div class="line">      create  rand_t/lib/rand_t.rb</div><div class="line">      create  rand_t/lib/rand_t/version.rb</div><div class="line">      create  rand_t/rand_t.gemspec</div><div class="line">      create  rand_t/Rakefile</div><div class="line">      create  rand_t/README.md</div><div class="line">      create  rand_t/bin/console</div><div class="line">      create  rand_t/bin/setup</div><div class="line">      create  rand_t/LICENSE.txt</div><div class="line">      create  rand_t/CODE_OF_CONDUCT.md</div><div class="line">Initializing git repo in /Users/tlt/gems/rand_t</div></pre></td></tr></table></figure></p>
-<p>bin路径下的两个文件是可执行文件</p>
-<ul>
-<li>bin/setup相当于执行bundle install</li>
-<li>bin/console 会加载rand_t,并进入irb模式，方便调试</li>
-</ul>
-<p>lib路径下的文件，是我们的主目录</p>
-<ul>
-<li>其中 rand_t.rb 是我们的入口文件，当其他程序 require ‘rand_t’ 的时候，这个文件会被加载。<br>入口文件 rand_t.rb 是为了加载 gem的依赖，这些依赖可以是内部的类，也可以是第三方的库。</li>
-<li>rand_t文件夹下，是我们要实现功能代码的地方
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gem-gemfile/">gem gemfile</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2018/03/02/gem详解/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
-    <article id="post-linux中path变量" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/03/26/linux中path变量/" class="article-date">
-  	<time datetime="2017-03-26T14:35:37.000Z" itemprop="datePublished">Mar 26 2017</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/26/linux中path变量/">linux中path变量</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>PATH的作用:<br>PATH说简单点就是一个字符串变量，当输入命令的时候LINUX会去查找PATH里面记录的路径。比如在根目录/下可以输入命令ls,在/usr目录下也可以输入ls,但其实ls这个命令根本不在这个两个目录下，事实上当你输入命令的时候LINUX会去/bin,/usr/bin,/sbin等目录下面去找你此时输入的命令。<br>可通过$PATH查看所有环境变量<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$PATH</div><div class="line">/usr/local/<span class="symbol">sbin:</span>/usr/local/<span class="symbol">bin:</span>/usr/<span class="symbol">sbin:</span>/usr/<span class="symbol">bin:</span>/<span class="symbol">sbin:</span>/<span class="symbol">bin:</span></div></pre></td></tr></table></figure></p>
-<p>而PATH的值恰恰就是/bin:/sbin:/usr/bin:……。其中的冒号使目录与目录之间隔开。<br>设置PATH:<br>在profile中设置PATH<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/profile</div></pre></td></tr></table></figure></p>
-<p>在文件末尾加上两行<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PATH=$PATH<span class="symbol">:/usr/local/nginx/sbin</span></div><div class="line">export PATH</div></pre></td></tr></table></figure></p>
-<p>并执行命令,使其生效<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source /etc/profile</div></pre></td></tr></table></figure></p>
-<p>相关的环境变量生效后，就不必老跑到软件的可执行文件目录，可直接通过执行<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo nginx -s reload</div></pre></td></tr></table></figure></p>
-<p>或者可以直接将可执行文件，例： /opt/nginx/sbin/nignx 放在某个$PATH下，也可实现相同的功能。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/path/">path</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
-  
-
 </div>
       <footer id="footer">
 <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
@@ -475,10 +285,10 @@
 		fancybox: true,
 		mathjax: true,
 		animate: true,
-		isHome: true,
+		isHome: false,
 		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false
 	}
