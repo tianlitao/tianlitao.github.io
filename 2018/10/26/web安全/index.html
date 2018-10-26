@@ -15,7 +15,7 @@
 <meta property="og:description" content="Web安全在web开发中占有相当重要的地位，今天介绍下关于web安全方面的问题（CSRF，和注入攻击），以及rails是如何实现来防止这些攻击的。 首先介绍下什么是CSRF？中文名称：跨站请求伪造 简介： 跨站请求伪造的工作原理是，通过在页面中包含恶意代码或链接，访问已验证用户才能访问的 Web 应用。如果该 Web 应用的会话未超时，攻击者就能执行未经授权的操作。   原理：  大多数应用都使用">
 <meta property="og:locale" content="utf-8">
 <meta property="og:image" content="http://tianlitao.github.io/img/rails_csrf_encrypt.png">
-<meta property="og:updated_time" content="2018-10-26T11:04:42.000Z">
+<meta property="og:updated_time" content="2018-10-26T11:19:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="rails安全,CSRF和注入攻击(XSS,SQL注入)">
 <meta name="twitter:description" content="Web安全在web开发中占有相当重要的地位，今天介绍下关于web安全方面的问题（CSRF，和注入攻击），以及rails是如何实现来防止这些攻击的。 首先介绍下什么是CSRF？中文名称：跨站请求伪造 简介： 跨站请求伪造的工作原理是，通过在页面中包含恶意代码或链接，访问已验证用户才能访问的 Web 应用。如果该 Web 应用的会话未超时，攻击者就能执行未经授权的操作。   原理：  大多数应用都使用">
@@ -239,6 +239,7 @@
 </ul>
 <p>我们在本地分别起两个服务（修改/etc/hosts 将两个域名指向本地，然后通过nginx反向代理），来演示1. www.mubiao.com 为我们要攻击的网站，2. www.hacker.com 为我们自己的网站。假设我们已经猜测出目标网站的某些可用的url，比如：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">http:</span>/<span class="regexp">/www.mubiao.com/orders</span>.html</div><div class="line"><span class="symbol">http:</span>/<span class="regexp">/www.mubiao.com/ancient</span><span class="regexp">/articles</span></div></pre></td></tr></table></figure></p>
 <p>然后我们在自己的网站上做一些陷阱，在某个页面加入<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;img src=<span class="string">'http://www.mubiao.com/orders.html'</span> &gt;</div><div class="line">&lt;a href=<span class="string">"#"</span> onclick=<span class="string">"</span></div><div class="line"><span class="string">  var f = document.createElement('form');</span></div><div class="line"><span class="string">  f.style.display = 'none';</span></div><div class="line"><span class="string">  this.parentNode.appendChild(f);</span></div><div class="line"><span class="string">  f.method = 'post';</span></div><div class="line"><span class="string">  f.action = 'http://www.mubiao.com/ancient/articles';</span></div><div class="line"><span class="string">  f.submit();</span></div><div class="line"><span class="string">  return false;"</span>&gt;点我啊&lt;<span class="regexp">/a&gt;</span></div></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>小陈是目标网站的管理人员，并且已经在目标网站登录了管理员账号，hacker将hacker.com通过某种方式发送给小陈，小陈访问，并且点击会发生什么呢，浏览器会在发送请求的时候带上目标网站的cookie，目标网站会认为这个会话是有效的。所以hacker只要知道目标网站的请求地址，并诱导小陈点击，即可借小陈之手，完成所有想要的操作。</p>
 <ul>
 <li><p>如何防范？</p>

