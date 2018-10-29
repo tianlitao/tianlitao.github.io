@@ -6,18 +6,18 @@
   
   <title>Rails初始化过程 启动分析 | tianlitao|田力涛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="问题：1、为什么项目路径任意目录下都可以执行rails s，启动项目2、rails s和rails server有什么区别，以及是如何实现的3、终端是执行ctrl + c后，rails做了什么4、是何时加载gem的5、rails s 之后都做了哪些工作 1. gem ‘railties’ 是rails的核心gem， 处理rails程序的引导入口，管理rails的命令行接口1.1 执行rails s">
+  <meta name="description" content="问题：1、为什么项目路径任意目录下都可以执行rails s，启动项目2、rails s和rails server有什么区别，以及是如何实现的3、终端是执行ctrl + c后，rails做了什么4、是何时加载gem的5、rails s 之后都做了哪些工作">
 <meta name="keywords" content="rails初始化过程 启动分析">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Rails初始化过程 启动分析">
 <meta property="og:url" content="http://tianlitao.github.io/2018/05/28/Rails初始化过程 启动分析/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
-<meta property="og:description" content="问题：1、为什么项目路径任意目录下都可以执行rails s，启动项目2、rails s和rails server有什么区别，以及是如何实现的3、终端是执行ctrl + c后，rails做了什么4、是何时加载gem的5、rails s 之后都做了哪些工作 1. gem ‘railties’ 是rails的核心gem， 处理rails程序的引导入口，管理rails的命令行接口1.1 执行rails s">
+<meta property="og:description" content="问题：1、为什么项目路径任意目录下都可以执行rails s，启动项目2、rails s和rails server有什么区别，以及是如何实现的3、终端是执行ctrl + c后，rails做了什么4、是何时加载gem的5、rails s 之后都做了哪些工作">
 <meta property="og:locale" content="utf-8">
-<meta property="og:updated_time" content="2018-05-31T06:46:51.000Z">
+<meta property="og:updated_time" content="2018-10-29T04:32:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Rails初始化过程 启动分析">
-<meta name="twitter:description" content="问题：1、为什么项目路径任意目录下都可以执行rails s，启动项目2、rails s和rails server有什么区别，以及是如何实现的3、终端是执行ctrl + c后，rails做了什么4、是何时加载gem的5、rails s 之后都做了哪些工作 1. gem ‘railties’ 是rails的核心gem， 处理rails程序的引导入口，管理rails的命令行接口1.1 执行rails s">
+<meta name="twitter:description" content="问题：1、为什么项目路径任意目录下都可以执行rails s，启动项目2、rails s和rails server有什么区别，以及是如何实现的3、终端是执行ctrl + c后，rails做了什么4、是何时加载gem的5、rails s 之后都做了哪些工作">
   
   
   <link rel="stylesheet" href="/css/style.css">
@@ -222,6 +222,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>问题：<br>1、为什么项目路径任意目录下都可以执行rails s，启动项目<br>2、rails s和rails server有什么区别，以及是如何实现的<br>3、终端是执行ctrl + c后，rails做了什么<br>4、是何时加载gem的<br>5、rails s 之后都做了哪些工作</p>
+<a id="more"></a>
 <h3 id="1-_gem_‘railties’_是rails的核心gem，_处理rails程序的引导入口，管理rails的命令行接口">1. gem ‘railties’ 是rails的核心gem， 处理rails程序的引导入口，管理rails的命令行接口</h3><p>1.1 执行rails s 首先会执行 railties下的 bin/rails 可执行文件，内容如下<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env ruby</span></div><div class="line"></div><div class="line">git_path = File.expand_path(<span class="string">'../../../.git'</span>, __FILE_<span class="number">_</span>)</div><div class="line"></div><div class="line"><span class="keyword">if</span> File.exist?(git_path)</div><div class="line">  railties_path = File.expand_path(<span class="string">'../../lib'</span>, __FILE_<span class="number">_</span>)</div><div class="line">  $:.unshift(railties_path)</div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="keyword">require</span> <span class="string">"rails/cli"</span></div></pre></td></tr></table></figure></p>
 <p>加载了 rails/cli,此文件加载了 rails/app_rails_loader,并执行exec_app_rails方法<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">exec_app_rails</span></span></div><div class="line">      original_cwd = Dir.pwd</div><div class="line"></div><div class="line">      loop <span class="keyword">do</span></div><div class="line">        <span class="keyword">if</span> exe = find_executable</div><div class="line">          contents = File.read(exe)</div><div class="line"></div><div class="line">          <span class="keyword">if</span> contents =~ <span class="regexp">/(APP|ENGINE)_PATH/</span></div><div class="line">            exec RUBY, exe, *ARGV</div><div class="line">            <span class="keyword">break</span> <span class="comment"># non reachable, hack to be able to stub exec in the test suite</span></div><div class="line">          <span class="keyword">elsif</span> exe.end_with?(<span class="string">'bin/rails'</span>) &amp;&amp; contents.<span class="keyword">include</span>?(<span class="string">'This file was generated by Bundler'</span>)</div><div class="line">            $stderr.puts(BUNDLER_WARNING)</div><div class="line">            Object.const_set(<span class="symbol">:APP_PATH</span>, File.expand_path(<span class="string">'config/application'</span>, Dir.pwd))</div><div class="line">            <span class="keyword">require</span> File.expand_path(<span class="string">'../boot'</span>, APP_PATH)</div><div class="line">            <span class="keyword">require</span> <span class="string">'rails/commands'</span></div><div class="line">            <span class="keyword">break</span></div><div class="line">          <span class="keyword">end</span></div><div class="line">        <span class="keyword">end</span></div><div class="line"></div><div class="line">        <span class="comment"># If we exhaust the search there is no executable, this could be a</span></div><div class="line">        <span class="comment"># call to generate a new application, so restore the original cwd.</span></div><div class="line">        Dir.chdir(original_cwd) <span class="keyword">and</span> <span class="keyword">return</span> <span class="keyword">if</span> Pathname.new(Dir.pwd).root?</div><div class="line"></div><div class="line">        <span class="comment"># Otherwise keep moving upwards in search of an executable.</span></div><div class="line">        Dir.chdir(<span class="string">'..'</span>)</div><div class="line">      <span class="keyword">end</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">find_executable</span></span></div><div class="line">      EXECUTABLES.find &#123; <span class="params">|exe|</span> File.file?(exe) &#125;</div><div class="line">    <span class="keyword">end</span></div><div class="line">  <span class="keyword">end</span></div></pre></td></tr></table></figure></p>
 <p>此方法会找到项目路径下的，bin/rails文件，并执行<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">exec RUBY,bin/rails,s</div></pre></td></tr></table></figure></p>
@@ -272,18 +273,9 @@
 
 
 <div class="share">
-	<!-- JiaThis Button BEGIN -->
-	<div class="jiathis_style">
-		<span class="jiathis_txt">分享到：</span>
-		<a class="jiathis_button_tsina"></a>
-		<a class="jiathis_button_cqq"></a>
-		<a class="jiathis_button_douban"></a>
-		<a class="jiathis_button_weixin"></a>
-		<a class="jiathis_button_tumblr"></a>
-		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-	</div>
-	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
-	<!-- JiaThis Button END -->
+	<!-- Baidu Button BEGIN -->
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"1","bdPos":"right","bdTop":"250"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+	<!-- Baidu Button END -->
 </div>
 
 
@@ -311,7 +303,7 @@
 
 </div>
       <footer id="footer">
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
   <div class="outer">
     <div id="footer-info">
