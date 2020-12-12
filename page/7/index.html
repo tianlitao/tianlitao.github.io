@@ -184,6 +184,63 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-使用expect脚本-服务器自动登陆部署" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/08/30/使用expect脚本-服务器自动登陆部署/" class="article-date">
+  	<time datetime="2016-08-30T03:25:48.000Z" itemprop="datePublished">Aug 30 2016</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/30/使用expect脚本-服务器自动登陆部署/">使用expect脚本 服务器自动登陆部署</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="之前写过一篇blog，使用公钥和私钥来实现自动登录，后来发现这种方式有一些局限性，比如说服务器设置了用户权限，不允许root用户直接登录，而其它用户又没有~/-ssh的权限，又或者使用了跳转机等。每次登录都要复制两次密码来登录，很是麻烦，后来google了一下，了解了一下expect，来实现服务器的自动登录、跳转、部署等。">之前写过一篇blog，使用<a href="http://tianlitao.github.io/2016/01/31/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/">公钥和私钥来实现自动登录</a>，后来发现这种方式有一些局限性，比如说服务器设置了用户权限，不允许root用户直接登录，而其它用户又没有~/.ssh的权限，又或者使用了跳转机等。每次登录都要复制两次密码来登录，很是麻烦，后来google了一下，了解了一下expect，来实现服务器的自动登录、跳转、部署等。</h3><h3 id="1-Expect用途">1.Expect用途</h3><blockquote>
+<p>Expect是一个用来处理交互的命令。借助Expect，我们可以将交互过程写在一个脚本上，使之自动化完成。形象的说，ssh登录，ftp登录等都符合交互的定义。<br>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/expect/">expect</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/服务器部署/">服务器部署</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/脚本/">脚本</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/08/30/使用expect脚本-服务器自动登陆部署/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
     <article id="post-ubuntu系统交换分区swap的作用-增加与优化" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -353,66 +410,9 @@
 
 
   
-    <article id="post-ruby-object-to-s之后如何找到之前的object" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/07/01/ruby-object-to-s之后如何找到之前的object/" class="article-date">
-  	<time datetime="2016-07-01T04:37:39.000Z" itemprop="datePublished">Jul 1 2016</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/01/ruby-object-to-s之后如何找到之前的object/">ruby object.to_s之后如何找到之前的object</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="今天同事问了我一个问题，已知">今天同事问了我一个问题，已知</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">a = User.first.to_s</div><div class="line"><span class="string">"#&lt;User:0x007fe9a579ba30&gt;"</span></div></pre></td></tr></table></figure>
-<p>如何通过a找到User.first这个实例对象
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ruby/">ruby</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/07/01/ruby-object-to-s之后如何找到之前的object/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
     </nav>
   
 

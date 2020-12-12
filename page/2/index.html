@@ -184,6 +184,62 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-solr" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/10/10/solr/" class="article-date">
+  	<time datetime="2018-10-10T08:49:09.000Z" itemprop="datePublished">Oct 10 2018</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/10/solr/">rails sunspot solr如何使用主从模式Master/Slave</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Solr是一个高性能，采用Java5开发，基于Lucene的全文搜索服务器。同时对其进行了扩展，提供了比Lucene更为丰富的查询语言，同时实现了可配置、可扩展并对查询性能进行了优化，并且提供了一个完善的功能管理界面，是一款非常优秀的全文搜索引擎.<br>随着solr索引数量量的增大，更新时间以及索引时间，都会增加。<br>关于solr的集群主要分为主从和SolrCloud两种。这里主要介绍一下主从的配置。它主要实现：在master节点进行数据写操作，在slave节点进行读操作。当并发量大些，可以通过扩展slave节点数来应对，多个slave做一个反向代理和负载均衡。<br>主节点配置：solr/conf/solrconfig.xml<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;requestHandler name="/replication" class="solr.ReplicationHandler" &gt;</div><div class="line">  &lt;lst name=<span class="string">"master"</span>&gt;</div><div class="line">    &lt;str name=<span class="string">"replicateAfter"</span>&gt;commit&lt;<span class="regexp">/str&gt;</span></div><div class="line"><span class="regexp">    &lt;str name="replicateAfter"&gt;startup&lt;/str</span>&gt;</div><div class="line">    &lt;str name=<span class="string">"confFiles"</span>&gt;schema.xml,stopwords.txt,spellings.txt,synonyms.txt&lt;<span class="regexp">/str&gt;</span></div><div class="line"><span class="regexp">  &lt;/lst</span>&gt;</div><div class="line">&lt;<span class="regexp">/requestHandler&gt;</span></div></pre></td></tr></table></figure></p>
+<p>master 标志该core 为主节点。复制的行为发生在commit、startup之后。cofFiles表示，向从节点复制的配置文件（记住，主从的solrconfig.xml配置不一样，不要把solrconfig.xml也复制到从节点了）。　　<br>再看下slave从节点的配置：solr/conf/solrconfig.xml<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;requestHandler name="/replication" class="solr.ReplicationHandler" &gt;</div><div class="line">  &lt;lst name=<span class="string">"slave"</span>&gt;</div><div class="line">    &lt;str name=<span class="string">"masterUrl"</span>&gt;<span class="symbol">http:</span>/<span class="regexp">/192.168.1.100:8983/solr</span><span class="regexp">/default&lt;/str</span>&gt;</div><div class="line">    &lt;str name=<span class="string">"pollInterval"</span>&gt;<span class="number">00</span><span class="symbol">:</span><span class="number">00</span><span class="symbol">:</span><span class="number">20</span>&lt;<span class="regexp">/str&gt;</span></div><div class="line"><span class="regexp">  &lt;/lst</span>&gt;</div><div class="line">&lt;<span class="regexp">/requestHandler&gt;</span></div></pre></td></tr></table></figure></p>
+<p>pollInterval 表示多久向master同步一次数据，数据格式{时}：{分}:{秒}。这个要根据你的业务场景。如果更新比较频繁，就把这个值调小点，反之，就调大些。在同步数据时，根据网络和机器配置等不同，slave之间的数据会存在不同步的情况。如果，你对此有要求，需要注意了。总之，任何一种集群方案都不是万能的。</p>
+<p>在rails里，sunspot.yml配置如下：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">production:</span></div><div class="line">  <span class="symbol">solr:</span></div><div class="line">    <span class="symbol">hostname:</span> slave-solr-server</div><div class="line">    <span class="symbol">port:</span> <span class="number">8983</span></div><div class="line">    <span class="symbol">master_hostname:</span> master-solr-server</div><div class="line">    <span class="symbol">master_port:</span> <span class="number">8983</span></div><div class="line">    <span class="symbol">log_level:</span> WARNING</div><div class="line">  <span class="symbol">master_solr:</span></div><div class="line">    <span class="symbol">hostname:</span> master-solr-server</div><div class="line">    <span class="symbol">port:</span> <span class="number">8983</span></div><div class="line">    <span class="symbol">log_level:</span> WARNING</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails-sunspot-solr-Master-Slave/">rails sunspot solr Master/Slave</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
     <article id="post-Rails初始化过程 启动分析" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -367,67 +423,9 @@
 
 
   
-    <article id="post-linux中path变量" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/03/26/linux中path变量/" class="article-date">
-  	<time datetime="2017-03-26T14:35:37.000Z" itemprop="datePublished">Mar 26 2017</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/26/linux中path变量/">linux中path变量</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>PATH的作用:<br>PATH说简单点就是一个字符串变量，当输入命令的时候LINUX会去查找PATH里面记录的路径。比如在根目录/下可以输入命令ls,在/usr目录下也可以输入ls,但其实ls这个命令根本不在这个两个目录下，事实上当你输入命令的时候LINUX会去/bin,/usr/bin,/sbin等目录下面去找你此时输入的命令。<br>可通过$PATH查看所有环境变量<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$PATH</div><div class="line">/usr/local/<span class="symbol">sbin:</span>/usr/local/<span class="symbol">bin:</span>/usr/<span class="symbol">sbin:</span>/usr/<span class="symbol">bin:</span>/<span class="symbol">sbin:</span>/<span class="symbol">bin:</span></div></pre></td></tr></table></figure></p>
-<p>而PATH的值恰恰就是/bin:/sbin:/usr/bin:……。其中的冒号使目录与目录之间隔开。<br>设置PATH:<br>在profile中设置PATH<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/profile</div></pre></td></tr></table></figure></p>
-<p>在文件末尾加上两行<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PATH=$PATH<span class="symbol">:/usr/local/nginx/sbin</span></div><div class="line">export PATH</div></pre></td></tr></table></figure></p>
-<p>并执行命令,使其生效<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source /etc/profile</div></pre></td></tr></table></figure></p>
-<p>相关的环境变量生效后，就不必老跑到软件的可执行文件目录，可直接通过执行<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo nginx -s reload</div></pre></td></tr></table></figure></p>
-<p>或者可以直接将可执行文件，例： /opt/nginx/sbin/nignx 放在某个$PATH下，也可实现相同的功能。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/path/">path</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 

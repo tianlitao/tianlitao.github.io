@@ -241,6 +241,52 @@
 
 
   
+    <article id="post-hexo部署到akash-decloud-教程" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/12/12/hexo部署到akash-decloud-教程/" class="article-date">
+  	<time datetime="2020-12-11T16:00:00.000Z" itemprop="datePublished">Dec 12 2020</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>title: hexo部署到akash decloud 教程<br>date: 2020-12-12 08:44:38<br>tags:<br>—- hexo akash</p>
+<p>hexo 是一款静态博客工具，不涉及到任何后端、数据库。</p>
+<p>1、安装docker<br>参考文档：<a href="https://docs.docker.com/" target="_blank" rel="external">https://docs.docker.com/</a></p>
+<p>2、docker-compose</p>
+<p>docker-compose 并不是必须使用的，这里是为了更方便的管理我们的容器。</p>
+<p>macos 下安装 docker 时自动就安装了 docker-compose，linux 则需要使用下面的命令手动安装一下。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ curl -L <span class="symbol">https:</span>/<span class="regexp">/github.com/docker</span><span class="regexp">/compose/releases</span><span class="regexp">/download/</span><span class="number">1.8</span>.<span class="number">0</span>/run.sh &gt; <span class="regexp">/usr/local</span><span class="regexp">/bin/docker</span>-compose</div><div class="line">$ chmod +x /usr/local/bin/docker-compose</div></pre></td></tr></table></figure></p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2020/12/12/hexo部署到akash-decloud-教程/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
     <article id="post-rails安全问题" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -371,65 +417,9 @@
 
 
   
-    <article id="post-solr" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/10/10/solr/" class="article-date">
-  	<time datetime="2018-10-10T08:49:09.000Z" itemprop="datePublished">Oct 10 2018</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/10/solr/">rails sunspot solr如何使用主从模式Master/Slave</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Solr是一个高性能，采用Java5开发，基于Lucene的全文搜索服务器。同时对其进行了扩展，提供了比Lucene更为丰富的查询语言，同时实现了可配置、可扩展并对查询性能进行了优化，并且提供了一个完善的功能管理界面，是一款非常优秀的全文搜索引擎.<br>随着solr索引数量量的增大，更新时间以及索引时间，都会增加。<br>关于solr的集群主要分为主从和SolrCloud两种。这里主要介绍一下主从的配置。它主要实现：在master节点进行数据写操作，在slave节点进行读操作。当并发量大些，可以通过扩展slave节点数来应对，多个slave做一个反向代理和负载均衡。<br>主节点配置：solr/conf/solrconfig.xml<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;requestHandler name="/replication" class="solr.ReplicationHandler" &gt;</div><div class="line">  &lt;lst name=<span class="string">"master"</span>&gt;</div><div class="line">    &lt;str name=<span class="string">"replicateAfter"</span>&gt;commit&lt;<span class="regexp">/str&gt;</span></div><div class="line"><span class="regexp">    &lt;str name="replicateAfter"&gt;startup&lt;/str</span>&gt;</div><div class="line">    &lt;str name=<span class="string">"confFiles"</span>&gt;schema.xml,stopwords.txt,spellings.txt,synonyms.txt&lt;<span class="regexp">/str&gt;</span></div><div class="line"><span class="regexp">  &lt;/lst</span>&gt;</div><div class="line">&lt;<span class="regexp">/requestHandler&gt;</span></div></pre></td></tr></table></figure></p>
-<p>master 标志该core 为主节点。复制的行为发生在commit、startup之后。cofFiles表示，向从节点复制的配置文件（记住，主从的solrconfig.xml配置不一样，不要把solrconfig.xml也复制到从节点了）。　　<br>再看下slave从节点的配置：solr/conf/solrconfig.xml<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;requestHandler name="/replication" class="solr.ReplicationHandler" &gt;</div><div class="line">  &lt;lst name=<span class="string">"slave"</span>&gt;</div><div class="line">    &lt;str name=<span class="string">"masterUrl"</span>&gt;<span class="symbol">http:</span>/<span class="regexp">/192.168.1.100:8983/solr</span><span class="regexp">/default&lt;/str</span>&gt;</div><div class="line">    &lt;str name=<span class="string">"pollInterval"</span>&gt;<span class="number">00</span><span class="symbol">:</span><span class="number">00</span><span class="symbol">:</span><span class="number">20</span>&lt;<span class="regexp">/str&gt;</span></div><div class="line"><span class="regexp">  &lt;/lst</span>&gt;</div><div class="line">&lt;<span class="regexp">/requestHandler&gt;</span></div></pre></td></tr></table></figure></p>
-<p>pollInterval 表示多久向master同步一次数据，数据格式{时}：{分}:{秒}。这个要根据你的业务场景。如果更新比较频繁，就把这个值调小点，反之，就调大些。在同步数据时，根据网络和机器配置等不同，slave之间的数据会存在不同步的情况。如果，你对此有要求，需要注意了。总之，任何一种集群方案都不是万能的。</p>
-<p>在rails里，sunspot.yml配置如下：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">production:</span></div><div class="line">  <span class="symbol">solr:</span></div><div class="line">    <span class="symbol">hostname:</span> slave-solr-server</div><div class="line">    <span class="symbol">port:</span> <span class="number">8983</span></div><div class="line">    <span class="symbol">master_hostname:</span> master-solr-server</div><div class="line">    <span class="symbol">master_port:</span> <span class="number">8983</span></div><div class="line">    <span class="symbol">log_level:</span> WARNING</div><div class="line">  <span class="symbol">master_solr:</span></div><div class="line">    <span class="symbol">hostname:</span> master-solr-server</div><div class="line">    <span class="symbol">port:</span> <span class="number">8983</span></div><div class="line">    <span class="symbol">log_level:</span> WARNING</div></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails-sunspot-solr-Master-Slave/">rails sunspot solr Master/Slave</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
