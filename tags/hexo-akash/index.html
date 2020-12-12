@@ -4,12 +4,12 @@
   <meta charset="utf-8">
     <link rel="shortcut icon" type="image/ico" href="/img/avatar.ico">
   
-  <title>Tag: devise | tianlitao|田力涛</title>
+  <title>Tag: hexo akash | tianlitao|田力涛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="tianlitao 田力涛 rails ubuntu">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tianlitao|田力涛">
-<meta property="og:url" content="http://tianlitao.github.io/tags/devise/index.html">
+<meta property="og:url" content="http://tianlitao.github.io/tags/hexo-akash/index.html">
 <meta property="og:site_name" content="tianlitao|田力涛">
 <meta property="og:description" content="tianlitao 田力涛 rails ubuntu">
 <meta property="og:locale" content="utf-8">
@@ -184,11 +184,11 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-rails-devise-warden-登陆解析" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-hexo部署到akash-decloud-教程" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/12/11/rails-devise-warden-登陆解析/" class="article-date">
-  	<time datetime="2016-12-11T05:05:01.000Z" itemprop="datePublished">Dec 11 2016</time>
+      <a href="/2020/12/12/hexo部署到akash-decloud-教程/" class="article-date">
+  	<time datetime="2020-12-12T00:44:38.000Z" itemprop="datePublished">Dec 12 2020</time>
 </a>
     </div>
   
@@ -201,7 +201,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/11/rails-devise-warden-登陆解析/">rails_devise_warden_登陆解析</a>
+      <a class="article-title" href="/2020/12/12/hexo部署到akash-decloud-教程/">hexo部署到akash decloud 教程</a>
     </h1>
   
 
@@ -210,28 +210,26 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>devise是rails用的比较多的一个用户登陆注册模块，研究了下他的登陆以及验证的策略（虽说还没有完全吃透），先记录下。<br>devise的具体使用可以参照他的<a href="https://github.com/plataformatec/devise" target="_blank" rel="external">文档</a><br>devise的认证机制是基于<a href="https://github.com/hassox/warden/wiki" target="_blank" rel="external">warden</a>，所以要先了解一下warden才能理解。用户名以及密码的验证我们这里暂且不提，主要看一下sign_in方法做了什么，以及登陆之后下次请求是如何把已登录的信息带过来验证的。<br>1.先看下sign_in方法<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sign_in</span><span class="params">(resource_or_scope, *args)</span></span></div><div class="line">  options  = args.extract_options!</div><div class="line">  scope    = Devise::Mapping.find_scope!(resource_or_scope)</div><div class="line">  resource = args.last <span class="params">||</span> resource_or_scope</div><div class="line"></div><div class="line">  expire_data_after_sign_in!</div><div class="line"></div><div class="line">  <span class="keyword">if</span> options[<span class="symbol">:bypass</span>]</div><div class="line">    warden.session_serializer.store(resource, scope)</div><div class="line">  <span class="keyword">elsif</span> warden.user(scope) == resource &amp;&amp; !options.delete(<span class="symbol">:force</span>)</div><div class="line">    <span class="comment"># Do nothing. User already signed in and we are not forcing it.</span></div><div class="line">    <span class="literal">true</span></div><div class="line">  <span class="keyword">else</span></div><div class="line">    warden.set_user(resource, options.merge!(<span class="symbol">scope:</span> scope))</div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-<p>warden.session.store方法,会把user id存入env[‘rack.session’][‘warden.user.user.key’]中<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># gems/warden-1.2.3/lib/warden/session_serializer.rb </span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">store</span><span class="params">(user, scope)</span></span></div><div class="line">  <span class="keyword">return</span> <span class="keyword">unless</span> user</div><div class="line">  method_name = <span class="string">"<span class="subst">#&#123;scope&#125;</span>_serialize"</span></div><div class="line">  specialized = respond_to?(method_name)</div><div class="line">  session[key_for(scope)] = specialized ? send(method_name, user) : serialize(user)</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="comment">#gems/warden-1.2.3/lib/warden/manager.rb</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">serialize_into_session</span><span class="params">(scope = <span class="literal">nil</span>, &amp;block)</span></span></div><div class="line">  method_name = scope.<span class="literal">nil</span>? ? <span class="symbol">:serialize</span> : <span class="string">"<span class="subst">#&#123;scope&#125;</span>_serialize"</span></div><div class="line">  Warden::SessionSerializer.send <span class="symbol">:define_method</span>, method_name, &amp;block</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-<p>2.已登陆成功之后，通过authenticate_user! 来验证是否登陆<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">self</span>.<span class="title">define_helpers</span><span class="params">(mapping)</span></span> <span class="comment">#:nodoc:</span></div><div class="line">  mapping = mapping.name</div><div class="line">  class_eval &lt;&lt;-METHODS, __FILE_<span class="number">_</span>, __LINE_<span class="number">_</span> + <span class="number">1</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">authenticate_</span><span class="comment">#&#123;mapping&#125;!(opts=&#123;&#125;)</span></span></div><div class="line">      opts[<span class="symbol">:scope</span>] = <span class="symbol">:</span><span class="comment">#&#123;mapping&#125;</span></div><div class="line">      warden.authenticate!(opts) <span class="keyword">if</span> !devise_controller? <span class="params">||</span> opts.delete(<span class="symbol">:force</span>)</div><div class="line">    <span class="keyword">end</span></div><div class="line">  </div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="comment">#&#123;mapping&#125;_signed_in?</span></span></div><div class="line">      !!current<span class="number">_</span><span class="comment">#&#123;mapping&#125;</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">current_</span><span class="comment">#&#123;mapping&#125;</span></span></div><div class="line">      @current_<span class="comment">#&#123;mapping&#125; ||= warden.authenticate(scope: :#&#123;mapping&#125;)</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="comment">#&#123;mapping&#125;_session</span></span></div><div class="line">      current<span class="number">_</span><span class="comment">#&#123;mapping&#125; &amp;&amp; warden.session(:#&#123;mapping&#125;)</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">    METHODS</div><div class="line"></div><div class="line">    ActiveSupport.on_load(<span class="symbol">:action_controller</span>) <span class="keyword">do</span></div><div class="line">      helper_method <span class="string">"current_<span class="subst">#&#123;mapping&#125;</span>"</span>, <span class="string">"<span class="subst">#&#123;mapping&#125;</span>_signed_in?"</span>, <span class="string">"<span class="subst">#&#123;mapping&#125;</span>_session"</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="comment">#["/Users/.rvm/gems/ruby-2.3.0/gems/warden-1.2.3/lib/warden/proxy.rb", 103]</span></div><div class="line">[查看此文件可知](<span class="symbol">https:</span>/<span class="regexp">/github.com/hassox</span><span class="regexp">/warden/blob</span><span class="regexp">/master/lib</span><span class="regexp">/warden/proxy</span>.rb)最后是通过获取env[<span class="string">"rack.session"</span>][<span class="string">'warden.user.user.key'</span>]来获取到当前登陆的用户的</div></pre></td></tr></table></figure></p>
-<h3 id="Tips:">Tips:</h3><p>查看一个方法调用的位置：</p>
-<pre><code class="ruby">method(<span class="symbol">:sign_in</span>)
-<span class="comment"># ["/Users/.rvm/gems/ruby-2.3.0/gems/devise-3.4.1/lib/devise/controllers/sign_in_out.rb", 30]</span>
-warden.session_serializer.method(<span class="symbol">:store</span>).source_location
-<span class="comment"># ["/Users/.rvm/gems/ruby-2.3.0/gems/warden-1.2.3/lib/warden/session_serializer.rb", 22]</span>
-</code></pre>
-<h3 id="参考文档">参考文档</h3><p><a href="https://github.com/hassox/warden/wiki" target="_blank" rel="external">warden wiki</a><br><a href="https://zhuanlan.zhihu.com/p/20281878?refer=elixir" target="_blank" rel="external">warden源码解析</a><br><a href="http://blog.bocchi.tokyo/2016/05/31/20160531-md/" target="_blank" rel="external">rack中间件warden的机制</a><br><a href="https://ruby-china.org/topics/8650" target="_blank" rel="external">rack安全</a></p>
-
+        <p>hexo 是一款静态博客工具，不涉及到任何后端、数据库。</p>
+<p>1、安装docker<br>参考文档：<a href="https://docs.docker.com/" target="_blank" rel="external">https://docs.docker.com/</a></p>
+<p>2、docker-compose</p>
+<p>docker-compose 并不是必须使用的，这里是为了更方便的管理我们的容器。</p>
+<p>macos 下安装 docker 时自动就安装了 docker-compose，linux 则需要使用下面的命令手动安装一下。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ curl -L <span class="symbol">https:</span>/<span class="regexp">/github.com/docker</span><span class="regexp">/compose/releases</span><span class="regexp">/download/</span><span class="number">1.8</span>.<span class="number">0</span>/run.sh &gt; <span class="regexp">/usr/local</span><span class="regexp">/bin/docker</span>-compose</div><div class="line">$ chmod +x /usr/local/bin/docker-compose</div></pre></td></tr></table></figure></p>
       
     </div>
     
     <div class="article-info article-info-index">
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cookie/">cookie</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/devise/">devise</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/session/">session</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wardden/">wardden</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo-akash/">hexo akash</a></li></ul>
 	</div>
 
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2020/12/12/hexo部署到akash-decloud-教程/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
